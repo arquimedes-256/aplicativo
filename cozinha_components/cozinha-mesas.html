@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../cardapio_components/cardapio-globals.html">
+<link rel="import" href="../cozinha_components/cozinha-mesas-item.html">
+
+
+<polymer-element name="cozinha-mesas" attributes="from to permissions">
+  <template>
+
+    <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
+
+    <firebase-element
+      location="{{ $.globals.location+'/mesas' }}"
+      data="{{ mesasData }}"
+      keys="{{ mesasKeys }}">
+    </firebase-element>
+
+      <div horizontal layout center wrap>
+        <template repeat="{{ k in mesasKeys }}">
+          <cozinha-mesas-item
+            from="{{ from }}"
+            to="{{ to }}"
+            permissions="{{ permissions }}"
+            mesa="{{ mesasData[k] }}"
+            mesaKey="{{ k }}"></cozinha-mesas-item>
+        </template>
+      </div>
+  </template>
+  <script>
+  Polymer({})
+  </script>
+</polymer-element>

@@ -1,0 +1,130 @@
+
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../bower_components/core-animated-pages/transitions/cross-fade.html">
+
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-icons/av-icons.html">
+<link rel="import" href="../bower_components/core-icons/communication-icons.html">
+<link rel="import" href="../bower_components/core-icons/device-icons.html">
+<link rel="import" href="../bower_components/core-icons/editor-icons.html">
+<link rel="import" href="../bower_components/core-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/core-icons/image-icons.html">
+<link rel="import" href="../bower_components/core-icons/maps-icons.html">
+<link rel="import" href="../bower_components/core-icons/notification-icons.html">
+<link rel="import" href="../bower_components/core-icons/social-icons.html">
+
+<link rel="import" href="cardapio-wishlist.html">
+<link rel="import" href="cardapio-wishlist-element.html">
+<link rel="import" href="cardapio-total.html">
+<link rel="import" href="cardapio-globals.html">
+<link rel="import" href="cardapio-alerts.html">
+
+<script src="../scripts/TweenMax.min.js"></script>
+
+<polymer-element name="cardapio-wishlist-main"
+  attributes="currentPage permissions">
+  <template>
+    <cardapio-globals id="globals"></cardapio-globals>
+    <div layout horizontal>
+      <template if="{{ permissions.alert.to  }}">
+        <paper-button raised on-click="{{ alertToHandler }}" flex alert-button>
+
+          <template if="{{ !($.globals.mesa.alertTo == permissions.alert.to) }}">
+            <core-icon
+              icon="social:notifications"></core-icon>
+            {{ permissions.alert.text }}
+          </template>
+          <template if="{{ $.globals.mesa.alertTo == permissions.alert.to }}">
+            <core-icon
+            icon="social:notifications-off"></core-icon>
+            {{ permissions.alert.cancelText }}
+          </template>
+
+        </paper-button>
+      </template>
+    </div>
+    <paper-tabs selected="{{ currentPage }}">
+      <template repeat="{{ e in elements }}">
+        <paper-tab hidden?="{{ permissions[e.from].disabled }}">
+          <paper-shadow alert-sign hidden?="{{ $[e.from].$.cardapioTotal.totalItens == 0}}">
+            {{ $[e.from].$.cardapioTotal.totalItens }}
+          </paper-shadow>
+          <core-icon icon="{{ e.icon }}"></core-icon>
+        </paper-tab>
+      </template>
+    </paper-tabs>
+
+    <core-animated-pages selected="{{ currentPage }}">
+      <template repeat="{{ e in elements }}">
+        <section>
+          <cardapio-wishlist-element
+            disabledSend="{{  permissions[e.from] && permissions[e.from].disabledSend }}"
+            disabledMoney="{{ permissions[e.from] && permissions[e.from].disabledMoney }}"
+            id="[[ e.from ]]"
+            from="{{ e.from }}"
+            to="{{ e.to }}"
+            sendText="{{ e.sendText }}"
+            mainTitle="{{ e.title }}"
+            useAll?="{{ e.useAll }}"
+            >
+          </cardapio-wishlist-element>
+        </section>
+      </template>
+    </core-animated-pages>
+
+    <cardapio-alerts id="cardapioAlerts"></cardapio-alerts>
+<style>
+    [alert-sign]
+    {
+      border-radius: 26px;
+      position: absolute;
+      background: #D50000;
+      color: #FFF;
+      padding: 5px 8px;
+      top: 1px;
+      z-index: 999;
+      left: 42%;
+      font-size: 11px;
+      opacity: .5;
+    }
+    [alert-button]
+    {
+      margin-bottom: 17px;
+      background: #009688;/*#E65100;*/
+      color: #FFF;
+    }
+</style>
+</template>
+  <script>
+Polymer({
+  elements:
+  [
+    {from:'aberto',to:'fechado',title:'Todos',sendText:'Enviar para Cozinha',icon:"create",useAll:true},
+    {from:'aberto',to:'fechado',title:'Escolhendo no momento',sendText:'Enviar para Cozinha',icon:"image:remove-red-eye"},
+    {from:'fechado',to:'pronto',title:'Na cozinha',sendText:'Enviar para Garçon',icon:"alarm"},
+    {from:'pronto',to:'entregue',title:'Prontos',sendText:'Marcar como entregue',icon:"check"},
+    {from:'entregue',to:'pago',title:'Entregues',sendText:'Pagar',icon:"maps:local-bar"},
+    {from:'pago',to:null,title:'Pagos',sendText:null,icon:"editor:attach-money"},
+  ],
+  alertToHandler:function()
+  {
+    var mesa = this.$.globals.mesa;
+
+    if(mesa.alertTo)
+    {
+      mesa.alertTo = false;
+    }
+    else
+      mesa.alertTo = this.permissions.alert.to;
+
+  },
+  permissionsChanged:function()
+  {
+    if(typeof this.permissions == "string")
+      this.permissions = JSON.parse(this.permissions);
+  }
+});
+  </script>
+</polymer-element>

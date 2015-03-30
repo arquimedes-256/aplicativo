@@ -1,0 +1,134 @@
+<link rel="import" href="../bower_components/topeka-elements/category-icons.html">
+<link rel="import" href="../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../bower_components/core-transition/core-transition.html">
+
+<link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
+
+<polymer-element name="cardapio-ofertas" attributes="prods" layout vertical relative>
+
+  <template>
+    <cardapio-globals id="g"></cardapio-globals>
+
+    <firebase-element location="{{ $.g.location }}/ofertas/{{ currentDay }}"
+      id="ofertasBase"
+      data="{{ categoriasOferta }}"
+      keys="{{ categoriasOfertaKeys }}">
+    </firebase-element>
+
+     <firebase-element location="{{ $.g.location }}/produtos/"
+      id="produtosBase"
+      data="{{ produtosData }}"
+      keys="{{ produtosKeys }}">
+    </firebase-element>
+
+      <core-animated-pages selected="{{ currentPage }}" transitions="slide-from-right">
+        <template repeat="{{ p,i in prods }}">
+          <section slide-from-right>
+            <cardapio-category-item 
+              width-100-margin-0 
+              product="{{ p }}" 
+              objK1="{{ prodsKeys1[i] }}"
+              objK2="{{ prodsKeys2[i] }}"></cardapio-category-item>
+          </section>
+        </template>
+
+      </core-animated-pages>
+      <style>
+        cardapio-category-item /deep/ section
+        {
+          background: #FFF !important;
+        }
+        cardapio-category-item /deep/ div.tile-bottom
+        {
+          background: #2196F3 !important;
+          text-align: center;
+        }
+        cardapio-category-item /deep/ #span1
+        {
+         position: relative;
+         right: 30px;
+        }
+
+        cardapio-category-item /deep/ paper-checkbox
+        {
+         margin-left: 8px;
+        }
+
+        cardapio-category-item:shadow
+        {
+          position: relative;
+          top:6px;
+        }
+
+        :host {
+          box-sizing: border-box;
+          float: left;
+          height: 30%;
+          width: 48%;
+          margin: 3px;
+        }
+        :host
+        {
+            overflow: hidden;
+            height: 167px;
+            margin: 0;
+            position: relative;
+            top: 7px;
+        }
+        [width-100-margin-0]
+        {
+          width: 100%;
+          margin: 0;
+        }
+      </style>
+  </template>
+
+  <script>
+
+    Polymer({
+      currentDay:0,
+      currentPage:0,
+      miliSeconds:1500 * PHI,
+      observe:{'produtosData categoriasOfertaKeys':'iterateProds'},
+      ready:function()
+      {
+        setInterval(function()
+        {
+          var p = this.prods;
+          var n = p.length-1;
+          var x = this.currentPage;
+
+          if(~n)
+            this.currentPage = (x == n ? 0 : x+1)//,console.log(this.currentPage);
+        }
+        .bind(this),this.miliSeconds);
+      },
+      iterateProds:function()
+      {
+        this.job('iterateProdsJob',function()
+        {
+          this.prods = [];
+          this.prodsKeys1 = [];
+          this.prodsKeys2 = [];
+
+          if(this.produtosData)
+            _.each(this.categoriasOferta,function(value,k1)
+            {
+                var k2  = _.chain(value).keys().first().value();
+                var d   = this.produtosData;
+                var di  = d[k1][k2];
+
+                this.prods.push(di);
+                this.prodsKeys1.push(k1);
+                this.prodsKeys2.push(k2);
+
+            }
+            .bind(this));
+        });
+      }
+    });
+
+  </script>
+
+</polymer-element>

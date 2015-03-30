@@ -1,0 +1,52 @@
+{
+  "categorias" : {
+    "bebida" : {
+      "nome" : "Bebida"
+    },
+    "comida" : {
+      "nome" : "Comida"
+    }
+  },
+  "mesas" : {
+    "mesa1" : {
+      "name" : "Mesa 1"
+    },
+    "mesa2" : {
+      "name" : "Mesa 2"
+    }
+  },
+  "pedidos" : {
+    "mesa1" : {
+      "bebida" : {
+        "aberto" : {
+          "coca-cola" : 0
+        },
+        "fechado" : {
+          "coca-cola" : 1
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "rosbife" : 0
+        },
+        "fechado" : {
+          "rosbife" : 1
+        }
+      }
+    }
+  },
+  "produtos" : {
+    "bebida" : {
+      "coca-cola" : {
+        "nome" : "Coca-cola",
+        "preco" : 4
+      }
+    },
+    "comida" : {
+      "rosbife" : {
+        "nome" : "Rosbife",
+        "preco" : 40
+      }
+    }
+  }
+}

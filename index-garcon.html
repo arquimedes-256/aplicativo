@@ -1,0 +1,37 @@
+<!doctype html>
+
+<html>
+<head>
+  <title>Garçon</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="cozinha_components/cozinha-main.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body unresolved>
+<script>
+  var $d = function(s) {
+    return document.querySelector('html /deep/ '+s);
+  }
+</script>
+  <cozinha-main
+    from="pronto"
+    title="Garçon"
+    currentPage="2"
+    headerColor="#D50000"
+    mesasDescription="com pedidos Prontos"
+    permissions='{
+      "aberto":{"disabled":true},
+      "pago":{"disabled":true}
+    }'>
+  </cozinha-main>
+</body>
+</html>

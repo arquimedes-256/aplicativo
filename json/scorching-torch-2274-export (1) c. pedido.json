@@ -1,0 +1,38 @@
+{
+  "categorias" : {
+    "bebida" : {
+      "nome" : "Bebida"
+    },
+    "comida" : {
+      "nome" : "Comida"
+    }
+  },
+  "pedidos" : {
+    "mesa1" : {
+      "bebida" : {
+        "aberto" : {
+          "coca-cola" : 1
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "rosbife" : 1
+        }
+      }
+    }
+  },
+  "produtos" : {
+    "bebida" : {
+      "coca-cola" : {
+        "nome" : "Coca-cola",
+        "preco" : 4
+      }
+    },
+    "comida" : {
+      "rosbife" : {
+        "nome" : "Rosbife",
+        "preco" : 40
+      }
+    }
+  }
+}

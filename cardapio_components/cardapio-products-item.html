@@ -1,0 +1,136 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="img-card.html">
+
+<polymer-element name="cardapio-products-item" attributes="product productKey from" flex>
+  <template>
+    <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
+    
+    <firebase-element
+      id="base_pedidos"
+      location="{{ $.globals.location }}/pedidos/{{ $.globals.data.currentMesa }}/{{ $.globals.data.currentCategoryKey }}/aberto/{{ productKey }}"
+      >
+    </firebase-element>
+    
+    <firebase-element
+      id="baseImgs"
+      location="{{ $.globals.location }}/images/{{ product.photo }}"
+    ></firebase-element>
+    
+    <paper-shadow id="shadow" layout horizontal>
+      <img-card data="{{ $.baseImgs.data.data }}"></img-card>
+      <div layout vertical flex>
+        <div layout vertical>
+          <div layout horizontal>
+            <div class="title" flex >
+              {{ product["nome"]  }}
+            </div>
+            <div class="price">
+              {{ product["preco"] }} R$
+            </div>
+          </div>
+          <div layout horizontal>
+            <div class="descricao" flex layout vertical>
+              
+              <template if="{{ !descrOpened }}">
+                <div class="descr">
+                  {{ product["descricao"] | minify }}
+                </div>
+                <paper-button id="btnMore" raised on-click="{{ openHandler }}">
+                  <core-icon icon="arrow-drop-down"></core-icon>
+                  Mostrar detalhes
+                </paper-button>
+              </template>
+              
+              <template if="{{ descrOpened }}">
+                <div class="descr">
+                  {{ product["descricao"] }}
+                </div>
+                <paper-button id="btnMore" raised on-click="{{ openHandler }}">
+                  <core-icon icon="arrow-drop-up"></core-icon>
+                  Esconder detalhes
+                </paper-button>
+              </template>
+              
+            </div>
+            <paper-checkbox id="checkbox" 
+              on-click="{{ fireMark }}" 
+              checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
+          </div>
+        </div>
+      </div>
+    </paper-shadow>
+    <style>
+      :host
+      {
+        margin:5px;
+      }
+      paper-shadow
+      {
+        margin: 0 16px;
+      }
+      .title
+      {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+      .price
+      {
+        color:#424242;
+        font-size: 19px;
+      }
+      #shadow
+      {
+        background:#fff;
+        padding:10px;
+      }
+      #btnMore {
+        background: #2196F3;
+        color: #FFF;
+        margin-top: 11px;
+      }
+      .descr
+      {
+        text-align: justify;
+        margin-right: 8px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      descrOpened:false,
+      ready:function()
+      {
+        /*
+        var b = this.$.globals.existProductInWishList(this.productKey);
+        this.$.checkbox.checked = b;
+        */
+      },
+      openHandler:function()
+      {
+        this.descrOpened = !this.descrOpened;
+      },
+      minify:function(v)
+      {
+        var s = v.trim();
+        var s1 = v.split(/\s+/);
+        var s2 = "";
+        
+        for(var i=0;i<10;i++)
+        {
+          s2+= s1[i]+" ";
+        }
+        return s2+"...";
+      },
+      fireMark:function(e,d,s)
+      {
+        this.fireAsync('product-item-mark',{
+          productKey:this.productKey,
+        checked:s.checked});
+        
+        this.async(queryBases,100);
+        
+      }
+    });
+    </script>
+  </polymer-element>

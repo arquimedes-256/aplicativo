@@ -1,0 +1,28 @@
+<link rel="import" href="cardapio-products-item.html">
+
+<polymer-element name="cardapio-products" attributes="products products_keys" flex>
+
+  <template>
+    <template repeat="{{ k in products_keys }}">
+      <cardapio-products-item
+        product="{{ products[k] }}"
+        productKey="{{ k }}"
+        pk="{{ k }}">
+      </cardapio-products-item>
+    </template>
+  </template>
+  <style>
+    :host
+    {
+      padding:10px;
+    }
+  </style>
+  <script>
+
+    Polymer({
+
+    });
+
+  </script>
+
+</polymer-element>

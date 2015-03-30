@@ -1,0 +1,163 @@
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../cardapio_components/cardapio-globals.html">
+
+<polymer-element name="cozinha-mesas-item" attributes="mesa mesaKey from to permissions">
+  <template>
+    <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
+
+    <firebase-element
+      location="{{ $.globals.location }}/categorias"
+      data="{{ categoriasData }}"
+      keys="{{ categoriasKeys }}"></firebase-element>
+
+
+    <template repeat="{{ categoriaK in categoriasKeys }}">
+
+      <firebase-element
+      location="{{ $.globals.location }}/produtos/{{ categoriaK }}"
+      categoria="{{categoriaK}}"></firebase-element>
+
+      <firebase-element
+        location="{{ $.globals.location }}/pedidos/{{ mesaKey }}/{{ categoriaK }}/{{ from }}"
+        on-data-change="{{ dataChangeHandler }}"
+        pedidos
+        categoria="{{categoriaK}}">
+      </firebase-element>
+
+    </template>
+
+
+    <paper-shadow
+      transparent?="{{ total == 0 }}"
+      on-click="{{ setToCurrent }}" layout horizontal main
+      z="{{ total > 0 ? 3 : 1 }}">
+      <paper-ripple fit></paper-ripple>
+      
+      <div layout vertical>
+        <div>
+          <core-icon 
+          hidden?="{{ !(mesa.alertTo == from) }}" 
+          id="notification" 
+          icon="social:notifications-on"></core-icon>
+        
+          <span table-name>{{ mesa.name }}</span>
+        </div>
+          <cardapio-wishlist-element
+            id="[[ from ]]"
+            from="{{ from }}"
+            to="{{ to }}"
+            currentMesa="{{ mesaKey }}"
+            disabledMoney="{{ permissions[from] && permissions[from].disabledMoney }}"
+            disabledSend="{{ permissions[from]  &&  permissions[from].disabledSend }}"
+            >
+          </cardapio-wishlist-element>
+          
+        </div>
+      
+      <!--  disabledSend="{{  permissions[e.from] && permissions[e.from].disabledSend }}"
+            disabledMoney="{{ permissions[e.from] && permissions[e.from].disabledMoney }}" -->
+      <!--
+      <paper-shadow table-total self-end>{{ total }} R$</paper-shadow>
+      -->
+    </paper-shadow>
+      <style>
+        paper-shadow[main] {
+          background: {{ color }};
+          min-width: 40%;
+          min-height: 75px;
+          margin: 9px;
+          padding: 10px;
+        }
+        [table-name]{
+          font-size:18px;
+        }
+        [transparent]
+        {
+          opacity:.4;
+        }
+        [table-total]
+        {
+          border-radius: 25px;
+          background: #D50000;
+          color: #FFF;
+          padding: 8px;
+          font-weight: bold;
+        }
+        #notification
+        {
+          color:#00B8D4;
+          margin-right:5px;
+        }
+      </style>
+  </template>
+  <script>
+
+    var colors =
+    [
+      '#D1C4E9',
+      '#BBDEFB',
+      '#F8BBD0',
+      '#F0F4C3',
+      '#DCEDC8',
+      '#CCFF90',
+      '#FFC107'
+    ];
+    var currentIndex = 0;
+
+    Polymer({
+      total:0,
+      observe:{"$.notification":"notChanged"},
+      notChanged:function()
+      {
+        var mc = this.$.notification;
+        TweenMax.to(mc, .5, {scale:1.2, repeat:Infinity, color:"#FFAB00",
+        yoyo:true,textShadow: "0px 0px 10px 6px"});
+        
+      },
+      ready:function()
+      {
+        this.color = colors[ (currentIndex++) ];
+        if(this.color === undefined)
+          this.color = colors[ (currentIndex = 0) ];
+
+        this.total = 0;
+      },
+      dataChangeHandler:function()
+      {
+        this.total = 0;
+
+        var baseList = this.shadowRoot.querySelectorAll('firebase-element[pedidos]');
+
+        for(var i=0; i<baseList.length; i++)
+        {
+
+          var base = baseList[i];
+
+          var baseProdutos = this.shadowRoot
+            .querySelector('firebase-element[categoria="'+
+              base.getAttribute('categoria')+'"]');
+
+          var baseData = base.data;
+          var baseKeys = base.keys;
+
+          baseKeys&&baseKeys.forEach(function(key)
+          {
+            var produto = baseProdutos.data[key];
+            this.total += (baseData[key] * produto.preco);
+          }.bind(this));
+
+        }
+      },
+      setToCurrent:function()
+      {
+        this.fire('cozinha-mesas-item-set-table',
+          {
+            mesa:this.mesa,
+            mesaKey:this.mesaKey,
+            color:this.color
+          });
+      }
+    });
+  </script>
+</polymer-element>

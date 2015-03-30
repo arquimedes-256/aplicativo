@@ -1,0 +1,30 @@
+<polymer-element name="img-card" attributes="data width">
+  <template>
+    <div>
+      <img src="{{url}}"/>
+    </div>
+    <style>
+      img {
+        width: {{width}}px;
+        height : {{width}}px;
+      }
+      img {
+        border-radius: 50%;
+        display: block;
+        margin: 10px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      url:'',
+      width:146,
+      dataChanged:function()
+      {
+        this.url = this.data;
+        if(_.isObject(this.url))
+          this.url = this.data.data;
+      }
+    });
+  </script>
+</polymer-element>

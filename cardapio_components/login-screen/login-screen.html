@@ -1,0 +1,42 @@
+
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="login-screen">
+  <template>
+
+
+
+    <paper-shadow z="3" flex layout vertical>
+      <h1 auto-vertical>Bem vindo</h1>
+      <paper-input auto-vertical floatingLabel label="Usuario" value="{{ user.login }}"></paper-input>
+      <paper-input auto-vertical floatingLabel label="Senha" value="{{ user.pass }}"></paper-input>
+      <br/>
+      <paper-button auto-vertical raised on-click="{{ callLogin }}">Entrar!</paper-button>
+    </paper-shadow>
+    <style>
+
+      :host
+      {
+        height: 331px;
+        padding: 15px;
+      }
+
+      paper-shadow
+      {
+        padding: 15px;
+      }
+
+    </style>
+  </template>
+  <script>
+    Polymer({
+      callLogin:function()
+      {
+
+      }
+    });
+  </script>
+</polymer-element>

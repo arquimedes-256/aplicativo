@@ -1,0 +1,223 @@
+{
+  "categorias" : {
+    "bebida" : {
+      "nome" : "Bebida"
+    },
+    "comida" : {
+      "nome" : "Comida"
+    },
+    "pizzas" : {
+      "nome" : "Pizzas"
+    }
+  },
+  "garcons" : {
+    "garcon1" : {
+      "mesas" : {
+        "mesa1" : true
+      },
+      "name" : "Garçon 1"
+    },
+    "garcon2" : {
+      "name" : "Garçon 2"
+    }
+  },
+  "images" : {
+    "calabresa-img" : {
+      "data" : "http://www.culturamix.com/wp-content/gallery/origem-do-dia-da-pizza-historias-e-receitas-2/origem-do-dia-da-pizza-historias-e-receitas-5.png"
+    },
+    "coca-cola-img" : {
+      "data" : "http://www.dadospizza.com.br/vitrine/fotosproduto/961/201311422939-Coca-Cola-Lata-135.jpg"
+    },
+    "macarronada-img" : {
+      "data" : "http://www.nestle.com.br/site/images/cozinha/receitas/macarronada_da_mama2.jpg"
+    },
+    "rosbife-img" : {
+      "data" : "https://cocarcafe.files.wordpress.com/2011/10/rosbife2.jpg"
+    }
+  },
+  "mesas" : {
+    "mesa1" : {
+      "alertTo" : "pronto",
+      "name" : "Mesa 1"
+    },
+    "mesa2" : {
+      "alertTo" : false,
+      "name" : "Mesa 2"
+    }
+  },
+  "ofertas" : [ {
+    "bebida" : {
+      "coca-cola" : true
+    },
+    "comida" : {
+      "rosbife" : true
+    }
+  } ],
+  "pedidos" : {
+    "mesa1" : {
+      "bebida" : {
+        "all" : {
+          "coca-cola" : 16
+        },
+        "fechado" : {
+          "coca-cola" : 6
+        },
+        "pronto" : {
+          "coca-cola" : 0
+        },
+        "undefined" : {
+          "coca-cola" : 15
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "macarronada" : 1,
+          "rosbife" : 1
+        },
+        "all" : {
+          "macarronada" : 9,
+          "rosbife" : 5
+        },
+        "entregue" : {
+          "rosbife" : 0
+        },
+        "fechado" : {
+          "macarronada" : 1,
+          "rosbife" : 1
+        },
+        "pago" : {
+          "rosbife" : 68
+        },
+        "pronto" : {
+          "macarronada" : 0,
+          "rosbife" : 0
+        },
+        "undefined" : {
+          "macarronada" : 79,
+          "rosbife" : 36
+        }
+      },
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 1
+        },
+        "all" : {
+          "calabresa" : 3
+        },
+        "entregue" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 2
+        },
+        "pago" : {
+          "calabresa" : 6
+        },
+        "pronto" : {
+          "calabresa" : 0
+        },
+        "undefined" : {
+          "calabresa" : 3
+        }
+      }
+    },
+    "mesa2" : {
+      "bebida" : {
+        "aberto" : {
+          "coca-cola" : 0
+        },
+        "fechado" : {
+          "coca-cola" : 0
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "rosbife" : 0
+        },
+        "entregue" : {
+          "rosbife" : 0
+        },
+        "fechado" : {
+          "rosbife" : 0
+        },
+        "pago" : {
+          "rosbife" : 1
+        },
+        "pronto" : {
+          "rosbife" : 0
+        }
+      },
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 0
+        }
+      }
+    },
+    "undefined" : {
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 0
+        },
+        "pronto" : {
+          "calabresa" : 0
+        }
+      }
+    }
+  },
+  "categoria-produto": 
+  {
+    "bebida":
+    {
+      "coca-cola":true
+    },
+    "comida":
+    {
+      "rosbife":true
+    },
+    "pizzas":
+    {
+      "calabresa":true
+    }
+  },
+  "produtos" : {
+    "bebida" : {
+      "coca-cola" : {
+        "descricao" : "Coca-Cola é um refrigerante carbonado vendido em lojas do mundo todo, restaurantes e máquinas de venda automática em todo o mundo. Ele é produzido pela The Coca-Cola Company, sediada em Atlanta, Estados Unidos, e é muitas vezes referido apenas como Coca-Cola (a marca registrada da empresa Coca-Cola nos Estados Unidos desde 27 de março de 1944). Originalmente concebida como um remédio patenteado quando foi inventada no final do século XIX por John Pemberton, a Coca-Cola foi comprada pelo empresário Asa Griggs Candler, cujas táticas publicitárias levaram a bebida ao domínio do mercado de refrigerantes no mundo ao longo do século XX.",
+        "nome" : "Coca-cola",
+        "photo" : "coca-cola-img",
+        "preco" : 4
+      }
+    },
+    "comida" : {
+      "macarronada" : {
+        "descricao" : "A macarronada é um dos pratos de massa mais apreciados pelas cozinheiras. Essa refeição pode ser feita sem dar muito trabalho e fica muito suculenta. Quem gosta de macarrão não pode perder.",
+        "nome" : "Macarronada",
+        "photo" : "macarronada-img",
+        "preco" : 20,
+        "preparavel" : true
+      },
+      "rosbife" : {
+        "descricao" : "A carne é preparada de forma que a parte exterior fique bem caramelizada, enquanto o interior fica mal passado, dando fatias com uma cor rosada. O rosbife é normalmente servido como prato principal, com vários acompanhamentos, entre os quais o mais importante é o gravy (com exceção do Sunday roast, que é tradicionalmente servido com Yorkshire puddings, pãezinhos assados muitas vezes aproveitando os sucos da carne assada)",
+        "nome" : "Rosbife",
+        "photo" : "rosbife-img",
+        "preco" : 40,
+        "preparavel" : true
+      }
+    },
+    "pizzas" : {
+      "calabresa" : {
+        "descricao" : "O tradicional sabor calabresa ganha um toque ainda mais especial com a receita da Casa. A Pizza Calabresa é composta por linguiça calabresa, cebola e queijo mussarela, além de salpicada com deliciosas azeitonas pretas.",
+        "nome" : "Pizza de Calabresa",
+        "photo" : "calabresa-img",
+        "preco" : 30,
+        "preparavel" : true
+      }
+    }
+  }
+}

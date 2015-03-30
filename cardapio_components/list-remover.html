@@ -1,0 +1,42 @@
+
+<link rel="import" href="../bower_components/polymer-gestures/polymer-gestures.html">
+
+<polymer-element name="list-remover" attributes="target">
+  <template>
+
+  </template>
+  <script>
+    Polymer({
+      targetChanged:function()
+      {
+        if(this.target && this.target instanceof HTMLElement)
+        {
+          this.target.setAttribute('touch-action','pan-x')
+          this.target.addEventListener('trackend',this.trackendHandler.bind(this));
+          this.target.addEventListener('track',this.trackHandler.bind(this));
+        }
+        else if(this.target)
+        {
+          throw new TypeError('target must be HTMLElement');
+        }
+      },
+      trackendHandler:function(e,d,s)
+      {
+       this.target.style.left = 0 ;
+       this.target.style.opacity = 1;
+      },
+      trackHandler:function(e,d,s)
+      {
+        if(e.xDirection)
+        {
+          this.target.style.left = e.dx/2+'px'
+          this.target.style.opacity = 100/ Math.abs(e.dx);
+        }
+        if(Math.abs(e.dx)*1.7 >= this.target.clientWidth)
+        {
+          this.fire('remove',{target:this.target});
+        }
+      },
+    });
+  </script>
+</polymer-element>

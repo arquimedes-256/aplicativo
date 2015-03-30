@@ -1,0 +1,161 @@
+{
+  "categorias" : {
+    "bebida" : {
+      "nome" : "Bebida"
+    },
+    "comida" : {
+      "nome" : "Comida"
+    },
+    "pizzas" : {
+      "nome" : "Pizzas"
+    }
+  },
+  "garcons" : {
+    "garcon1" : {
+      "mesas" : {
+        "mesa1" : true
+      },
+      "name" : "Garçon 1"
+    },
+    "garcon2" : {
+      "name" : "Garçon 2"
+    }
+  },
+  "mesas" : {
+    "mesa1" : {
+      "alertTo" : false,
+      "name" : "Mesa 1"
+    },
+    "mesa2" : {
+      "alertTo" : false,
+      "name" : "Mesa 2"
+    }
+  },
+  "pedidos" : {
+    "mesa1" : {
+      "bebida" : {
+        "aberto" : {
+          "coca-cola" : 0
+        },
+        "entregue" : {
+          "coca-cola" : 1
+        },
+        "fechado" : {
+          "coca-cola" : 1
+        },
+        "pago" : {
+          "coca-cola" : 122
+        },
+        "pronto" : {
+          "coca-cola" : 7
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "rosbife" : 0
+        },
+        "entregue" : {
+          "rosbife" : 0
+        },
+        "fechado" : {
+          "rosbife" : 4
+        },
+        "pago" : {
+          "rosbife" : 68
+        },
+        "pronto" : {
+          "rosbife" : 10
+        }
+      },
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 0
+        },
+        "entregue" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 1
+        },
+        "pago" : {
+          "calabresa" : 6
+        },
+        "pronto" : {
+          "calabresa" : 11
+        }
+      }
+    },
+    "mesa2" : {
+      "bebida" : {
+        "aberto" : {
+          "coca-cola" : 0
+        },
+        "fechado" : {
+          "coca-cola" : 0
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "rosbife" : 0
+        },
+        "entregue" : {
+          "rosbife" : 0
+        },
+        "fechado" : {
+          "rosbife" : 0
+        },
+        "pago" : {
+          "rosbife" : 1
+        },
+        "pronto" : {
+          "rosbife" : 0
+        }
+      },
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 0
+        }
+      }
+    },
+    "undefined" : {
+      "pizzas" : {
+        "aberto" : {
+          "calabresa" : 0
+        },
+        "fechado" : {
+          "calabresa" : 0
+        },
+        "pronto" : {
+          "calabresa" : 0
+        }
+      }
+    }
+  },
+  "produtos" : {
+    "bebida" : {
+      "coca-cola" : {
+        "descricao" : "Coca-Cola é um refrigerante carbonado vendido em lojas do mundo todo, restaurantes e máquinas de venda automática em todo o mundo. Ele é produzido pela The Coca-Cola Company, sediada em Atlanta, Estados Unidos, e é muitas vezes referido apenas como Coca-Cola (a marca registrada da empresa Coca-Cola nos Estados Unidos desde 27 de março de 1944). Originalmente concebida como um remédio patenteado quando foi inventada no final do século XIX por John Pemberton, a Coca-Cola foi comprada pelo empresário Asa Griggs Candler, cujas táticas publicitárias levaram a bebida ao domínio do mercado de refrigerantes no mundo ao longo do século XX.",
+        "nome" : "Coca-cola",
+        "preco" : 4
+      }
+    },
+    "comida" : {
+      "rosbife" : {
+        "descricao" : "A carne é preparada de forma que a parte exterior fique bem caramelizada, enquanto o interior fica mal passado, dando fatias com uma cor rosada. O rosbife é normalmente servido como prato principal, com vários acompanhamentos, entre os quais o mais importante é o gravy (com exceção do Sunday roast, que é tradicionalmente servido com Yorkshire puddings, pãezinhos assados muitas vezes aproveitando os sucos da carne assada)",
+        "nome" : "Rosbife",
+        "preco" : 40,
+        "preparavel" : true
+      }
+    },
+    "pizzas" : {
+      "calabresa" : {
+        "nome" : "Pizza de Calabresa",
+        "preco" : 30,
+        "preparavel" : true
+      }
+    }
+  }
+}

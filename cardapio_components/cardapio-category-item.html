@@ -1,0 +1,99 @@
+
+
+<polymer-element
+  name="cardapio-category-item"
+  attributes="category category_key product product_key objK1 objK2"
+  layout vertical relative>
+
+  <template>
+          
+    <cardapio-globals id="g"></cardapio-globals>
+    
+    <div id="tile-general" class="tile" on-click="{{ onClickRoot }}">
+      <section id="section2" class="tile-top" flex layout horizontal center center-justified hero hero-id="top">
+        <template if="{{ !obj['photo'] }}">
+            <core-icon icon="category-icons:knowledge" id="core_icon1" cross-fade-delayed designmeta="topeka-icon"></core-icon>
+        </template>
+        <template if="{{ obj['photo'] }}">
+          <firebase-element 
+            location="{{ $.g.location }}/images/{{ obj['photo'] }}"
+            data="{{ imageData }}"></firebase-element>
+          <img-card data="{{ imageData }}" width="108"></img-card>
+        </template>
+        <template if="{{ obj['preco'] }}">
+          <span price>{{obj['preco']}}</span>R$
+
+            <paper-checkbox id="checkbox" 
+              on-click="{{ fireMark }}" 
+              checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
+
+        </template>
+      </section>
+      <div id="div1" class="tile-bottom" hero hero-id="bottom">
+        <span id="span1">{{ obj['nome'] }}</span>
+      </div>
+
+
+      <firebase-element
+        id="base_pedidos"
+        location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ objK1 }}/aberto/{{objK2 }}"
+        >
+      </firebase-element>
+
+    </div>
+    <style>
+
+      :host {
+        box-sizing: border-box;
+        float: left;
+        height: 30%;
+        width: 48%;
+        margin: 3px;
+      }
+      #section2 {
+        background-color: rgb(255, 255, 141);
+      }
+      #core_icon1 {
+        height: 128px;
+        width: 128px;
+      }
+      #div1 {
+        padding: 8px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(255, 235, 59);
+      }
+    </style>
+  </template>
+
+  <script>
+
+    Polymer({
+      observe:{
+        'category product':'readyObj',
+        'category_key product_key':'readyKey'
+      },
+      readyObj:function(_old,_new)
+      {
+        this.obj = _new;
+      },
+      readyKey:function(_old,_new)
+      {
+        this.objKey = _new;
+      },
+      onClickRoot:function()
+      {
+        this.fire("click-cardapio-category-item",{category:this.category,category_key:this.category_key})
+      },
+      fireMark:function()
+      {
+            this.fireAsync('product-item-mark',{
+              productKey:this.objK1,
+            checked:s.checked});
+        
+        this.async(queryBases,100);
+      }
+    });
+
+  </script>
+
+</polymer-element>

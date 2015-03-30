@@ -1,0 +1,65 @@
+<polymer-element name="cozinha-item-total">
+  <template>
+     <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
+     <firebase-element
+      location="{{ $.globals.location }}/categorias"
+      data="{{ categoriasData }}"
+      keys="{{ categoriasKeys }}"></firebase-element>
+
+
+    <template repeat="{{ categoriaK in categoriasKeys }}">
+
+      <firebase-element
+      location="{{ $.globals.location }}/produtos/{{ categoriaK }}"
+      categoria="{{categoriaK}}"></firebase-element>
+
+      <firebase-element
+        location="{{ $.globals.location }}/pedidos/{{ mesaKey }}/{{ categoriaK }}/{{ from }}"
+        on-data-change="{{ dataChangeHandler }}"
+        pedidos
+        categoria="{{categoriaK}}">
+      </firebase-element>
+
+    </template>
+
+    <paper-shadow table-total self-end>{{ total }} R$</paper-shadow>
+
+  </template>
+  <script>
+    Polymer({
+      ready:function()
+      {
+        this.total = 0;
+      },
+      dataChangeHandler:function()
+      {
+        this.total = 0;
+
+        var baseList = this.shadowRoot.querySelectorAll('firebase-element[pedidos]');
+
+        for(var i=0; i<baseList.length; i++)
+        {
+
+          var base = baseList[i];
+
+          var baseProdutos = this.shadowRoot
+            .querySelector('firebase-element[categoria="'+
+              base.getAttribute('categoria')+'"]');
+
+          var baseData = base.data;
+          var baseKeys = base.keys;
+
+          baseKeys&&baseKeys.forEach(function(key)
+          {
+            var produto = baseProdutos.data[key];
+            this.total += (baseData[key] * produto.preco);
+          }
+          .bind(this));
+
+        }
+      }
+
+
+    });
+  </script>
+</polymer-element>

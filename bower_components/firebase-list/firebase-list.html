@@ -1,0 +1,16 @@
+<link rel="import" href="../firebase-element/firebase-element.html">
+<script src="../firebase-asarray/firebase-as-array.js"></script>
+<polymer-element name="firebase-list" attributes="list" extends="firebase-element">
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        refChanged: function() {
+          this.list = Firebase.getAsArray(this.ref);
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

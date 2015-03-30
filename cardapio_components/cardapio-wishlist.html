@@ -1,0 +1,242 @@
+<link rel="import" href="cardapio-wishlist-item.html">
+<link rel="import" href="cardapio-globals.html">
+
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+
+<link rel="import" href="../utils/underscore.html">
+
+<polymer-element name="cardapio-wishlist"
+attributes="location totalItens currentMesa categoria total from disabledSend disabledMoney useAll">
+  <template>
+    <cardapio-globals id="globals"></cardapio-globals>
+    <paper-shadow class="title" horizontal layout on-tap="{{ openHandler }}">
+      <paper-ripple fit></paper-ripple>
+      <span>
+        <core-icon icon="{{ currentIcon }}"></core-icon>
+      </span>
+      <div flex cat-name>{{ currentCategoria.nome }}</div>
+      <b middle-t>
+        <template if="{{ !disabledMoney }}">
+          {{ total }} R$
+        </template>
+        <template if="{{ disabledMoney }}">
+          <template if="{{ totalItens > 0 }}">
+            x{{totalItens}}
+          </template>
+          <template if="{{ totalItens == 0 }}">
+            <core-icon icon="check"></core-icon>
+          </template>
+        </template>
+      </b>
+    </paper-shadow>
+
+    <template if="{{ !useAll }}">
+       <firebase-element
+          id="base"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoria }}/{{ from }}"
+          keys="{{ pedidosKeys }}"
+          data="{{ pedidos }}">
+        </firebase-element>
+    </template>
+
+    <template if="{{ useAll }}">
+       <firebase-element
+          id="base_aberto"
+          on-data-change="{{ dataChangeHandler }}"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoria }}/aberto">
+        </firebase-element>
+        <firebase-element
+          id="base_fechado"
+          on-data-change="{{ dataChangeHandler }}"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoria }}/fechado">
+        </firebase-element>
+        <firebase-element
+          id="base_pronto"
+          on-data-change="{{ dataChangeHandler }}"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoria }}/pronto">
+        </firebase-element>
+        <firebase-element
+          id="base_entregue"
+          on-data-change="{{ dataChangeHandler }}"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoria }}/entregue">
+        </firebase-element>
+    </template>
+
+
+    <firebase-element
+      location="{{ location }}/categorias/{{ categoria }}"
+      data="{{ currentCategoria }}"></firebase-element>
+
+    <firebase-element
+      location="{{ location }}/produtos/{{ categoria }}"
+      data="{{ produtos }}">
+    </firebase-element>
+
+    <core-collapse id="colapse">
+      <template repeat="{{ k in pedidosKeys }}">
+          <cardapio-wishlist-item
+            disabledSend?="{{ disabledSend }}"
+            disabledMoney?="{{ disabledMoney }}"
+            hidden?="{{ pedidos[k] == 0 && !disabledMoney }}"
+            pedido="{{ pedidos[k] }}"
+            produtos="{{ produtos }}"
+            pedidoKey="{{ k }}"
+            on-change-qtd="{{ onChangeQTD }}"
+            from="{{ from }}"
+            fromAll?="{{ fromAll }}">
+          </cardapio-wishlist-item>
+      </template>
+    </core-collapse>
+    <style>
+      :host /deep/ paper-shadow
+      {
+        padding: 10px;
+        margin:8px;
+        background:#FFF;
+      }
+      .title
+      {
+        background:#006064;
+        color:#FFF;
+        opacity:{{ total == 0 && !disabledMoney ? .5 : 1 }};
+      }
+      [cat-name] {
+        padding-top: 3px;
+        padding-left: 3px;
+        margin-right: 34px;
+      }
+      [middle-t]
+      {
+        padding-top: 3px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+    currentIcon:'arrow-drop-down',
+    open:false,
+    useAll:false,
+    itemHidden:true,
+    disabledMoney:false,
+    openChanged:function()
+    {
+      if(!this.open)
+       this.currentIcon = 'arrow-drop-down';
+      else
+       this.currentIcon = 'arrow-drop-up';
+
+      this.$.colapse.opened = this.open;
+    },
+    dataChangeHandler:function()
+    {
+      this.job('data-change',function()
+      {
+        this.pedidos = [];
+        this.pedidosKeys = [];
+        this.totalItens = 0;
+
+        var bs = ['aberto','fechado','pronto','entregue'];
+
+        for(var i=0;i<bs.length;i++)
+        {
+          var b = this.$['base_'+bs[i]];
+          var keys = b.keys;
+
+          if(keys && b.data)
+            for(var j=0;j<keys.length;j++)
+            {
+              var k = keys[j];
+
+              if(!~this.pedidosKeys.indexOf(k))
+              {
+                this.pedidosKeys.push(k);
+              }
+              if(!this.pedidos[k])
+              {
+                this.pedidos[k] = 0;
+              }
+              this.totalItens += b.data[k];
+              this.pedidos[k] += b.data[k];
+            }
+        }
+
+        console.log(this.pedidosKeys);
+        console.log(this.pedidos);
+      });
+    },
+    openHandler:function()
+    {
+      if(this.total || this.disabledMoney)
+      {
+        this.open = !this.open;
+      }
+    },
+    totalChanged:function()
+    {
+      if(this.total == 0 && !this.disabledMoney)
+      {
+        this.open = false;
+      }
+    },
+    ready:function()
+    {
+      this.total = 0;
+      this.totalItens = 0;
+    },
+    observe:{'pedidos':'onChangeQTD'},
+    onChangeQTD:function()
+    {
+      this.job('wishlist-calc',function(){
+        this.total = 0;
+        this.totalItens = 0;
+        var itens = this.shadowRoot.querySelectorAll('cardapio-wishlist-item');
+        for(var i=0;i<itens.length;i++)
+        {
+          var item = itens[i];
+
+          if(item.pedido  && item.produtos && item.produtos[item.pedidoKey])
+          {
+            var prod = item.produtos[item.pedidoKey];
+            var preco = prod.preco;
+
+            this.total+= item.pedido * preco;
+            this.totalItens+= item.pedido;
+          }
+        }
+        console.log('wishlist-calc');
+
+
+        this.fire('calc');
+      });
+    },
+    putInWishList:function(productKey,checked)
+    {
+      var b = this.$.base;
+      var ref;
+      var url = this.location +"/pedidos/"+ this.currentMesa +"/"+ this.categoria +"/";
+
+      if(b)
+        ref =b.ref;
+      else
+        ref = new Firebase(url+this.from);
+
+      refAll = new Firebase(url+'all');
+
+      //console.log('productKey:'+productKey+", checked:"+checked);
+
+      if(!checked)
+      {
+        var p = {};
+        p[productKey] = 1;
+        ref.update(p);
+      }
+      else
+      {
+        ref.child(productKey).remove();
+      }
+
+    }
+    })
+    </script>
+  </polymer-element>

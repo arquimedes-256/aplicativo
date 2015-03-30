@@ -1,0 +1,89 @@
+
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+ 
+<polymer-element name="cardapio-total"
+attributes="from to disabledSend disabledMoney sendText totalItens mainTitle">
+  <template>
+      <cardapio-globals id="globals"></cardapio-globals>
+      <paper-shadow layout horizontal>
+        <span flex>Total {{ mainTitle }}: </span>
+        <template if="{{ !disabledMoney }}">
+          <b>{{ total }} R$</b>
+        </template>
+        <template if="{{ disabledMoney }}">
+          <b>x{{ totalItens }}</b>
+        </template>
+      </paper-shadow>
+      <div layout horizontal>
+
+          <paper-button
+            flex
+            class="blink_me"
+            id="check"
+            hidden?="{{ disabledSend }}"
+            on-click="{{ send }}" showing?="{{ total }}"
+            raised
+            ><core-icon icon="check"></core-icon>{{ sendText }}</paper-button>
+
+      </div>
+      <style>
+      #check
+      {
+        margin-right:10px;
+        background:#F50057;
+        color:#FFF;
+      }
+      paper-shadow
+      {
+        padding: 10px;
+        margin:10px;
+        background:#fff;
+      }
+      paper-button {
+        transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 500ms, background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: -webkit-transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 500ms, background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+      }
+      paper-button[showing] {
+        -webkit-transform: none;
+        transform: none;
+      }
+      </style>
+  </template>
+  <script>
+    Polymer({
+      disabledSend:false,
+      disabledMoney:false,
+      ready:function()
+      {
+        this.total = 0;
+        this.totalItens = 0;
+      },
+      calcWishs:function()
+      {
+        this.job('total-calc',function()
+        {
+          var wishs = this.parentNode.querySelectorAll('cardapio-wishlist');
+          this.total = 0 ;
+          this.totalItens = 0;
+
+          for(var i=0;i<wishs.length;i++)
+          {
+            var w = wishs[i];
+            this.total += w.total;
+            this.totalItens += w.totalItens;
+          }
+          if(this.totalItens > 99)
+            this.totalItens = '99';
+          });
+      },
+      send:function()
+      {
+        this.fireAsync('send');
+      }
+    });
+  </script>
+</polymer-element>

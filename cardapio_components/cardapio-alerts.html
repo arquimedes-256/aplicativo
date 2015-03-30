@@ -1,0 +1,28 @@
+
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<polymer-element name="cardapio-alerts">
+  <template>
+    
+    <template repeat="{{ m in msgs }}">
+      
+      <paper-toast 
+      text="{{ m.text }}">
+      </paper-toast>
+    
+    </template>
+    
+  </template>
+  <script>
+    Polymer({
+      ready:function()
+      {
+        this.msgs = [];
+      },
+      showMsg:function(text)
+      {
+        this.msgs.push(text);
+      }
+    });
+  </script>
+</polymer-element>

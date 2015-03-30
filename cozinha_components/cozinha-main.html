@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../cardapio_components/cardapio-globals.html">
+<link rel="import" href="../cardapio_components/cardapio-wishlist-main.html">
+<link rel="import" href="../cozinha_components/cozinha-mesas.html">
+
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+
+
+<polymer-element name="cozinha-main"
+  attributes="from title currentPage headerColor mesasDescription permissions">
+  <template>
+    <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
+    <firebase-element
+      location="{{ $.globals.location }}/mesas"
+      data="{{ mesasData }}"></firebase-element>
+    <core-scaffold>
+      <core-header-panel navigation flex mode="seamed">
+        <core-toolbar>
+          <core-icon icon="maps:local-restaurant">
+          </core-icon>{{ title }}
+        </core-toolbar>
+        <span table-name>
+          {{ mesasData[$.wishListMain.$.globals.data.currentMesa].name }}
+        </span>
+        <cardapio-wishlist-main
+          id="wishListMain"
+          permissions="{{ permissions }}"
+          currentPage="{{ currentPage }}"
+          ></cardapio-wishlist-main>
+      </core-header-panel>
+      <div tool>Mesas {{ mesasDescription }}</div>
+      <div>
+        <cozinha-mesas
+          permissions="{{ permissions }}"
+          from="{{ from }}"
+          to="{{ to }}"
+          on-cozinha-mesas-item-set-table="{{ setTableHandler }}" >
+        </cozinha-mesas>
+      </div>
+    </core-scaffold>
+    <style>
+    [table-name] {
+      font-size: 31px;
+      margin: 10px;
+      display: block;
+    }
+    :host /deep/ core-header-panel
+    {
+      background:{{color}};
+    }
+    :host /deep/ core-toolbar
+    {
+      background-color: {{headerColor}};
+      color: #fff;
+    }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      headerColor:'#AD1457',
+      ready:function()
+      {
+        this.color = colors[0];
+        this._currentPage = this.currentPage;
+      },
+      setTableHandler:function(e,d,s)
+      {
+        this.$.wishListMain.$.globals.data.currentMesa = d.mesaKey;
+        this.currentPage = this._currentPage;
+        this.color = d.color;
+      }
+    })
+  </script>
+</polymer-element>

@@ -1,0 +1,43 @@
+Worker  Machine
+
+Let a woker bot $B$ is a singleton tuple of states: $$B= \{ \, (x,y,\theta,K^{ |x| \times |y| }   ) \,|\, x,y \in \mathbb{R} , \theta \in [0º -360º] , K^{ |x| \times |y| }   \overset{\sim}{\in}S \,\}$$
+
+Let euclidian-like space $S^{ |x| \times |y| } = (x,y,b)$ is :
+$$S=
+\begin{pmatrix}
+s_{(0;0)} & s_{(1,0)} & s_{(2,0)}  & \cdots & s_{(|x|,0)} \\
+s_{(0;1)} & s_{(1,1)} & s_{(2,1)}  & \ddots & s_{(|x|,1)} \\
+\vdots & \vdots & \vdots  & \ddots & \vdots \\
+s_{(0;|y|)} & s_{(1,|y|)} & s_{(2,|y|)}  & \cdots & s_{(|x|,|y|)} \\
+\end{pmatrix}
+$$
+**where :**
+$|x|$  and $|y|$ are **variable length limit** of each dimension and $b$ is a **blocked status** for each element $s_{(x;y)} \in S$.
+$K$ is the **tape of knowlegment from space** your structure is like  $S$.
+
+The bot algorthmn :
+> 0. First construct initial state to middle point and blocked status $b = 0$ $$B( x,y,b) \leftarrow (\frac{|x|}{2} ; \frac{|y|}{2}; 0)$$
+> 0.  Increment bot radar vision degree with a constant $\Theta$
+> $$ B(\theta)=
+\begin{cases}
+B( \theta ) + \Theta & \text{if } B( \theta ) < 360º\\
+0 & \text{if } B( \theta ) = 360º
+\end{cases}$$
+> 0.  Get distance $d$ from current degree $\theta$ and store it in a hashtable $D$ $$D : \theta \longmapsto (d_\theta \in \mathbb{R})$$
+>0. Store also current timestamp $D_s(\theta)$:
+> $$D_s(\theta)  \leftarrow s(x,y , \cdots)$$
+> 0.  **Let** $i=0$ **compute recursively the block bellow until ** $d_\theta$ **doing** $b = 0$ **else if **$(\theta = d_\theta) \implies s(b\leftarrow1)$ :
+> $$S( \, (x,y,b) \, | \, \cos(i) ,\sin(i) ,\left(b\leftarrow
+ \begin{cases}
+ 0 & \text{if }i < d_\theta \\
+ 1 & \text{if }i \geq d_\theta \\
+ \end{cases} \right) ) $$
+ > 0. Call $\text{work}$ procedure
+ > 0. **if** $B(\theta) = 360º $ **then **
+ >   $$K  \leftarrow K \cup D_s(\theta) \
+$$
+> 0. Remove knowlegment $K$ from space $S$ and store in $S_{\text{togo}}$
+$$
+   S_\text{togo} = \forall S( \, s \,  | \, s \notin K )
+$$
+ > 0. **endif**

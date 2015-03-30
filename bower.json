@@ -1,0 +1,20 @@
+{
+  "name": "Cardapio",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+
+  ],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#latest",
+    "paper-elements": "Polymer/paper-elements#latest",
+    "core-elements": "Polymer/core-elements#latest",
+    "topeka-elements":"Polymer/topeka-elements#latest",
+    "firebase-element":"Polymer/firebase-element#latest",
+    "firebase-asarray":"katowulf/Firebase.getAsArray#latest",
+    "polymer-gestures":"Polymer/polymer-gestures#master",
+    "tools":"Polymer/tools#master"
+  }
+}

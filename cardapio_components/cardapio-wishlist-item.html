@@ -1,0 +1,155 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="list-remover.html">
+
+
+<polymer-element name="cardapio-wishlist-item" 
+  attributes="pedido produtos pedidoKey disabledSend disabledMoney">
+  <template>
+    <template if="{{ !disabledSend }}">
+      <list-remover target="{{ $.row }}" on-remove="{{ removeHandler }}"></list-remover>
+    </template>
+    <paper-shadow class="row" id="row">
+        <div layout vertical>
+          <div layout horizontal>
+            <paper-shadow class="qtd" 
+              self-center 
+              on-click="{{ increment }}">
+              <paper-ripple id="ripple"></paper-ripple>
+              x{{ pedido }}
+            </paper-shadow>
+            <div class="name" self-center flex>
+            {{ produtos[pedidoKey].nome }}
+            </div>
+            <div class="price" self-center>
+              <template if="{{!disabledMoney}}">
+                R$ {{ produtos[pedidoKey].preco * pedido }}
+              </template>
+              <template if="{{disabledMoney}}">
+                <div on-click="{{ checkHandler }}">
+                  <paper-checkbox 
+                    id="check" 
+                    checked?="{{ !pedido }}">
+                  </paper-checkbox>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div>
+<!--
+
+            <paper-slider
+              on-change="{{ changeQTD }}"
+              hidden?="{{ !sliderInt }}"
+              pin
+              value="{{ pedido }}"
+              max="{{ 1+(pedido * 1.5) }}"
+              editable></paper-slider>
+              
+-->
+          </div>
+        </div>
+   </paper-shadow>
+     <style>
+      #ripple {
+        width: 100%;
+        height: 49px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      paper-shadow
+      {
+        padding: 10px;
+        background:#fff;
+      }
+      .row
+      {
+        margin-bottom:5px;
+        padding-left: 1px;
+      }
+      .name
+      {
+        font-size:16px;
+      }
+      .qtd
+      {
+        font-weight:bold;
+        border-radius: 30px;
+        margin-right: 10px;
+        background: #8BC34A;
+        color: #FFF;
+      }
+      #check
+      {
+        pointer-events:none;
+      }
+      /*
+      :host
+      {
+        margin:8px;
+        margin-bottom:0px;
+      }
+      */
+    </style>
+  </template>
+  <script>
+    Polymer({
+      disabledSend:false,
+      disabledMoney:false,
+      sliderInt:0,
+      ready:function()
+      {
+        window.setInterval(function()
+        {
+          this.job('sliderIntToZero',function()
+          {
+            if(this.sliderInt)
+              --this.sliderInt;
+          });
+        }.bind(this),1000)
+      },
+      observe:
+      {
+        'pedido':'changeQTD'
+      },
+      checkHandler:function(e,d,s)
+      {
+        if(!this.disabledSend)
+        {
+          this.fire('check-unique',
+            {
+              produto:this.produtos[this.pedidoKey],
+              pedido:this.pedido,
+              pedidoKey:this.pedidoKey
+            }
+          );
+        }
+      },
+      getProduto:function()
+      {
+        return this.produtos[this.pedidoKey];
+      },
+      changeQTD:function()
+      {
+        if(this.sliderInt < 4)
+        {
+          this.sliderInt+=2;
+        }
+        this.fireAsync('change-qtd')
+      },
+      removeHandler:function()
+      {
+        this.pedido = 0;
+        this.fireAsync('change-qtd');
+      },
+      increment:function()
+      {
+          if(!this.disabledSend)
+            this.pedido++;
+      }
+    });
+  </script>
+</polymer-element>

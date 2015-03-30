@@ -1,0 +1,114 @@
+<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-menu/core-submenu.html">
+<link rel="import" href="../bower_components/topeka-elements/category-icons.html">
+<link rel="import" href="../bower_components/core-icon/core-icon.html">
+
+
+
+<link rel="import" href="../bower_components/core-icons/maps-icons.html">
+
+<link rel="import" href="cardapio-category-item.html">
+<link rel="import" href="cardapio-category.html">
+
+
+<link rel="import" href="cardapio-globals.html">
+<link rel="import" href="cardapio-ofertas.html">
+<link rel="import" href="cardapio-wishlist-main.html">
+
+<polymer-element name="cardapio-app" attributes="categories">
+
+  <template>
+
+
+    <cardapio-globals id="globals"></cardapio-globals>
+
+<!-- /bases -->
+
+    <link rel="stylesheet" href="cardapio-app.css">
+
+    <core-scaffold id="core_scaffold">
+
+      <core-header-panel mode="seamed" id="core_header_panel" navigation flex>
+        <core-toolbar id="core_toolbar">
+          <core-icon icon="maps:local-restaurant"></core-icon>
+            Pedido
+        </core-toolbar>
+
+      <!-- wishlist -->
+      <cardapio-wishlist-main id="wishListMain"
+      permissions='{
+        "alert":{"to":"pronto","text":"Chamar o garçon!","cancelText":"Cancelar chamada!"},
+        "fechado":{"disabledSend":true,"disabled":true},
+        "pronto":{"disabledSend":true,"disabled":true},
+        "entregue":{"disabledSend":true,"disabled":true},
+        "pago":{"disabledSend":true}
+      }'></cardapio-wishlist-main>
+
+
+
+      </core-header-panel>
+
+      <div id="div" tool>Total: {{ $.wishlist.$.service.total }} R$ </div>
+
+      <section id="section" layout vertical designmeta="quiz-demo-grid">
+        <div id="toolbar" class="tall-toolbar categories" horizontal center-justified center layout>
+          <span id="span">Cardápio</span>
+        </div>
+<!-- catetories -->
+        <div id="tiles-container"
+          class="tiles-container" layout wrap horizontal around-justified center relative>
+
+          <cardapio-ofertas></cardapio-ofertas>
+
+          <template id="template" repeat="{{ k in $.globals.k_categorias }}">
+            <cardapio-category-item
+              on-click-cardapio-category-item="{{ onClickCategory }}"
+              category="{{ $.globals.categorias[k] }}" category_key="{{ k }}">
+            </cardapio-category-item>
+
+          </template>
+        </div>
+
+<!-- category -->
+        <cardapio-category
+          from="aberto"
+          on-product-item-mark="{{ putInWishList }}"
+          on-back-cardapio-category="{{ onBackCategory }}"
+          id="cardapio_category"
+          category="{{ $.globals.currentCategory }}"
+          products="{{ $.globals.produtos  }}"
+          products_keys="{{ $.globals.k_produtos }}"
+          hidden?="{{ !$.globals.data.currentCategory }}">
+        </cardapio-category>
+
+      </section>
+    </core-scaffold>
+  </template>
+
+  <script>
+
+    Polymer({
+      currentPage:0,
+      onBackCategory:function()
+      {
+        this.$.globals.data.currentCategory = null;
+      },
+      onClickCategory: function (e)
+      {
+        this.$.globals.data.currentCategory = e.detail.category;
+        this.$.globals.data.currentCategoryKey = e.detail.category_key;
+      },
+      putInWishList:function(e,d,s)
+      {
+        this.$.wishListMain.currentPage = 0;
+        var wl = this.shadowRoot.querySelector("* /deep/ #wishlist_"+this.$.globals.data.currentCategoryKey+"[notall]");
+        wl.putInWishList(d.productKey,d.checked);
+
+      }
+    });
+
+  </script>
+</polymer-element>

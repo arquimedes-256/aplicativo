@@ -1,0 +1,98 @@
+
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../bower_components/firebase-element/firebase-login.html">
+
+<polymer-element name="cardapio-globals"
+  attributes="useBases mesa k_mesas location
+  k_categorias produtos k_produtos pedidos_abertos pedidosKeys data">
+
+  <template>
+    <template if="{{useBases}}">
+    <firebase-login
+      id="login"
+      user="{{user}}"
+      statusKnown="{{statusKnown}}"
+      location="{{location}}"
+      provider="{{provider}}">
+    </firebase-login>
+
+<!-- bases -->
+    <firebase-element
+      id="base_mesas"
+      location="{{location}}/mesas/{{data.currentMesa}}"
+      data="{{ mesa }}"
+      keys="{{ k_mesas }}">
+    </firebase-element>
+
+    <firebase-element
+      id="base_categorias"
+      location="{{location}}/categorias"
+      data="{{categorias}}"
+      keys="{{k_categorias}}">
+    </firebase-element>
+
+    <firebase-element
+      id="base_produtos"
+      location="{{location}}/produtos/{{data.currentCategoryKey}}"
+      data="{{produtos}}"
+      keys="{{k_produtos}}">
+    </firebase-element>
+
+    <firebase-element
+      id="base_produtos_todos"
+      location="{{location}}/produtos"
+      data="{{ produtos_todos }}"
+      keys="{{ k_produtos_todos }}">
+    </firebase-element>
+
+    <firebase-element
+      id="base_pedidos"
+      location="{{ location }}/pedidos/{{ data.currentMesa }}"
+      data="{{ pedidos_abertos }}"
+      keys="{{ pedidosKeys }}">
+    </firebase-element>
+
+    <firebase-element
+      id="base_pedidos_aberto"
+      location="{{ location }}/pedidos/{{ data.currentMesa }}/{{ data.currentCategoryKey }}/aberto">
+    </firebase-element>
+    </template>
+
+  </template>
+  <script>
+    
+    var data = {
+        currentCategoryKey:null,
+        currentMesa : 'mesa1'
+    };
+
+
+    var $d = function(s) 
+    {
+      return document.querySelector('html /deep/ '+s);
+    }
+
+    var PHI = 1.61803398875;
+    
+  
+    window.queryBases = function()
+    {
+      var baseList = document.querySelectorAll('html /deep/ firebase-element');
+
+      for(var i=0;i<baseList.length;i++)
+      {
+        var b = baseList[i];
+        b.queryChanged();
+      }
+    }
+
+    Polymer({
+      ready:function()
+      {
+        this.useBases = true;
+        this.data = data;
+      },
+      location:'https://scorching-torch-2274.firebaseio.com'
+    })
+  </script>
+</polymer-element>

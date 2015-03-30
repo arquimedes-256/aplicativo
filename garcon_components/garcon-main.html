@@ -1,0 +1,55 @@
+<link rel="import" href="../cozinha_components/cozinha-main.html">
+<link rel="import" href="../cardapio_components/cardapio-globals.html">
+<link rel="import" href="../cozinha_components/cozinha-mesas-item.html">
+
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+  
+<polymer-element name="garcon-main">
+      <template>
+        <core-scaffold rightDrawer mode="seamed">
+          <core-header-panel navigation flex mode="seamed">
+            <core-toolbar >Mesas que entreguei pedidos:</core-toolbar>
+            <div>
+              <cardapio-globals id="globals"></cardapio-globals>
+              
+              <firebase-element 
+                location="{{ $.globals.location }}/garcons/{{ currentGarconKey }}/mesas"
+                keys="{{ garconMesasKeys }}">
+              </firebase-element>
+              
+              <firebase-element 
+                location="{{ $.globals.location }}/mesas"
+                data="{{ mesasData }}">
+              </firebase-element>
+              
+              <template repeat="{{ k in garconMesasKeys }}">
+                <cozinha-mesas-item mesa="{{mesasData[k] }}" 
+                  mesaKey="{{ k }}" 
+                  from="entregue"></cozinha-mesas-item>
+              </template>
+              
+            </div>
+          </core-header-panel>
+          <cozinha-main descriptionToTitle
+            from="pronto"
+            title="Garçon"
+            currentPage="2"
+            headerColor="#D50000"
+            mesasDescription="com pedidos Prontos"
+            enableToEntregue>
+          </cozinha-main>
+        </core-scaffold>
+      </template>
+      <script>
+        Polymer({
+          currentGarconKey:'garcon1',
+          ready:function()
+          {
+            //hack para tirar o primeiro toolbar
+            document.querySelector('core-scaffold /deep/ core-drawer-panel core-toolbar').setAttribute('hidden','');
+          }
+        })
+      </script>
+    </polymer-element>
