@@ -1,0 +1,100 @@
+<link rel="import" href="../bower_components/core-item/core-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="scope-key-factory.html">
+
+<link rel="import" href="scope-localizacoes-terminal.html">
+
+<polymer-element name="scope-localizacoes">
+<template>
+  <scope-globals id="g"></scope-globals>
+
+  <scope-key-factory id="keyFactory"></scope-key-factory>
+
+  <firebase-element 
+  id="portoBase"
+  location="{{ $.g.data.location }}/portos/{{ $.g.data.filial }}"
+  keys="{{ portosKeys }}"
+  data="{{ portosData }}"></firebase-element>
+
+  <h1>Localização</h1>
+
+  <h4>{{ $.g.data.filial }}</h4>
+  <div layout vertical>
+    <paper-button on-click="{{ addPortoHandler }}" flex raised auto-vertical>
+    <core-icon icon="add"></core-icon>
+    Novo Porto
+  </paper-button>
+
+  <template repeat="{{ portoKey in portosKeys }}">
+    <paper-shadow>
+      <div layout horizontal>
+        <paper-item> 
+        <core-icon
+        class="separe" 
+        icon="maps:map" 
+        portoKey="[[ portoKey ]]" 
+        on-click="{{ removePortoHandler }}">
+      </core-icon>
+          {{ portosData[portoKey].nome }} 
+        </paper-item>
+      </div>
+      <scope-localizacoes-terminal 
+      auto-vertical 
+      portoKey="{{ portoKey }}">
+      </scope-localizacoes-terminal>
+    </template>
+  </paper-shadow>
+  </div>
+
+  <paper-dialog id="dialog" backdrop layout vertical heading="Inserir Porto">
+    <scope-input label="Nome do Porto" 
+      id="portoNomeInput" 
+      on-click="{{ removeError }}" >
+    </scope-input>
+    <paper-button on-click="{{ removePortoHandler }}">
+      <core-icon icon="delete" raised></core-icon>
+    </paper-button>
+    <paper-button on-click="{{ newPortoHandler }}" raised>
+      Confirmar
+    </paper-button>
+  </paper-dialog>
+
+  <style>
+  paper-shadow
+  {
+    background:#FFF;
+    margin:8px;
+  }
+  </style>
+
+  </template>
+  <script>
+  Polymer({
+    removePortoHandler:function(e,d,s)
+    {
+      if(this.currentPortoKey)
+      {
+        var portoKey = this.currentPortoKey;
+        delete this.portosData[portoKey];
+        this.$.portoBase.commit();
+      }
+    },
+    addPortoHandler:function(e,d,s)
+    {    
+      this.currentPortoKey = s.getAttribute('portoKey');
+      this.$.dialog.open();
+    },
+    newPortoHandler:function(e,d,s)
+    {
+      var nome = new String(this.$.portoNomeInput.getValue()).trim();
+      var key = this.$.keyFactory.getKey(nome);
+      var b = this.$.portoBase;
+
+      if(!b.data[key])
+        b.data[key] = {nome:nome};
+      else
+        this.showError = true;
+    }
+  });
+  </script>
+  </polymer-element>

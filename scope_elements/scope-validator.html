@@ -1,0 +1,20 @@
+<polymer-element name="scope-validator">
+  <script>
+    Polymer({
+      testEach:function(params)
+      {
+        Polymer.mixin(this,params);
+        _.each( params.elements,this.testUnique.bind(this) )
+      },
+      testUnique:function(element)
+      {
+        if(!this.caller(this.target[element]))
+        {
+          console.trace("Error at element "+element+":"+( typeof(this.target[element]) )+
+            " is "+(this.target[element])+ 
+            " calling function:"+this.caller.name);
+        }
+      }
+    });
+  </script>
+</polymer-element>

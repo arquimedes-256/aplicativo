@@ -1,0 +1,57 @@
+
+<polymer-element
+  name="scope-tabelaporto-grid-faixadialog" attributes="dialogAte">
+  <template>
+    <paper-dialog id="dialog" transition="core-transition-center" backdrop>
+      <h4>{{ dialogTitle }}</h4>
+      <p>
+      O valor na tabela porto na faixa  até
+        <paper-input value="{{ dialogAte }}" class="ate"></paper-input> é
+        <paper-input
+          id="valueInput"
+          value="{{ ateInputValue }}"></paper-input>
+      </p>
+      <paper-button affirmative autofocus on-click="{{ insertNewFaixa }}">Inserir</paper-button>
+
+      <style>
+      paper-input.ate
+      {
+        width: 30px;
+        text-align: center;
+      }
+    </style>
+    </paper-dialog>
+  </template>
+  <script>
+    Polymer(
+      'scope-tabelaporto-grid-faixadialog',
+      {
+        construct:function(params)
+        {
+          this.dialogDe   = params.de || 0;
+          this.dialogAte  = params.ate;
+          this.dialogTitle = params.title;
+          this.dialogTitle = params.title;
+          this.valueOfNext = params.valueOfNext;
+          this.valueOfPrev = params.valueOfPrev;
+          this.$.valueInput.$.decorator.isInvalid = false;
+          
+          this.$.dialog.open();
+        },
+        destruct:function()
+        {
+          this.$.dialog.close();
+          this.$.valueInput.$.decorator.isInvalid = false;
+        },
+        insertNewFaixa:function()
+        {
+          this.fire('insert-new-faixa',{
+            ate         :this.dialogAte ,
+            value       :parseFloat(this.ateInputValue),
+            valueOfNext :parseFloat(this.valueOfNext),
+            valueOfPrev :parseFloat(this.valueOfPrev)
+          });
+        }
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,49 @@
+
+<link rel="import" href="../cardapio_components/img-card.html">
+
+<polymer-element name="gerencial-produto-item" attributes="produtoKey">
+	<template>
+		<firebase-element 
+			location="{{ $.g.location }}/produtos/{{ produtoKey}}"
+			data="{{ p }}">
+		</firebase-element>
+		<cardapio-globals id="g"></cardapio-globals>
+			<firebase-element
+	      		id="baseImgs"
+	      		location="{{ $.g.location }}/images/{{ p.photo }}"
+	      		data="{{ imgData }}">
+	      	</firebase-element>
+		
+		<paper-shadow z="1" layout 
+			vertical>
+			<img-card data="{{ imgData }}" 
+				></img-card>
+			<scope-input  
+					label="Produto"
+					disabled
+					value="{{ p.nome }}"
+					attributeName="nome"></scope-input>
+				<scope-input disabled
+					label="Quantidade"
+					attributeName="quantidade"
+					isNumeric
+					value="{{ p.quantidade }}">
+				</scope-input>
+		</paper-shadow>
+		<style>
+			paper-shadow
+			{
+				margin: 8px;
+				padding: 8px;
+				background: #FFF;
+			}
+			scope-input /deep/ input, scope-input /deep/ .floated-label {
+				text-align: left !important;
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+		});
+	</script>
+</polymer-element>

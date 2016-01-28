@@ -1,0 +1,319 @@
+
+<script src="../pivottable-master/pivottable-master/dist/pivot.js"></script>
+<script src="../pivottable-master/pivottable-master/dist/pivot.pt.min.js"></script>
+<script src="../scripts/jquery.hottie.js"></script>
+<script src="../scripts/antiscroll.js"></script>
+<script src="../scripts/TweenMax.min.js"></script>
+
+<link rel="import" href="../scope_elements/scope-olap-group.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+
+
+<polymer-element name="gerencial-explorer-item-bi">
+
+    <template>
+<link rel="stylesheet" href="../pivottable-master/pivottable-master/dist/pivot.css">
+<link rel="stylesheet" href="gerencial-explorer-item-bi.css">
+<link rel="stylesheet" href="../scripts/antiscroll.css">
+    <!--
+        <scope-olap-group config="{{config}}" style="float:left" 
+        	on-scope-olap-group-config-changed="{{ olapDimensionConfigChangedHandler }}"></scope-olap-group>
+
+      -->
+      <paper-shadow z="1" relative style="margin:8px">
+        <div style="float:left;overflow:scroll;width: 893px;height: 233px;margin-left: 109px;" z="1" fit >
+              <div id="output"  ></div>
+        </div>
+     </paper-shadow>
+     
+     <template if="{{!isReady}}">
+        <paper-progress style="position:absolute;top:5px;left:109px;" indeterminate></paper-progress>
+     </template>
+
+      <div relative>
+        <paper-shadow 
+            z="1"
+            on-core-change="{{onCoreChange}}" 
+            style="float: left;margin: 0 3px;padding: 5px; 
+            font-size: 11px;position:absolute;top:1px;left:1px;background:#EEEEEE">
+            <div style="font-size: 11px;margin-bottom: 7px;">Desejo usar:</div>
+            <div><paper-checkbox label="Ano"        checked dim="cols"></paper-checkbox> </div>
+            <div><paper-checkbox label="Mês"        checked dim="cols"></paper-checkbox> </div>
+            <div><paper-checkbox label="Categoria" checked dim="rows"></paper-checkbox> </div>
+
+            <div id="propsCheckboxWrap">
+            </div>
+
+            <div><paper-checkbox label="Produto"     dim="rows"></paper-checkbox> </div>
+            <div><paper-checkbox label="Mesa"       dim="rows"></paper-checkbox> </div>
+            
+        </paper-shadow>
+    </div>
+
+
+
+        	<cardapio-globals id="g">
+        	</cardapio-globals>
+        	<firebase-element 
+        		location="{{ $.g.location }}/{{estudo.fato}}"
+                id="fatoBase"
+        		data="{{ estudoData }}"
+        		keys="{{ estudoKeys }}"></firebase-element>
+
+            <firebase-element 
+                location="{{ $.g.location }}/estoque"
+                id="estoqueBase"></firebase-element>
+			<firebase-element 
+				location="{{ $.g.location }}/produtos"
+				data="{{ produtosData }}"
+				keys="{{ produtosKeys }}"></firebase-element>
+			<firebase-element 	
+				location="{{ $.g.location }}/categorias"
+				data="{{ categoriasData }}"
+				keys="{{ categoriasKeys }}"></firebase-element>
+            <firebase-element   
+                location="{{ $.g.location }}/categoria-produtos"
+                data="{{ categoriaProdutosData }}"
+                keys="{{ categoriaProdutosKeys }}"></firebase-element>
+    </template>
+	<script>
+var MesMap = ["01.Jan", "02.Fev", "03.Mar", "04.Abr", "05.Mai", "06.Jun", "07.Jul", "08.Ago", "09.Set", "10.Out", "11.Nov", "12.Nov"]
+
+Polymer({
+	estudo:{
+		fato:'vendas',
+		fatoAggAttribute:'valor'
+	},
+	observe:{'produtosData categoriasData estudoData':'initData'},
+    isReady:false,
+    randTest:function(){
+
+        _.times(999,function(){
+            var randCat = _.sample(this.categoriaProdutosKeys)
+            var randProd = _.sample(_.keys(this.categoriaProdutosData[randCat]))
+            var Q = _.random(1,10);
+
+            //console.log(randCat,randProd)
+            var rowToBase = {
+                prodKey:randProd,
+                catKey : randCat,
+                Produto:    this.produtosData[randProd].nome,
+                Categoria:  this.categoriasData[randCat].nome,
+                Quantidade: Q,
+                valor: Q *  this.produtosData[randProd].preco,
+                Mesa: ["mesa",_.random(1,10)].join(""),
+                data: randomDate(new Date(2015,0,1),new Date(2015,11,31),9,18).getTime()
+            }
+            this.$.fatoBase.push(rowToBase);
+
+            var rowEstoque = {
+                prodKey:randProd,
+                catKey : randCat,
+                Produto : rowToBase.Produto,
+                Categoria : rowToBase.Categoria,
+                Quantidade : -rowToBase.Quantidade,
+                data : rowToBase.data
+            }
+            var rowEstoqueEntrada = {
+                prodKey:randProd,
+                catKey : randCat,
+                Produto : rowToBase.Produto,
+                Categoria : rowToBase.Categoria,
+                Quantidade : rowToBase.Quantidade + _.random(0,1),
+                data : rowToBase.data - _.random(997,1000)*60*60*24*30
+            }
+            this.$.estoqueBase.push(rowEstoque);
+            this.$.estoqueBase.push(rowEstoqueEntrada)
+
+            //console.log(rowEstoque,rowEstoqueEntrada);
+
+        }.bind(this));
+        function randomDate(start, end, startHour, endHour) {
+            var date = new Date(+start + Math.random() * (end - start));
+            var hour = startHour + Math.random() * (endHour - startHour) | 0;
+            date.setHours(hour);
+            return date;
+        }
+    },
+	onCoreChange:function(e){
+        var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        var numberFormat = $.pivotUtilities.numberFormat;
+
+		var newConfig = {};
+		var Checks = this.shadowRoot.querySelectorAll('paper-checkbox[checked]');
+
+		_.each(Checks,function(paperCheckBox){
+			var dim = paperCheckBox.getAttribute('dim');
+			if(!newConfig[dim]) 
+				newConfig[dim] = [];
+			newConfig[dim].push(paperCheckBox.label)
+		})
+		newConfig.aggregator =  sum()(["valor"])
+		this.config = newConfig;
+		this.dataChanged();
+	},
+	initData:function() {
+		this.data = _.values(this.estudoData);
+		//console.log(this.data)
+	},
+	olapDimensionConfigChangedHandler:function(e,config) {
+		//this.config = config;
+		this.dataChanged();
+	},
+    dataChanged: function() {
+        this.isReady = false;
+        this.isPropsReady = false;
+
+        if(!this.data)
+            return;
+
+        var derivers = $.pivotUtilities.derivers;
+        var reportData = this.buildReportData(this.data);
+        var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        var Agg = {} ;
+
+        TweenMax.set(this.$.output,{opacity:0})
+
+
+		if(!this.config)
+			this.config = {
+            rows: ["Categoria","Produto"],
+            cols: ["Ano", "Mes"],
+            aggregator: sum()(["valor"])
+        }
+        //console.log(this.config)
+
+        $(this.$.output).pivot(reportData, this.config , undefined, "pt");
+        var BlueArray = ['#E0F2F1',
+                        '#B2DFDB',
+                        '#80CBC4',
+                        '#4DB6AC',
+                        '#26A69A']
+        $(this.$.output).find('td.pvtVal').hottie({colorArray:BlueArray});
+
+        var YellowArray = ['#FFFDE7',
+                        '#FFF9C4',
+                        '#FFF59D',
+                        '#FFF176',
+                        '#FFEE58'
+                        ];
+        $(this.$.output).find('td.rowTotal').hottie({colorArray:YellowArray});
+        $(this.$.output).find('td.colTotal').hottie({colorArray:YellowArray});
+        
+
+        $(this.$.mainWrap).antiscroll();
+        this.isReady = true;
+        this.isPropsReady = true;
+
+        TweenMax.to(this.$.output,.7,{css:{opacity:1}})
+    },
+    // f : X -> Y
+    buildReportData: function(X) {
+
+        var Y = [];
+        var M = {}; //mapa de propriedades
+
+        _.each(this.produtosData,function(p){
+            _.each(p.propriedades,function(v,prop){
+                M[prop] = true;
+            })
+        });
+
+        var propsCheckboxWrap = this.$.propsCheckboxWrap;
+
+        _.each(M,function(v,prop){
+            var has = propsCheckboxWrap.querySelector('[label="'+prop+'"]')
+            if(!has) {
+                var checkBox = '<div><paper-checkbox label="'+prop+'" dim="rows"></paper-checkbox></div>'
+                propsCheckboxWrap.innerHTML += (checkBox);
+            }
+        })
+
+        _.each(X, function(x) {
+            var y = {};
+            y["Produto"] = x.Produto;
+            y["Categoria"] = x.Categoria;
+            y["Mesa"] = x.Mesa;
+            var mesK = new Date(x.data).getMonth();
+            y["Mês"] = MesMap[mesK];
+            y["Ano"] = new Date(x.data).getFullYear();
+            y['valor'] = x['valor'] || x['Valor'];
+			y['Mesa'] = x['Mesa'];
+
+            _.each(M,function(v,k){
+                var Pdk = this.produtosData[x.prodKey];
+                if(Pdk) {
+                    var P = Pdk.propriedades;
+                    y[k] = new String(P ? P[k] : '-').replace(/^(null|undefined)/g,"-");
+                }
+            }
+            .bind(this))
+            if(y && y['valor'])
+                Y.push(y);
+        }.bind(this));
+        //console.log('Y',Y)
+        return Y;
+    }
+});
+
+function getIntervaloTempo(now, then) {
+    //var now = new Date();
+    //var then = new Date(2014, 3, 1);
+
+    var ms = moment(now, "DD/MM/YYYY HH:mm:ss").diff(moment(then, "DD/MM/YYYY HH:mm:ss"));
+    var d = moment.duration(ms);
+    //var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+    return (d.asHours());
+}
+
+function getQtdDiasMes(dt) {
+    var dateFrom = moment(dt, 'DD/MM/YYYY').endOf('month').format('DD');
+    return parseInt(dateFrom);
+}
+
+function tempoAgg(attributes) {
+    var attr = attributes[0];
+    return function(data, rowKey, colKey) {
+        return {
+            count: 0,
+            push: function(record) {
+                this.count += record[attr];
+            },
+            value: function() {
+                return this.count;
+            },
+            format: function(x) {
+                return Math.round(x) + " h";
+            }
+        };
+    };
+}
+
+function indiceMesAgg(attributes) {
+    var attr = attributes[0];
+    return function(data, rowKey, colKey) {
+        return {
+            sum: 0,
+            count: 0,
+            dias: 0,
+            push: function(record) {
+                this.sum += record[attr];
+                this.dias += record["Qtd dias mes"];
+                this.count++;
+            },
+            value: function() {
+                return (this.sum) / (24 * this.dias * (1 / this.count));
+            },
+            format: function(x) {
+                return (100 * x).toFixed(2) + " %";
+            }
+        };
+    };
+}
+	</script>
+</polymer-element>

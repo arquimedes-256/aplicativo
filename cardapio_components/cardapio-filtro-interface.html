@@ -1,0 +1,97 @@
+<link rel="import" href="cardapio-filtro-links.html">
+
+<polymer-element name="cardapio-filtro-interface">
+	<template>
+			<cardapio-globals id="g">
+			</cardapio-globals>
+			<firebase-element 
+				location="{{ $.g.location }}/categoria-produtos/{{ $.g.data.currentCategoryKey }}"
+				data="{{ categoriaProdutosData }}"
+				on-data-change="{{ onDataChange }}"
+				keys="{{ categoriaProdutosKeys }}"></firebase-element>
+				<firebase-element 
+					location="{{ $.g.location }}/produtos"
+					data="{{ produtosData }}"
+					keys="{{ produtosKeys }}"></firebase-element>
+			<div layout vertical>
+				<template repeat="{{ k in propertyKeys }}">
+					<paper-shadow style="background:#FFF">
+					<h4 style="
+    margin: 7px 0;
+    margin-left: 10px;
+">Por {{k}}</h4>
+					<cardapio-filtro-links propriedade="{{ k }}" 
+					on-set-filtro="{{ setFiltroHandler }}"
+					produtosData="{{produtosData}}"></cardapio-filtro-links>
+					</paper-shadow>
+				</template>
+			</div>
+	</template>
+	<script>
+		Polymer({
+			onDataChange:function()
+			{
+				this.buildKeys();
+			},
+			resetCheckedMap:function()
+			{
+				this.checkedMap = {};
+			},
+			checkedMap:{},
+			setFiltroHandler:function(e,d,s)
+			{
+
+				this.checkedMap[d.key+':'+d.value] = true;
+
+				if(d.value == "undefined")
+					delete this.checkedMap[d.key+':'+d.value];
+
+				//log
+				console.log('setFiltroHandler')
+				console.log(this.checkedMap,d.value)
+			},
+			buildKeys:function()
+			{
+				var props = {};
+				_.each(this.categoriaProdutosKeys,function(prodKey)
+				{
+					//produto
+					var p = this.produtosData[prodKey]; if(!p) return;
+					//cria mapa com Atributo,True, ex: Cor:true,País:true
+					var x = _.invert(_.extend({},_.keys(p.propriedades)));
+					_.each(x,function(v,k)
+					{
+						x[k] = true;
+					})
+					//finaliza criação
+					props = _.extend(props,x);
+					
+				}
+				.bind(this))
+				this.propertyKeys = _.keys(props).reverse();
+
+				this.buildSujs()
+			},
+			buildSujs:function()
+			{
+				var sujs = {};
+
+				_.each(this.categoriaProdutosKeys,function(prodKey)
+				{
+					//produto
+					var p = this.produtosData[prodKey]; if(!p) return;
+					//cria mapa com sujestões
+					var keySuj = _.values(p.propriedades).toString();
+					//se não existe cria
+					if(!sujs[keySuj])
+						sujs[keySuj] = [];
+					//insere valor
+					sujs[keySuj].push(p)
+				}
+				.bind(this))
+
+				this.fire('sujs',{sujs:sujs})
+			}
+		});
+	</script>
+</polymer-element>

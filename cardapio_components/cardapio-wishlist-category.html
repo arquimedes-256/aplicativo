@@ -1,0 +1,284 @@
+<link rel="import" href="cardapio-wishlist-item.html">
+<link rel="import" href="cardapio-globals.html">
+
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+
+<link rel="import" href="../utils/underscore.html">
+
+<polymer-element name="cardapio-wishlist-category"
+attributes="location totalItens currentMesa categoriaKey total from disabledSend disabledMoney useAll">
+  <template>
+    <cardapio-globals id="globals"></cardapio-globals>
+    <paper-shadow relative class="title" horizontal layout on-click="{{ openHandler }}">
+      <paper-ripple fit></paper-ripple>
+      <span>
+        <core-icon icon="{{ currentIcon }}"></core-icon>
+      </span>
+      <div flex cat-name>{{ currentCategoria.nome }}</div>
+      <b middle-t id="total">
+        <template if="{{ !disabledMoney }}">
+          $ {{ total }}
+        </template>
+        <template if="{{ disabledMoney }}">
+          <template if="{{ totalItens > 0 }}">
+            x{{totalItens}}
+          </template>
+          <template if="{{ totalItens == 0 }}">
+            <core-icon icon="check"></core-icon>
+          </template>
+        </template>
+      </b>
+      <template if="{{totalAbertos}}">
+      <paper-button raised id="abertos-button" style="
+position:absolute;left: -5px;min-width: 41px;border-radius: 78px!important;top: 1px;font-size: 12px;font-weight: bold;padding-top: 6px;padding-bottom: 5px;
+      ">
+        {{ totalAbertos }}
+      </paper-button>
+    </template>
+    </paper-shadow>
+    <style>
+    #abertos-button::shadow #shadow {
+      background:#F50057;
+      color: #FFF;
+    }
+    </style>
+
+       <firebase-element
+          id="base"
+          location="{{ location }}/pedidos/{{ currentMesa }}/{{ categoriaKey }}/{{ from }}"
+          keys="{{ pedidosKeys }}"
+          data="{{ pedidosData }}">
+        </firebase-element>
+
+
+    
+
+
+    <firebase-element
+      location="{{ location }}/categorias/{{ categoriaKey }}"
+      data="{{ currentCategoria }}"></firebase-element>
+    <firebase-element
+      location="{{ location }}/produtos/"
+      data="{{ produtosData }}"></firebase-element>
+
+    <core-collapse id="colapse">
+      <template repeat="{{ k in pedidosKeys }}">
+          <cardapio-wishlist-item
+            disabledSend?="{{ disabledSend }}"
+            disabledMoney?="{{ disabledMoney }}"
+            hidden?="{{ pedidosData[k] == 0 && !disabledMoney }}"
+            pedido="{{ pedidosData[k] }}"
+            produtos="{{ produtosData }}"
+            pedidoKey="{{ k }}"
+            categoriaKey="{{categoriaKey}}"
+            on-change-qtd="{{ onChangeQTD }}"
+            from="{{ from }}"
+            fromAll?="{{ fromAll }}">
+          </cardapio-wishlist-item>
+      </template>
+    </core-collapse>
+    <style>
+      :host /deep/ paper-shadow
+      {
+        padding: 10px;
+        margin:8px;
+        background:#FFF;
+      }
+      .title
+      {
+        background:#3E2723;
+        color:#FFF;
+        display:
+        {{ total == 0 ? 'none!important' : 'block' }};
+      }
+      [cat-name] {
+        padding-top: 3px;
+        padding-left: 3px;
+        margin-right: 34px;
+      }
+      [middle-t]
+      {
+        padding-top: 3px;
+        color:#FFF;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+
+    currentIcon:'arrow-drop-down',
+    open:false,
+    useAll:false,
+    itemHidden:true,
+    disabledMoney:false,
+    totalAbertos:0,
+
+    ready:function()
+    {
+
+    },
+    openChanged:function()
+    {
+      if(!this.open)
+       this.currentIcon = 'arrow-drop-down';
+      else
+       this.currentIcon = 'arrow-drop-up';
+
+      this.$.colapse.opened = this.open;
+    },
+    dataChangeHandler:function()
+    {
+      this.job('data-change',function()
+      {
+        this.pedidos = [];
+        this.pedidosKeys = [];
+        this.totalItens = 0;
+
+        var bs = ['aberto','fechado','pronto','entregue'];
+
+        for(var i=0;i<bs.length;i++)
+        {
+          var b = this.$['base_'+bs[i]];
+          var keys = b.keys;
+
+          if(!b)
+            throw new Error('base '+bs[i]+' inexistente');
+
+          if(keys && b.data)
+            for(var j=0;j<keys.length;j++)
+            {
+              var k = keys[j];
+
+              if(!~this.pedidosKeys.indexOf(k))
+              {
+                this.pedidosKeys.push(k);
+              }
+              if(!this.pedidos[k])
+              {
+                this.pedidos[k] = 0;
+              }
+              this.totalItens += b.data[k];
+              this.pedidos[k] += b.data[k];
+            }
+        }
+
+        //console.log(this.pedidosKeys);
+        //console.log(this.pedidos);
+      });
+    },
+    openHandler:function()
+    {
+      this.open = !this.open;
+    },
+    totalChanged:function()
+    {
+      if(this.total == 0 && !this.disabledMoney)
+      {
+        this.open = false;
+      }
+      this.calculeTotalAberto();
+    },
+    calculeTotalAberto:function()
+    {
+        var x = 0;
+
+        var A = this.shadowRoot.querySelectorAll("cardapio-wishlist-item");
+        _.each(A,function(a)
+        {
+          x += (a.pedidosAbertoData | 0)
+        })
+
+        this.totalAbertos = x;
+    },
+    ready:function()
+    {
+      this.total = 0;
+      this.totalItens = 0;
+    },
+    observe:{'pedidos':'onChangeQTD'},
+    produtosDataChanged:function()
+    {
+      if(this.produtosData && !_.isObject(this.produtosData))
+      {
+        throw new Error('produtosData precisa ser um objeto, verifique o documento firebase://produtos/');
+      }
+    },
+    onChangeQTD:function()
+    {
+      this.job('wishlist-calc',function(){
+
+        this.total = 0;
+        this.totalItens = 0;
+        var itens = this.shadowRoot.querySelectorAll('cardapio-wishlist-item');
+        for(var i=0;i<itens.length;i++)
+        {
+          var item = itens[i];
+
+
+          if(item.pedido  && this.produtosData && this.produtosData[item.pedidoKey])
+          {
+            var prod = this.produtosData[item.pedidoKey];
+            var preco = prod.preco;
+
+            this.total+= item.pedido * preco;
+            this.totalItens+= item.pedido;
+          }
+        }
+        //console.log('wishlist-calc');
+      if(this.total != this.lastTotal)
+      {
+         //animação
+          var totalElement = this.$.total;
+          TweenMax.to(totalElement,.5,{css:{color:0xFFD600},onComplete:function()
+          {
+            TweenMax.to(totalElement,1,{css:{color:0xFFFFFF}});
+          }})
+      }
+        this.lastTotal = this.total;
+
+        this.fire('calc');
+
+        this.calculeTotalAberto();
+      });
+
+    },
+    lastTotal:0,
+    putInWishList:function(productKey,checked)
+    {
+      var url = this.location +"/pedidos/"+ this.currentMesa +"/"+ this.categoriaKey +"/";
+
+      var ref = new Firebase(url+this.from);
+
+
+      //console.log('productKey:'+productKey+", checked:"+checked);
+
+      ref.child(productKey).once('value',function(dataSnapShot){
+        if(dataSnapShot.val()) {
+           ref.child(productKey).remove();
+        }
+        else {
+            var p = {};
+            p[productKey] = 1;
+            ref.update(p);
+        }
+      })
+
+     
+      console.log('putInWishList')
+      console.log('url:',url)
+      console.log('checked:',checked,' productKey:',productKey)
+      this.onChangeQTD();
+      this.callCalculateAll();
+    },
+    callCalculateAll:function()
+    {
+      var cardapioWishListCategory = document.querySelector('* /deep/ cardapio-wishlist-element[id="all"]');
+      if(!cardapioWishListCategory)
+        throw new Error('precisa existir um cardapio-wishlist-category');
+      
+      cardapioWishListCategory.calculateAll();
+    }
+    })
+    </script>
+  </polymer-element>

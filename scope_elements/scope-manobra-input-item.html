@@ -1,0 +1,134 @@
+
+<link href="../bower_components/paper-dropdown/paper-dropdown.html" rel="import">
+<link href="../bower_components/paper-item/paper-item.html" rel="import">
+<link href="../bower_components/core-icon-button/core-icon-button.html" rel="import">
+
+<link href="../bower_components/core-dropdown/core-dropdown.html" rel="import">
+<link href="../bower_components/core-menu/core-menu.html" rel="import">
+
+<polymer-element name="scope-manobra-input-item" attributes="manobrasData rebocadoresKeys rebocadoresData rebocadoresEmManobras manobraKey">
+  <template>
+
+     <div relative>
+      <div layout horizontal wrap>
+        <div layout horizontal flex two>
+          <scope-map-input floatingLabel 
+            path="manobras" 
+            value="{{ manobraKey }}"
+            attributeName="manobraKey" 
+            label="Manobra"
+            on-select-key="{{ onSelectManobra }}" flex>
+          </scope-map-input>
+          
+          <paper-button button-action on-click="{{ deleteManobra }}"
+            raised id="delete"
+            flex>
+            <core-icon icon="delete"></core-icon> Manobra
+          </paper-button>
+          
+          <paper-button raised button-action
+                flex id="add"
+                on-click="{{ addRebocadorHandler }}">
+                <core-icon icon="add"></core-icon> Rebocador
+          </paper-button>
+
+        </div>
+      </div>
+      <div layout vertical>
+        <template repeat="{{ r in rebocadoresEmManobras[manobraKey] }}">
+          <div relative>
+            
+            <paper-item rebocador on-click="{{ openDropDown }}" key="[[ r ]]">
+              <core-icon icon="arrow-drop-down"></core-icon>
+              {{ rebocadoresData[r].nome }}
+            </paper-item>
+            
+            <core-dropdown id="dropDown" class="open-below" key="[[ r ]]">
+              <core-menu class="menu">
+                  <paper-item r-key="[[ r ]]" on-click="{{ deleteRebocador }}" layout center>
+                    <core-icon icon="delete"></core-icon>
+                  </paper-item>
+                  <template repeat="{{ k in _rebocadoresEmManobra }}">
+                    <paper-item 
+                      on-click="{{ selectKeyHandler }}" 
+                      key="[[ k ]]" r-key="[[ r ]]">
+                      {{ rebocadoresData[k].nome }}</paper-item>
+                  </template>
+              </core-menu>
+            </core-dropdown>
+          </div>
+        </template>
+            
+      </div>
+    </div>
+    <style>
+      [button-action]
+      {
+        height: 45px;
+        margin-top: 17px;
+        margin-left: 9px;
+        color:#FFF;
+      }
+      #delete
+      {
+        background: #D50000;
+      }
+      #add
+      {
+        background: #1B5E20;
+      }
+      core-dropdown
+      {
+        padding:0!important;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      rebocadoresKeysChanged:function()
+      {
+        this._rebocadoresEmManobra = 
+        _.difference(this.rebocadoresKeys,this.rebocadoresEmManobras[this.manobraKey]);
+      },
+      openDropDown:function(e,d,s)
+      {
+        var s = '[id="dropDown"][key="'+s.getAttribute('key')+'"]';
+        var el = this.shadowRoot.querySelector(s);
+        this.closeOthers();
+        el.opened = true;
+      },
+      closeOthers:function()
+      {
+        var els = document.querySelectorAll('html /deep/ [id="dropDown"]');
+        for(var i=0;i<els.length;i++)
+          els[i].opened = false;
+      },
+      selectKeyHandler:function(e,d,s)
+      {
+        var key   = s.getAttribute('key');
+        var rKey  = s.getAttribute('r-key');
+        
+        this.fire('select-rebocador',{manobraKey:this.manobraKey,rebocadorKey:key,oldRebocadorKey:rKey});
+      },
+      deleteRebocador:function(e,d,s)
+      {
+        var rKey  = s.getAttribute('r-key');
+
+        this.fire('delete-rebocador',{manobraKey:this.manobraKey,rebocadorKeyToDelete:rKey});
+
+      },
+      addRebocadorHandler:function(e,d,s) 
+      {
+        this.fire('add-rebocador',{manobraKey:this.manobraKey}) 
+      },
+      onSelectManobra:function(e,d,s)
+      {
+        this.fire('select-manobra',_.extend(d,{oldManobraKey:this.manobraKey}));
+      },
+      deleteManobra:function(e,d,s)
+      {
+        this.fire('delete-manobra',{manobraKey:this.manobraKey})
+      }
+    })
+  </script>
+</polymer-element>

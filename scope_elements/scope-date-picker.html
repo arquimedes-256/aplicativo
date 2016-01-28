@@ -1,0 +1,77 @@
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker-dialog.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
+
+<polymer-element name="scope-date-picker" attributes="value label attributeName">
+  <template>
+
+    <paper-input
+      floatingLabel
+      label="{{ label }}"
+      value="{{ value | formatData }}"
+      disabled
+      on-click="{{  openDialogHandler }}"></paper-input>
+    <!-- razões de otimização -->
+    <template if="{{ datePickerLock }}">
+      <paper-date-picker-dialog 
+        id="datePicker"
+        on-value-changed="{{ pickDateHandler }}"
+        value="{{ _value }}"></paper-date-picker-dialog>
+    </template>
+    <style>
+      paper-input /deep/ input , paper-input /deep/ .floated-label
+      {
+        text-align: right;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      ready:function()
+      {
+        
+      },
+      openDialogHandler:function()
+      {
+        this.datePickerLock = true;
+        this.async(function()
+        {
+          this.shadowRoot.querySelector('#datePicker').open();
+        },100 * PHI);
+      },
+      valueChanged:function(v,vn)
+      {
+        this._value = new Date(v || this.value).toISOString()
+      },
+      formatData:function(v)
+      {
+        var d = new Date(v);
+        return ( (d.getDate()) + "/" + (d.getMonth()+1) + "/"+ d.getFullYear() );
+      },
+      pickDateHandler:function()
+      {
+        this.async(function()
+        {
+          var d = this.shadowRoot.querySelector('#datePicker').value;
+          var f = d.getTime();
+          this.valueChanged(f);
+
+          this.fire('set-value',{value:f,attributeName:this.attributeName});
+        });
+      },
+
+      /** filters getters **/
+      getYear:function(v)
+      {
+        return new Date(v).getFullYear();
+      },
+      getMonth:function(v)
+      {
+        return new Date(v).getMonth()+1;
+      },
+      getDate:function(v)
+      {
+        return new Date(v).getDate();
+      }
+    });
+  </script>
+</polymer-element>

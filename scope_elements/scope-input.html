@@ -1,0 +1,101 @@
+
+<link rel="import" href="../bower_components/paper-input/paper-autogrow-textarea.html">
+
+<polymer-element name="scope-input"
+attributes="isNumeric value label attributeName error isInvalid disabled autoFocus useTextarea key">
+  <template>
+  
+  <template if="{{ !useTextarea }}">
+    <paper-input
+      floatingLabel
+      label="{{ label }}"
+      value="{{ _value }}"
+      on-blur="{{ fireBlur }}"
+      disabled?="{{ disabled }}"
+      id="input"
+      ></paper-input>
+    </template>
+    
+    <template if="{{ useTextarea }}">
+      <paper-input-decorator floatingLabel label="{{ label }}" style="min-height:120px">
+        <paper-autogrow-textarea layout vertical style="min-height:100px">
+          <textarea 
+            flex
+            disabled?="{{ disabled }}"
+            on-blur="{{ fireBlur }}"
+            value="{{ _value }}"></textarea>
+        <paper-autogrow-textarea>
+      </paper-input-decorator>
+    </template>
+
+      <style>
+        paper-input /deep/ input, paper-input /deep/ .floated-label {
+          text-align: {{ (isNumeric ) ? 'right' : 'left' }}
+        }
+      </style>
+  </template>
+  <script>
+    Polymer({
+      isNumeric:false,
+      isInvalid:false,
+      disabled:false,
+      floatingLabel:true,
+      autoFocus:false,
+      useTextarea:false,
+      _value: this.isNumeric ? 0 : '',
+      fireBlur:function() { this.fire('blur'); },
+      ready:function()
+      {
+        
+      },
+      autoFocusChanged:function()
+      {
+        
+      },
+      valueChanged:function(o,n)
+      {
+        this._value = n;
+      },
+      setValue:function(v)
+      {
+        this._value = v;
+      },
+      getValue:function()
+      {
+        return this._value;
+      },
+      isInvalidChanged:function()
+      {
+        this.$.input.$.decorator.isInvalid = this.isInvalid
+      },
+      errorChanged:function()
+      {
+        this.$.input.$.decorator.error    = this.error;
+      },
+      _valueChanged:function(o,n)
+      {
+        this.job('set-value',function()
+        {
+          this.isInvalid = false;
+
+          var a = n;
+          var b = parseFloat(a);
+
+          if(this.isNumeric) 
+          {
+            if(_.isNaN(b)) {
+              this._value = parseFloat(a = o);
+            } else {
+              a = b;
+            } 
+          }
+          //console.log('a:'+a,'b:'+b,'n:'+n,'o:'+o)
+          this.fire('set-value',{value:a,attributeName:this.attributeName,key:this.key});
+
+
+        },
+        500 * PHI);
+      }
+    })
+  </script>
+</polymer-element>

@@ -1,0 +1,160 @@
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-transition/core-transition-css.html">
+<link rel="import" href="../bower_components/core-overlay/core-overlay.html">
+
+<link rel="import" href="scope-manobra-input.html">
+
+<polymer-element name="scope-operacao-item" attributes="operacaoKey disabledEditButton">
+  <template>
+    <scope-globals id="g"></scope-globals>
+    
+    <firebase-element 
+      location="{{ $.g.data.location }}/operacoes/{{ $.g.data.filial }}/{{ $.g.data.ano }}/{{ $.g.data.mes }}/{{ operacaoKey }}"
+      data="{{ o }}"
+      id="baseOperacao">
+    </firebase-element>
+    
+    <paper-shadow 
+      on-select-key="{{ selectKeyHandler }}" 
+      on-commit="{{ commitHandler }}">
+      
+      <paper-input 
+        label="Dia da manobra" floatingLabel value="{{ o.diaManobra }}" disabled>
+      </paper-input>
+
+      <scope-map-input 
+        path="operacoes-status"
+        label="Status" 
+        floatingLabel 
+        value="{{ o.status }}" 
+        attributeName="status"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+
+      <scope-map-input 
+        path="contratos/{{ $.g.data.filial }}"
+        label="Contrato" 
+        floatingLabel 
+        value="{{ o.contrato }}" 
+        nomeFactory="{{ contratoNomeFactory }}"
+        attributeName="contrato"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+
+      <scope-map-input
+        path="navios"
+        label="Navio" floatingLabel value="{{ o.navio }}"
+        attributeName="navio"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+      <scope-map-input 
+        path="empresas"
+        label="Agencia" 
+        floatingLabel 
+        value="{{ o.agencia }}" 
+        attributeName="agencia"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+      <scope-map-input
+        path="empresas"
+        label="Armador" 
+        floatingLabel 
+        value="{{ o.armador }}" 
+        attributeName="armador"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+      <scope-map-input 
+        path="terminais"
+        label="Terminal" 
+        floatingLabel 
+        value="{{ o.terminal }}"
+        attributeName="terminal"
+        disabled?="{{ !disabledEditButton }}">
+      </scope-map-input>
+
+      
+      <paper-input 
+        label="Faturado Dolar" floatingLabel value="{{ o.vlrFaturadoDolar }}" disabled>
+      </paper-input>
+      <paper-input 
+        label="Faturado Real" floatingLabel value="{{ o.vlrFaturadoReal }}" disabled>
+      </paper-input>
+      <paper-input 
+        label="Carta de Crédito" floatingLabel value="{{ o.vlrCartaCredito }}" disabled>
+      </paper-input>
+      <paper-input 
+        label="Desconto Nota" floatingLabel value="{{ o.vlrDescontoNota }}" disabled>
+      </paper-input>
+      <paper-input 
+        label="Dólar do dia" floatingLabel value="{{ o.vlrDolar }}" disabled>
+      </paper-input>
+      
+      <scope-manobra-input 
+        value="{{ o.manobras }}" 
+        on-select-rebocador="{{ selectRebocadorHandler }}">
+      </scope-manobra-input>
+      
+      <template if="{{ !disabledEditButton }}">
+        <div horizontal end-justified layout tool-bar>
+          <paper-button raised on-click="{{ clickHandler }}">
+            <core-icon icon="create"></core-icon>Editar
+          </paper-button>
+        </div>
+      </template>
+      
+  </paper-shadow>
+  <style>
+      [tool-bar]
+      {
+        padding-bottom: 14px;
+      }
+      paper-shadow
+      {
+        margin-left:5px;
+        margin-right:5px;
+        padding-left:8px;
+        padding-right:8px;
+        background:#fff;
+        margin-top:10px;
+        padding-bottom: 10px;
+        padding-top:10px;
+        margin-bottom:10px;
+      }
+  </style>
+  </template>
+  <script>
+    Polymer({
+      disabledEditButton:false,
+      selectKeyHandler:function(e,d,s)
+      {
+        this.o[d.attributeName] = d.value;
+      },
+      clickHandler:function()
+      {
+        this.fire('edit',{operacao:this.o,operacaoKey:this.operacaoKey})
+      },
+      commitHandler:function()
+      {
+          this.$.baseOperacao.commit();
+      },
+      contratoNomeFactory:function(contrato)
+      {
+        if(contrato)
+          return contrato.$key 
+            +"-"+contrato.tipoFaturamento
+            +"-"+contrato.maxDesconto
+            +" de "+contrato.dataInicio
+            +" até "+contrto.dataFim;
+      },
+      selectRebocadorHandler:function(e,d,s)
+      {
+        if(!this.o.manobras[d.manobraKey][d.rebocadorKey])
+        {
+          delete this.o.manobras[d.manobraKey][d.oldRebocadorKey];
+          this.o.manobras[d.manobraKey][d.rebocadorKey] = true;
+          this.$.baseOperacao.commit();
+        }
+      }
+    });
+  </script>
+</polymer-element>

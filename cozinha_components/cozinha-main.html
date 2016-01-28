@@ -9,7 +9,7 @@
 
 
 <polymer-element name="cozinha-main"
-  attributes="from title currentPage headerColor mesasDescription permissions">
+  attributes="icon from to title currentPage headerColor mesasDescription permissions">
   <template>
     <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
     <firebase-element
@@ -18,7 +18,7 @@
     <core-scaffold>
       <core-header-panel navigation flex mode="seamed">
         <core-toolbar>
-          <core-icon icon="maps:local-restaurant">
+          <core-icon icon="{{ icon }}">
           </core-icon>{{ title }}
         </core-toolbar>
         <span table-name>
@@ -29,6 +29,7 @@
           permissions="{{ permissions }}"
           currentPage="{{ currentPage }}"
           ></cardapio-wishlist-main>
+
       </core-header-panel>
       <div tool>Mesas {{ mesasDescription }}</div>
       <div>
@@ -60,6 +61,7 @@
   <script>
     Polymer({
       headerColor:'#AD1457',
+      icon:'maps:local-restaurant',
       ready:function()
       {
         this.color = colors[0];

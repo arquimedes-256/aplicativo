@@ -1,0 +1,144 @@
+<link rel="import" href="scope-manobra-input-item.html">
+
+<polymer-element name="scope-manobra-input" attributes="value manobrasKeys">
+  <template>
+    <scope-globals id="g"></scope-globals>
+
+    <firebase-element 
+      location="{{ $.g.data.location }}/manobras" 
+      data="{{ manobrasData }}"></firebase-element>
+    
+    <firebase-element 
+      location="{{ $.g.data.location }}/rebocadores" 
+      data="{{ rebocadoresData }}"
+      keys="{{ rebocadoresKeys }}"></firebase-element>
+      
+    <firebase-element 
+      location="{{ $.g.data.location }}/posicao-rebocador/{{ $.g.data.filial }}"
+      keys="{{ rebocadoresEmPosicaoKeys }}">
+    </firebase-element>
+      
+    <h4>Manobras:</h4>
+    <div layout vertical>
+      <paper-button raised on-click="{{ addManobrasHandler }}" id="add">
+        <core-icon icon="add"></core-icon> 
+        Adicionar Manobra
+      </paper-button>
+      <template repeat="{{ m in manobrasKeys }}">
+
+        <scope-manobra-input-item
+          on-add-rebocador="{{ addRebocadorHandler }}"
+          on-select-manobra="{{ selectManobraHandler }}"
+          on-delete-manobra="{{ deleteManobraHandler }}"
+          on-delete-rebocador="{{ deleteRebocadorHandler }}"
+          manobrasData="{{manobrasData}}" 
+          rebocadoresData="{{rebocadoresData}}" 
+          rebocadoresKeys="{{rebocadoresKeys}}"
+          rebocadoresEmManobras="{{rebocadoresEmManobras}}" 
+          manobraKey="{{m}}">
+        </scope-manobra-input-item>
+
+      </template>
+    </div>
+    <style>#add{margin-bottom:10px;}</style>
+  </template>
+  <script>
+    Polymer({
+      valueChanged:function()
+      {
+        this.manobrasKeys = _.keys(this.value);
+        
+        this.rebocadoresEmManobras = {};
+        
+        for(var i=0;i<this.manobrasKeys.length;i++)
+        {
+          var k = this.manobrasKeys[i];
+          if(!this.rebocadoresEmManobras[k])
+            this.rebocadoresEmManobras[k] = _.keys(this.value[k]);
+        }
+      },
+      addRebocadorHandler:function(e,d,s)
+      {
+        var r = this.getNewRebocador(d.manobraKey);
+
+        if(r && this.value[d.manobraKey])
+        {
+          this.value[d.manobraKey][r] = true;
+          this.fire('commit');
+        }
+      },
+      deleteRebocadorHandler:function(e,d,s)
+      {
+        delete this.value[d.manobraKey][d.rebocadorKeyToDelete];
+        this.fire('commit');
+      },
+      getNewRebocador:function(manobraKey,more)
+      {
+        var rebocadoresEmManobra 
+                  = _.keys(this.value[manobraKey]);
+        var list  = _.difference(this.rebocadoresKeys,rebocadoresEmManobra);
+        var x1    = _.intersection(list,this.rebocadoresEmPosicaoKeys);
+        
+        if(x1.length)
+          return more ? x1   : x1[0];
+        else if(list.length)
+          return more ? list : list[0];
+        else return null;
+      },
+      getRebocadorProprio:function()
+      {
+        return this.rebocadoresEmPosicaoKeys[0];
+      },
+      addManobrasHandler:function (e,d,s) 
+      {
+        if(!this.value)
+        {
+          var r = this.getRebocadorProprio();
+
+          this.value = {atracacao:{}};
+          this.value.atracacao[r] = true;
+          this.fire('commit');
+        }
+        else
+        { 
+          var myyManobras = _.keys(this.value);
+          var allManobras = _.keys(this.manobrasData);
+          var difManobras = _.difference(allManobras,myyManobras);
+
+          var rebocadorToUse = this.getRebocadorProprio();
+
+          if(!rebocadorToUse) 
+            throw new Error('Não existe rebocador próprio em sua Filial :'+this.$.g.data.filial);
+          
+          if(difManobras.length)
+          {  
+            this.value[difManobras[0]] = {},
+            this.value[difManobras[0]][rebocadorToUse] = true,
+            this.fire('commit');
+          }
+        }
+      },
+      selectManobraHandler:function(e,d,s)
+      {
+        var newManobraKey = d.value;
+        var oldManobraKey = d.oldManobraKey;
+
+        if(!this.value[newManobraKey])
+        {
+          this.value[newManobraKey] = this.value[oldManobraKey];
+          delete this.value[oldManobraKey];
+          this.fire('commit');
+        }
+      },
+      deleteManobraHandler:function(e,d,s)
+      {
+        var manobraKey = d.manobraKey;
+        if(this.value[manobraKey])
+        {
+          delete this.value[manobraKey];
+          this.fire('commit');
+        }
+      }
+    });
+  </script>
+</polymer-element>

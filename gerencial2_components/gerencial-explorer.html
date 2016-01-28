@@ -1,0 +1,29 @@
+<polymer-element name="gerencial-explorer" attributes="estudos estudos2">
+	<template>
+		<div layout horizontal wrap>
+			<template repeat="{{ e in estudos }}">
+				<gerencial-explorer-item estudo="{{ e }}" 
+					flex>
+				</gerencial-explorer-item>
+			</template>
+		</div>
+		<div layout horizontal wrap>
+			<template repeat="{{ e in estudos2 }}">
+				<gerencial-explorer-item estudo="{{ e }}" 
+					flex>
+				</gerencial-explorer-item>
+			</template>
+		</div>
+		<style>
+			:host
+			{
+				display:block;
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+
+		});
+	</script>
+</polymer-element>

@@ -1,0 +1,68 @@
+<polymer-element name="scope-olap-dimension-item" 
+	attributes="item index label dimLength buttonBackground"
+	layout >
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-button
+			{
+				background:{{buttonBackground}}!important;
+				color:#000;
+				min-width: 7px;
+			}
+		</style>
+		<template if="{{ fontSize  }}">
+			<style>
+				paper-button {
+					  font-size: {{ fontSize }}
+				}
+			</style>
+		</template>
+
+		<template repeat="{{ i in indexArray }}">
+			<paper-button 
+				auto-vertical?="{{ label == 'Linhas' }}"
+				raised flex role="button" tabindex="0" 
+				on-click="{{ clickHandler }}"
+				>{{ item }}<sub>{{ i == indexArray.length-1 ? 'n' : i }}</sub></paper-button>
+		</template>
+	</template>
+	<script>
+		Polymer({
+			buttonBackground:'#0000d5',
+			clickHandler:function()
+			{
+				this.fire('click-item',{item:this.item});
+			},
+			indexChanged:function()
+			{
+				var n = this.index+1;
+				var	m = this.dimLength;
+
+				this.indexArray = new Array(n);
+
+				var w3,w4,w5,w6;
+
+				w3 = w4 = w5 = w6 = 1;
+
+				var N_to_FS = {
+					"3": 13 * w3,
+					"4": 10 * w4,
+					"5": 8	* w5,
+					"6": 8	* w6
+				};
+
+				if(N_to_FS[n])
+					this.fontSize = N_to_FS[n]+'px';
+				else
+					this.fontSize = null;
+			},
+			indexArrayChanged:function()
+			{
+				
+			}
+		});
+	</script>
+</polymer-element>

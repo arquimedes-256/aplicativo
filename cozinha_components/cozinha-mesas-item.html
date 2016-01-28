@@ -11,12 +11,13 @@
       data="{{ categoriasData }}"
       keys="{{ categoriasKeys }}"></firebase-element>
 
+      <firebase-element
+      location="{{ $.globals.location }}/produtos/"
+      id="baseProdutos"
+      ></firebase-element>
 
     <template repeat="{{ categoriaK in categoriasKeys }}">
 
-      <firebase-element
-      location="{{ $.globals.location }}/produtos/{{ categoriaK }}"
-      categoria="{{categoriaK}}"></firebase-element>
 
       <firebase-element
         location="{{ $.globals.location }}/pedidos/{{ mesaKey }}/{{ categoriaK }}/{{ from }}"
@@ -29,21 +30,32 @@
 
 
     <paper-shadow
-      transparent?="{{ total == 0 }}"
       on-click="{{ setToCurrent }}" layout horizontal main
       z="{{ total > 0 ? 3 : 1 }}">
       <paper-ripple fit></paper-ripple>
-      
       <div layout vertical>
         <div>
+        
+      <paper-shadow 
+      style="background:#263238
+;top: -10px;position: relative;left: -14px;width: 114%;min-width: 209px;">
+      <img  style="
+          width: 32px;
+          margin-top: 3px;
+          margin-left: 3px;
+      "
+      src="../imgs/mesa.png"/><span table-name style="color:#FFF;position: relative;top: -10px;">{{ mesa.name }}</span>
+
           <core-icon 
+          style="position:absolute;right:3px;top:8px;"
           hidden?="{{ !(mesa.alertTo == from) }}" 
           id="notification" 
           icon="social:notifications-on"></core-icon>
-        
-          <span table-name>{{ mesa.name }}</span>
+<paper-ripple fit></paper-ripple>
+      </paper-shadow>
+          
         </div>
-          <cardapio-wishlist-element
+          <cardapio-wishlist-element 
             id="[[ from ]]"
             from="{{ from }}"
             to="{{ to }}"
@@ -52,7 +64,6 @@
             disabledSend="{{ permissions[from]  &&  permissions[from].disabledSend }}"
             >
           </cardapio-wishlist-element>
-          
         </div>
       
       <!--  disabledSend="{{  permissions[e.from] && permissions[e.from].disabledSend }}"
@@ -125,38 +136,44 @@
       },
       dataChangeHandler:function()
       {
+        if(!this.$.baseProdutos.data)
+        {  
+          this.$.baseProdutos.queryChanged();
+          return;
+        }
+
         this.total = 0;
 
         var baseList = this.shadowRoot.querySelectorAll('firebase-element[pedidos]');
 
         for(var i=0; i<baseList.length; i++)
         {
-
           var base = baseList[i];
-
-          var baseProdutos = this.shadowRoot
-            .querySelector('firebase-element[categoria="'+
-              base.getAttribute('categoria')+'"]');
-
           var baseData = base.data;
           var baseKeys = base.keys;
 
-          baseKeys&&baseKeys.forEach(function(key)
-          {
-            var produto = baseProdutos.data[key];
-            this.total += (baseData[key] * produto.preco);
-          }.bind(this));
+
+          if(baseKeys && baseData)
+            baseKeys.forEach(function(key)
+            {
+              var produto = this.$.baseProdutos.data[key];
+              this.total += (baseData[key] * produto.preco);
+            }
+            .bind(this));
 
         }
       },
       setToCurrent:function()
       {
-        this.fire('cozinha-mesas-item-set-table',
-          {
-            mesa:this.mesa,
-            mesaKey:this.mesaKey,
-            color:this.color
-          });
+        this.async(function(){
+
+          this.fire('cozinha-mesas-item-set-table',
+            {
+              mesa:this.mesa,
+              mesaKey:this.mesaKey,
+              color:this.color
+            });
+        },2000*PHI)
       }
     });
   </script>

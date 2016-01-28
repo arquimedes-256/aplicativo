@@ -1,0 +1,44 @@
+<script src="../bower_components/pivottable/dist/pivot.js"></script>
+<link rel="import" href="gerencial-relatorios-vendas.html">
+
+<polymer-element name="gerencial-relatorios" attributes="config">
+	<template>
+		<paper-tabs selected="{{ currentPage }}">
+		  <paper-tab>Vendas</paper-tab>
+		  <paper-tab>Fluxo de Estoque</paper-tab>
+		</paper-tabs>
+
+		<core-animated-pages selected="{{ currentPage }}" transitions="slide-from-right">
+		  <section>
+		  	<gerencial-relatorios-vendas config="{{ config }}">
+		  	</gerencial-relatorios-vendas>
+		  </section>
+		  <section>
+		  	Conteúdo fluxo de estoque 
+		  </section>
+		</core-animated-pages>
+		<style>
+		  /** 
+		  colorir pivot tables headers */
+			* /deep/ .pvtAxisLabel, * /deep/ #output th:empty {
+				background:#0000D5 !important;
+				color:#FFF!important;
+				border-color:#4527A0 !important;
+			}
+			*/deep/ th.pvtColLabel {
+			  background: #e6EEEE !important;
+			  color:#000!important;
+			}
+			paper-tabs 
+			{
+				background: #D50000;
+  				color: #FFF;
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			currentPage:0,
+		});
+	</script>
+</polymer-element>

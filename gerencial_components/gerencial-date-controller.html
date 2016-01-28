@@ -1,0 +1,81 @@
+  <link href="../bower_components/core-dropdown/core-dropdown.html" rel="import">
+  <link href="../bower_components/core-icons/core-icons.html" rel="import">
+  <link href="../bower_components/core-icon-button/core-icon-button.html" rel="import">
+  <link href="../bower_components/core-item/core-item.html" rel="import">
+  <link href="../bower_components/core-menu/core-menu.html" rel="import">
+
+  <link href="../bower_components/core-dropdown-menu/core-dropdown-menu.html" rel="import">
+
+<polymer-element name="gerencial-date-controller" attributes="">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			* /deep/ core-dropdown-menu {
+		      box-sizing: border-box;
+		      width: 170px;
+		    }
+
+		    * /deep/ core-dropdown {
+		      box-sizing: border-box;
+		      min-width: 170px;
+		      background-color: #eee;
+		      color: #000;
+		      border: 1px solid #ccc;
+		      border-radius: 3px;
+		    }
+
+		    core-item {
+		      overflow: hidden;
+		      white-space: nowrap;
+		      text-overflow: ellipsis;
+		    }
+		</style>
+		<div layout vertical on-set="{{ setHandler }}">
+			<scope-combo 
+				values="{{ years }}" 
+				attributeName="year"
+				label="Selecione o Ano"></scope-combo>
+			<scope-combo 
+				values="{{ months }}" 
+				attributeName="month"
+				label="Selecione o Mês"></scope-combo>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			years:['2013','2014','2015'],
+			months:['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto',
+			'Setembro','Outubro','Novembro','Dezembro'],
+			observe:
+				{'year month':'build'},
+			ready:function()
+			{
+				this.build();
+			},
+			build:function() 
+			{
+				if(_.isUndefined(this.month) || _.isUndefined(this.year))
+					return;
+
+				var m = this.months.indexOf(this.month)+1;
+				var y = parseInt(this.year);
+				var firstDay 	= new Date(this.year,	m , 1);
+				var lastDay 	= new Date(this.year, 	m + 1, 0);
+
+				var d = {
+					firstDay:firstDay.getTime(),
+					lastDay:lastDay.getTime()
+				}
+
+				this.fire('set-date',d);
+
+			},
+			setHandler:function(e,d,s)
+			{
+				this[d.attributeName] = d.key;
+			}
+		});
+	</script>
+</polymer-element>

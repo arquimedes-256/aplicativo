@@ -1,0 +1,112 @@
+<polymer-element name="scope-insert-dialog" 
+attributes="nameModel pathModel pathParentModel parentKey" layout vertical>
+	<template>
+
+	<!-- utils -->
+	<scope-globals id="g"></scope-globals>
+	<scope-key-factory id="keyFactory"></scope-key-factory>
+	
+	<firebase-element 
+	location="{{ $.g.data.location }}/{{ pathParentModel }}/{{ $.g.data.filial }}/{{ parentKey }}/{{ pathModel }}"
+	data="{{ parentChildData }}"
+	keys="{{ parentChildKeys }}"
+	id="parentChildPathBase">
+	</firebase-element>
+
+	<firebase-element 
+	location="{{ $.g.data.location }}/{{ pathModel }}"
+	data="{{ modelData }}"
+	id="modelBase">
+	</firebase-element>
+
+	<!-- dialog -->
+	<paper-dialog id="dialog" backdrop layout vertical 
+	heading="{{ editMode ? 'Editar' : 'Inserir'  }} {{ nameModel }}">
+		<scope-input 
+			auto-vertical 
+			label="Nome do {{nameModel}}" 
+			id="modelNomeInput" 
+			isInvalid?="{{ showDialogError }}"
+			error="{{nameModel}} já cadastrado!">
+		</scope-input>
+		<div layout horizontal>
+			<paper-button 
+					on-click="{{ removeHandler }}"> <core-icon icon="delete"></core-icon> </paper-button>
+			<paper-button raised
+				on-click="{{ newHandler }}">Confirmar</paper-button>
+		</div>
+	</paper-dialog>   
+
+	<!-- insert button -->
+	<paper-button raised flex
+		auto-vertical
+		on-click="{{ addHandler }}">
+		<core-icon icon="add"></core-icon> Inserir {{nameModel}}  
+	</paper-button>
+
+	<!-- loop itens -->
+	<template repeat="{{ k in parentChildKeys }}">
+		<div layout horizontal auto-vertical>
+			<paper-item 
+				flex 
+				on-click="{{ editHandler }}" 
+				key="[[ k ]]"> 
+					<core-icon
+					class="separe" 
+					icon="maps:place"></core-icon>
+					{{ modelData[k].nome }}
+			</paper-item>
+		</div>
+	</template>
+
+	</template>
+	<script>
+		Polymer({
+			editMode:false,
+			addHandler:function(e,d,s)
+			{
+				this.editMode = false;
+				this.$.dialog.open();
+			},
+			newHandler:function(e,d,s)
+			{
+				var nome = new String(this.$.modelNomeInput.getValue()).trim();
+				var key = this.editMode  ? this.currentKey : this.$.keyFactory.getKey(nome) ;
+				var b = this.$.modelBase;
+
+				if( (!b.data[key] && !this.editMode) || (b.data[key] && this.editMode) ) 
+					b.data[key] = {nome:nome};
+				else
+					this.showDialogError = true;//console.log('b.data[key]',b.data[key],'editMode:',this.editMode);
+
+				if(!this.parentChildData)
+					this.parentChildData = {};
+
+				this.parentChildData[key] = true;
+				this.$.parentChildPathBase.commit();
+			},
+			removeTerminalHandler:function(e,d,s)
+			{
+				var key = s.getAttribute('terminalKey');
+				delete this.parentChildData[key];
+				delete this.$.modelBase[key];
+				this.$.modelBase.commit();
+			},
+			editHandler:function(e,d,s)
+			{
+				var key = this.currentKey = s.getAttribute('key');
+
+				this.editMode = true;
+
+				if(key) {
+					var nome = this.modelData[key].nome
+					if(nome) { 
+						this.$.modelNomeInput.setValue(nome);
+						this.$.dialog.open();
+					}
+				} 
+			},
+			
+		});
+	</script>
+</polymer-element>

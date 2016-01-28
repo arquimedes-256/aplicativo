@@ -1,0 +1,20 @@
+
+<polymer-element name="gerencial-explorer-item-cozinha">
+	<template>
+	<chart-doughnut 
+    values="{{ dataSet }}" 
+    labels='{{ labels }}'
+    colors="{{colors}}"
+    style="
+    position: relative;
+    top: 34px;
+    left: -2px;
+"></chart-doughnut>
+
+	</template>
+	<script>Polymer({
+		dataSet:[70, 30],
+		colors:['#006064','#4DD0E1'],
+		labels:["Pedidos eficientes","Pedidos atrasados"]
+	});</script>
+</polymer-element>

@@ -1,0 +1,128 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/core-icons/image-icons.html">
+
+<link rel="import" href="../cardapio_components/cardapio-globals.html">
+<link rel="import" href="../bower_components/pie-chart/chart-doughnut.html">
+<link rel="import" href="../bower_components/pie-chart/chart-bar.html">
+<link rel="import" href="../bower_components/pie-chart/chart-line.html">
+
+<link rel="import" href="gerencial-explorer.html">
+<link rel="import" href="gerencial-explorer-item.html">
+<link rel="import" href="gerencial-explorer-item-mesas.html">
+<link rel="import" href="gerencial-explorer-item-vendas.html">
+<link rel="import" href="gerencial-explorer-item-vendas.html">
+<link rel="import" href="gerencial-explorer-item-cozinha.html">
+<link rel="import" href="gerencial-explorer-item-estoque.html">
+<link rel="import" href="gerencial-explorer-item-bi.html">
+<link rel="import" href="gerencial-explorer-item-cadastros.html">
+<!--
+<link rel="import" href="gerencial-explorer-item-cozinha.html">
+<link rel="import" href="gerencial-explorer-item-estoque.html">
+-->
+  <link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+
+<polymer-element name="gerencial-app">
+	<template>
+
+<style>
+    core-header-panel {
+      float: left;
+      width: 100%;
+    }
+    
+    core-header-panel::shadow #mainContainer {
+      background:#424242;
+      padding-top: 3px;
+    }
+
+    .core-header {
+      height: 60px;
+      line-height: 60px;
+      font-size: 18px;
+      padding: 0 10px;
+      background-color: #E0E0E0;/*#00BAD2; #222222*/
+      color: #000;
+      transition: height 0.2s;
+    }
+</style>  
+   
+    
+    <core-header-panel fit>
+    <div class="core-header">
+        <span class="font-logo">LevelUp<b>!</b></span> <span style="margin-left:10px;   color: #9E9E9E;">Gerencial Dashboard</span>
+
+    </div>
+
+    <div class="content" style="">
+    	
+    	<gerencial-explorer estudos="{{ estudos }}" estudos2="{{estudos2}}"></gerecial-explorer>
+
+    </div>
+  </core-header-panel>
+
+	</template>
+	<script>
+		Polymer({
+    estudos: [{
+            nome: "Mesas ocupadas",
+            key: "mesas",
+            flexType: "four",
+            weakColor: "#EEEEEE",
+            strongColor: "#E0E0E0"
+        },
+
+        {
+            nome: "Vendas",
+            key: "vendas",
+            flexType: "four",
+            strongColor: "#33691E",
+            weakColor: "#AED581",
+            fontColor: "#FFF"
+        },
+
+        {
+            nome: "Cozinha(eficiência)",
+            key: "cozinha",
+            flexType: "four",
+            strongColor: "#006064",
+            weakColor: '#4DD0E1',
+            fontColor: "#FFF"
+        },
+
+        {
+            nome: "Estoque",
+            key: "estoque",
+            flexType: "four",
+            weakColor: "#EEEEEE",
+            overflow: 'scroll',
+            strongColor: "#E0E0E0"
+        },
+
+    ],
+    estudos2: [{
+        nome: "BI - Relatório Dinâmico",
+        key: "bi",
+        flexType: "three",
+        width: '1007px',//span do titile que contem um ripple
+        height: "278px",
+        shadowWidth: '1004px',
+        shadowPadding: '7px',
+        overflow: 'scroll',
+        weakColor: "#EEEEEE",
+        strongColor: "#E0E0E0",
+        mainHeight: "86%"
+    }, {
+        nome: "Cadastros",
+        overflow: 'scroll',
+        height: "291px",
+        key: "cadastros",
+        weakColor: "#EEEEEE",
+        strongColor: "#E0E0E0",
+        shadowMarginLeft: '5px'
+    }]
+})
+	</script>
+</polymer-element>

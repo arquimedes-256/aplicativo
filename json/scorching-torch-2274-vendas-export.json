@@ -1,0 +1,50 @@
+{
+  "-JmPfcdJ1c5AMHdIavue" : {
+    "Categoria" : "Bebida",
+    "data" : 1428524272364,
+    "Mesa" : "mesa1",
+    "Produto" : "Coca-cola",
+    "Quantidade" : 3,
+    "Valor" : 12
+  },
+  "-JmU5xBy1d-5874Kj2M9" : {
+    "Categoria" : "Bebida",
+    "data" : 1428598543392,
+    "Mesa" : "mesa1",
+    "Produto" : "Coca-cola",
+    "Quantidade" : 0,
+    "Valor" : 0
+  },
+  "-JmU5xC2iCQ9NHIbnvd-" : {
+    "Categoria" : "Comida",
+    "data" : 1428598543539,
+    "Mesa" : "mesa1",
+    "Produto" : "Rosbife",
+    "Quantidade" : 10,
+    "Valor" : 400
+  },
+  "-JmU7436mJ0drN0N9yy3" : {
+    "Categoria" : "Bebida",
+    "data" : 1428598837756,
+    "Mesa" : "mesa1",
+    "Produto" : "Coca-cola",
+    "Quantidade" : 0,
+    "Valor" : 0
+  },
+  "-JmU743AJ1LLH6VYhxct" : {
+    "Categoria" : "Comida",
+    "data" : 1428598837902,
+    "Mesa" : "mesa1",
+    "Produto" : "Macarronada",
+    "Quantidade" : 10,
+    "Valor" : 200
+  },
+  "-JmU743BQR1twr5f0Am6" : {
+    "Categoria" : "Comida",
+    "data" : 1428598837903,
+    "Mesa" : "mesa1",
+    "Produto" : "Rosbife",
+    "Quantidade" : 0,
+    "Valor" : 0
+  }
+}

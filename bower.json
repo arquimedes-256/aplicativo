@@ -1,20 +1,27 @@
 {
-  "name": "Cardapio",
-  "description": "",
-  "homepage": "",
-  "keywords": [
+    "name": "Cardapio",
+    "description": "",
+    "homepage": "",
+    "keywords": [
 
-  ],
-  "author": "",
-  "private": true,
-  "dependencies": {
-    "polymer": "Polymer/polymer#latest",
-    "paper-elements": "Polymer/paper-elements#latest",
-    "core-elements": "Polymer/core-elements#latest",
-    "topeka-elements":"Polymer/topeka-elements#latest",
-    "firebase-element":"Polymer/firebase-element#latest",
-    "firebase-asarray":"katowulf/Firebase.getAsArray#latest",
-    "polymer-gestures":"Polymer/polymer-gestures#master",
-    "tools":"Polymer/tools#master"
-  }
+    ],
+    "author": "",
+    "private": true,
+    "dependencies": {
+        "polymer": "Polymer/polymer#0.5.1",
+        "paper-elements": "Polymer/paper-elements#latest",
+        "core-elements": "Polymer/core-elements#latest",
+        "topeka-elements": "Polymer/topeka-elements#latest",
+        "firebase-element": "Polymer/firebase-element#latest",
+        "firebase-asarray": "katowulf/Firebase.getAsArray#latest",
+        "polymer-gestures": "Polymer/polymer-gestures#master",
+        "tools": "Polymer/tools#master",
+        "pivottable": "nicolaskruchten/pivottable",
+        "paper-date-picker": "chadliu23/paper-date-picker",
+        "firebase-util": "firebase/firebase-util",
+        "app-router": "erikringsmuth/app-router",
+        "google-chart": "GoogleWebComponents/google-chart#0.2.1",
+        "pie-chart": "robdodson/chart-elements",
+        "paper-interval-slider":"ewgenius/paper-interval-slider"
+    }
 }

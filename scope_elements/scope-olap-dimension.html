@@ -1,0 +1,42 @@
+<link rel="import" href="scope-olap-dimension-item.html">
+
+<polymer-element name="scope-olap-dimension" attributes="type itens label icon buttonBackground">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			h4 { margin:0;}
+		</style>
+		
+		<h4><core-icon icon="{{icon}}"></core-icon>
+			[[ label ]]</h4>
+		<div layout horizontal?="{{ label == 'Linhas' }}">
+		<template repeat="{{ item,i in itens }}">
+			<scope-olap-dimension-item 
+				flex
+					buttonBackground="{{buttonBackground}}"
+					horizontal?="{{ label == 'Colunas' }}"
+					vertical?="{{ label == 'Linhas' }}"
+					label="{{label}}"
+					index="{{i}}"
+					dimLength="{{itens.length}}"
+					on-click-item="{{ clickItemHandler }}"
+					item="{{ item }}"
+					></scope-olap-dimension-item>
+		</template>
+	</div>
+	</template>
+	<script>
+		Polymer({
+			clickItemHandler:function(e,d,s)
+			{
+				var di = {item:d.item,type:this.type}
+				if (_.all(_.map(di,_.isString)) )
+					this.fire('emit-swap',di);
+				else
+					throw new Error('item e tipo precisam ser String');
+			}
+		});
+	</script>
+</polymer-element>

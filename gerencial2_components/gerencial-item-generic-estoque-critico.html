@@ -1,0 +1,137 @@
+<script src="../scripts/Fraction.js"></script>
+<polymer-element name="gerencial-item-generic-estoque-critico">
+	<template>
+		<div style="overflow:scroll;height:200px">
+		<table style="font-size:12px;text-align:right;overflow-y:scroll">
+			<thead>
+				<th>#</th>
+				<th>Média diária de venda</th>
+				<th>1 item é vendido a cada:</th>
+				<th>Saldo</th>
+			</thead>
+			<template repeat="{{ item in itensQuaseEsgotando }}">
+				<tr>
+					<td style="text-align:left">{{ item.nome }} </td>
+					<td>{{ item.quantity }}</td>
+					<td>{{ item.frequencyFraction }}</td>
+					<td>{{ item.saldo }}</td>
+				</tr>
+			</template>
+
+					<cardapio-globals id="g">
+					</cardapio-globals>
+					<firebase-element 
+						location="{{ $.g.location }}/estoque"
+						data="{{ estoqueData }}"
+						keys="{{ estoqueKeys }}"></firebase-element>
+					<firebase-element 
+						location="{{ $.g.location }}/produtos"
+						data="{{ produtosData }}"></firebase-element>
+		</table>
+		</div>
+		<style>
+		tr:nth-child(odd) {
+		   background-color: #ccc!important;
+		}
+		</style>
+	</template>
+	<script>
+	var TOTAL_EXPEDIENTE = 8;//hours
+	function f$(S,dydx) {
+		if(S.match(/^\d+\/\d+$/))
+			return g( eval(S)*60 )+' min';
+		if(S.match(/^\d+$/))
+			return S+' h';
+		if(S.match(/^\d+\s\d+\/\d+$/)) {
+			var A = S.split(' ');
+			var x = parseInt(parseFloat(eval(A[1]))*60);
+			if((x+"").length ==1)
+				x = "0"+x;
+			return (A[0])+':'+x+' h';
+		}
+		return S;
+
+		function g(s) {
+			return Math.round(s);
+		}
+	}
+	Polymer({
+		ready:function(){
+			this.gerateItensQuaseEsgotando();
+		},
+		qtdDiasAnalizados:1,
+		produtosDataChanged:function() { this.estoqueDataChanged(); }, 
+		estoqueDataChanged:function() {
+			console.log('descomente')
+			return;
+			var Pd = this.produtosData; if(!Pd) return;
+			var F = {}
+			var FR = {} //F ~ FR
+			//faz somatório
+			_.each(this.estoqueData,function(e){
+				var PK = e.prodKey;
+				if(!F[PK]) 
+					F[PK] = 0;
+				if(!FR[PK])
+					FR[PK] = 0;
+				if(e.Quantidade < 0)
+					F[PK] -= (e.Quantidade)
+
+				FR[PK] += (e.Quantidade)
+			})
+			//calcula distinct N
+			var Nmap = {};
+			var N = 0;
+			_.each(this.estoqueData,function(e){
+				Nmap[new Date(e.data).toLocaleDateString('pt')] = true;
+			}); 
+			N = _.size(Nmap);
+
+			//calcula média
+			_.each(F,function(v,k){
+				F[k] = (F[k]/N).toFixed(2);
+			})
+			var itensQuaseEsgotando = [];
+
+			this.async(function(){
+				_.each(F,function(v,k){
+
+					var dydx = (TOTAL_EXPEDIENTE)/v;
+					var frac = new Fraction();
+
+					itensQuaseEsgotando.push({
+							frequency: dydx.toFixed(2),
+							quantity:v,
+							saldo:FR[k],
+							frequencyFraction:f$(new Fraction(dydx).toString(),dydx),
+							nome:Pd[k].nome
+					})
+				})
+				this.itensQuaseEsgotando = itensQuaseEsgotando;
+			},300)
+
+		},
+		gerateItensQuaseEsgotando:function () {
+
+			var itensQuaseEsgotando = this.itensQuaseEsgotando = [];
+
+			_.times(30,function(){
+
+				var QTD = _.sample([16,8,9,3,7,5,15]);
+				var dydx = (TOTAL_EXPEDIENTE)*1/QTD;
+				var frac = new Fraction();
+				itensQuaseEsgotando
+					.push({
+						frequency: dydx.toFixed(2),
+						quantity:QTD,
+						frequencyFraction:f$(new Fraction(dydx).toString(),dydx),
+						nome:_.random(30000,60000).toString(16)
+					})
+			}
+			.bind(this))
+
+
+		}
+	})
+	</script>
+</polymer-element>

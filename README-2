@@ -1,0 +1,86 @@
+
+Cardapio 
+
+
+A proposta não seria apenas um cardapio eletrônico,
+A proposta seria uma interface de controle operacional de um restaurante.
+
+Apesar do cardapio existir, seria apenas a ponta do iceberg.
+
+1. Controle de vendas 		(por produto,por categoria, [por hora ..., por ano] ..., por mesa, por garçon ...);
+2. Controle de fluxo de estoque	(por produto,por categoria, [por hora ..., por ano] ..., por mesa, por garçon ...);
+	I. automação com pedido à fornecedores(contas a pagar, contas a receber) (com "ok" ou não),
+	II. estoque crítico.
+	...
+3. Contabilidade(Ainda não existe)
+	I.  gerenciamento de contas(luz,telefone,àgua,funcionários,bens ...)
+	II. orçamento(vendas,estoque)
+
+4. Fluxo do pedido
+
+	=============================
+	** Pedidos(Ordem de Fluxo) **
+	=============================
+	I.		Aberto		(cliente escolhe e envia para a cozinha		)
+	II.		Fechado		(cozinha pode {ver, enviar para garçon}, quando pedido entra, cai no estoque		)
+	III.	Pronto		(garçon pode {ver, e marcar como entregue}	)
+	IV.		Entregue 	(caixa pode {ver, e marcar como pago}		)
+	V.		Pago 		(quando pedido cai como pago, ele é imediatamente transferido para a tabela fato);
+
+
+Links(por ordem de fluxo):
+
+	Antes de clicar:
+		1) As cores e as larguras,margins paddings precisam ser trabalhadas,
+			por enquanto só estou preocupado com a lógica.
+		2) Ideias sobre animações, transitions de uma tela pra outra são bem 
+			vindos também.
+
+	[CARDAPIO]
+	https://scorching-torch-2274.firebaseapp.com/index-cardapio-build.html
+
+	[COZINHA]
+	https://scorching-torch-2274.firebaseapp.com/index-cozinha-build.html
+
+	[GARÇON]
+	https://scorching-torch-2274.firebaseapp.com/index-garcon-build.html
+				.. garçon entrega
+				.. caixa pode pagar
+	[CAIXA]
+	https://scorching-torch-2274.firebaseapp.com/index-caixa-build.html
+				.. <telinha forma de pagamento(temos que fazer)****>
+
+	[GERENCIAL] (brinquedo do nosso cliente)
+	https://scorching-torch-2274.firebaseapp.com/index-gerencial-build.html
+
+
+
+Inspiration(já te mandei):
+
+	[layout][cinza]
+		http://blog.appostrophic.com/wp-content/uploads/2015/04/layout_metrics_keylines_tablet4.png
+
+	[layout][azul]
+	http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_pu
+	blish/0Bx4BSt6jniD7d2Z0QURUVk5hV2M/layout_structure_sidenav_structure4.png
+
+	[psd]
+	https://dribbble.com/shots/2064912-Material-Design-UI-Kit-freebie
+
+	[icons]
+	http://protiumdesign.com/1000-material-design-icons/#.VXml6PlViko
+
+	[color]
+	https://www.google.com/design/spec/style/color.html
+
+
+LINKS CONCORRENTES
+
+http://www.engenhariadasvendas.com.br/pagina/ponki-restaurantes
+goomer.com.br
+
+-//-
+
+NOTICIAS
+
+http://www.abrasel.com.br/noticias/462-26042011-cardapios-em-tablets-agilizam-atendimento-e-atraem-clientes.html

@@ -1,0 +1,127 @@
+<polymer-element name="gerencial-cadastros-categoria" layout vertical>
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-shadow
+			{
+				margin:8px;
+				padding:8px;
+				background:#FFF;
+			}
+		</style>
+		<cardapio-globals id="g"></cardapio-globals>
+		<firebase-element 
+			id="categoriaBase"
+			location="{{ $.g.location }}/categorias" 
+			keys="{{ categoriasKeys }}"
+			data="{{ categoriasData }}"></firebase-element>
+
+		<paper-button raised auto-vertical
+			flex
+			on-click="{{addCategoriaHandler}}">
+			<core-icon icon="add"></core-icon> 
+			NOVA CATEGORIA
+		</paper-button>
+
+		<div 
+		on-remove-categoria="{{onRemoveHandler}}"
+		on-set-value="{{ setValueHandler }}" auto-vertical>
+			
+			<template repeat="{{ k in categoriasKeys }}">
+				<paper-shadow layout vertical>
+					<gerencial-cadastros-categoria-item 
+						categoriasData="{{categoriasData}}" 
+						k="{{ k }}">
+					</gerencial-cadastros-categoria-item>
+				</paper-shadow>
+			</template>
+		</div>
+		<style type="text/css">
+			paper-button { background:#E6EE9C!important}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			setValueHandler:function(e,d,s)
+			{
+				var x = this.categoriasData[d.key];
+				if(x)
+					x[d.attributeName] = d.value;
+				else
+					throw new Error('Chave não existente em categoria',d.key);
+				this.$.categoriaBase.commit();
+				//console.log(d)
+			},
+			onRemoveHandler:function(e,d,s)
+			{
+				delete this.categoriasData[d.categoryKey];
+				this.$.categoriaBase.commit();
+			},
+			addCategoriaHandler:function(e,d,s)
+			{
+				this.$.categoriaBase.push({
+					nome:"Nova Categoria"
+				});
+			}
+		});
+	</script>
+</polymer-element>
+
+
+<link rel="import" href="gerencial-cadastros-categoria-mapper.html">
+<link rel="import" href="../scope_elements/scope-input.html">
+<link rel="import" href="../cardapio_components/img-card.html">
+<!-- ITEM -->
+<polymer-element name="gerencial-cadastros-categoria-item" attributes="categoriasData k" layout horizontal>
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			img-card {
+				float:left;
+			}
+			scope-input {
+				float:left;    width: 159px;
+			}
+			paper-button {
+				background:#F5F5F5!important;
+				width: 156px;
+			}
+			core-icon {margin-right: 4px;}
+		</style>
+		<div flex>
+
+    
+		<img-card 
+        isMini
+        data="{{ categoriasData[k]['thumb']  }}" 
+        nome="{{ categoriasData[k]['nome'] }}"
+        width="75"></img-card>
+		<scope-input 
+			value="{{categoriasData[k]['nome']}}" 
+			label="Nome da Categoria"
+			attributeName="nome"
+			key="{{ k }}"></scope-input><!-- 
+		<gerencial-cadastros-categoria-mapper categoryKey="{{ k }}">
+		</gerencial-cadastros-categoria-mapper> -->
+		<paper-button raised on-click="{{fireCategoriaSelected}}" style="width:108%"><core-icon icon="folder"></core-icon>Produtos</paper-button>
+	</div>
+	<core-icon icon="delete" on-click="{{ removeCategoria }}"></core-icon>
+	</template>
+	<script>
+		Polymer({
+			removeCategoria:function()
+			{
+				this.fire('remove-categoria',
+					{categoryKey:this.k});
+			},
+			fireCategoriaSelected:function(){
+				this.fire('select-categoria',
+					{categoryKey:this.k});
+			}
+		});
+	</script>
+</polymer-element>

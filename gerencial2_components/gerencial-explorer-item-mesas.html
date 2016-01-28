@@ -1,0 +1,70 @@
+<polymer-element name="gerencial-explorer-item-mesas">
+	<template>
+			<cardapio-globals id="g"></cardapio-globals>
+			<firebase-element 
+				location="{{ $.g.location }}/pedidos"
+				data="{{ pedidosData }}"
+				keys="{{ pedidosKeys }}"
+				on-data-change="{{ dataChangeHandler }}"></firebase-element>
+<!--
+			<google-chart
+			      type="pie"
+			      id="selection-chart"
+			      style="width:300px;height:300px;position:relative;left:-14px"	
+			      cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+			      options="{{ options }}"
+			      rows='{{ rows }}'>
+    		</google-chart>
+-->
+    <chart-doughnut 
+    values="{{ dataSet }}" 
+    labels='{{ labels }}'
+    colors="{{colors}}"
+    style="
+    position: relative;
+    top: 34px;
+    left: -2px;
+"></chart-doughnut>
+
+
+	</template>
+	<script>
+		Polymer({
+			labels:["Mesas Faturando",
+    "Mesas em Aberto"],
+			qtdMesas:10,
+			qtdMesasFechadas:0,
+			qtdMesasFaturando:0,
+			colors:["#D50000","#9E9E9E"],
+			options:{ 
+				slices: {
+            		0: { color: '#7E57C2' },
+            		1: { color: '#D50000' }
+            	}
+        	},
+
+			pedidosDataChanged:function()
+			{
+				var pedidosData = this.pedidosData;
+				var contadorMesas = 0;
+				_.times(this.qtdMesas,function(i)
+				{
+					var k = i+1;
+
+					if(pedidosData['mesa'+k])
+						contadorMesas++
+				});
+
+				this.qtdMesasFaturando = contadorMesas;
+				this.qtdMesasFechadas = (this.qtdMesas - this.qtdMesasFaturando)
+
+				this.dataSet = [this.qtdMesasFaturando, this.qtdMesasFechadas];	
+
+				// this.rows = [
+				// 	["Mesas Faturando", this.qtdMesasFaturando],
+				// 	["Mesas Livres", this.qtdMesasFechadas]
+				// ]	
+			}
+		})
+	</script>
+</polymer-element>

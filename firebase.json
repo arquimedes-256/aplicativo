@@ -1,28 +1,28 @@
 {
-  "firebase": "scorching-torch-2274",
-  "public": ".",
-  "ignore": [
+	"firebase": "restaurantegraph",
+	"public": ".",
+	"ignore": [
     "firebase.json",
     "**/.*",
     "**/node_modules/**"
   ],
-  "headers": [ {
-    "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
-    "headers" : [ {
-      "key" : "Access-Control-Allow-Origin",
-      "value" : "*"
-    } ]
+	"headers": [{
+		"source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+		"headers": [{
+			"key": "Access-Control-Allow-Origin",
+			"value": "*"
+    }]
     }, {
-    "source" : "**/*.*",
-    "headers" : [ {
-      "key" : "Cache-Control",
-      "value" : "no-cache, no-store, must-revalidate"
-    } ]
+		"source": "**/*.*",
+		"headers": [{
+			"key": "Cache-Control",
+			"value": "no-cache, no-store, must-revalidate"
+    }]
     }, {
-    "source" : "404.html",
-    "headers" : [ {
-      "key" : "Cache-Control",
-      "value" : "max-age=300"
-    } ]
-  } ]
+		"source": "404.html",
+		"headers": [{
+			"key": "Cache-Control",
+			"value": "max-age=300"
+    }]
+  }]
 }

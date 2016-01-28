@@ -1,17 +1,30 @@
 
 <link rel="import" href="../bower_components/polymer-gestures/polymer-gestures.html">
 
-<polymer-element name="list-remover" attributes="target">
-  <template>
-
-  </template>
+<polymer-element name="list-remover" attributes="target orientationKey key">
+  <template></template>
   <script>
     Polymer({
+      orientationList:
+      {
+        "x":{ pan:"pan-x", cssAttribute:"left", 
+              dv:"dx",dir:"xDirection",clientSize:"clientWidth" },
+        "y":{ pan:"pan-y", cssAttribute:"top", 
+              dv:"dy",dir:"yDirection",clientSize:"clientHeight" }
+      },
+      ready:function()
+      {
+        this.orientationKey = "x";
+      },
+      orientationKeyChanged:function()
+      {
+        this.orientation = this.orientationList[this.orientationKey];
+      },
       targetChanged:function()
       {
         if(this.target && this.target instanceof HTMLElement)
         {
-          this.target.setAttribute('touch-action','pan-x')
+          this.target.setAttribute('touch-action',this.orientation.pan)
           this.target.addEventListener('trackend',this.trackendHandler.bind(this));
           this.target.addEventListener('track',this.trackHandler.bind(this));
         }
@@ -22,19 +35,31 @@
       },
       trackendHandler:function(e,d,s)
       {
-       this.target.style.left = 0 ;
+       this.target.style[this.orientation.cssAttribute] = 0 ;
        this.target.style.opacity = 1;
       },
       trackHandler:function(e,d,s)
       {
-        if(e.xDirection)
+        var dv = e[this.orientation.dv];
+
+        if(e[this.orientation.dir])
         {
-          this.target.style.left = e.dx/2+'px'
-          this.target.style.opacity = 100/ Math.abs(e.dx);
+          this.target.style.left = dv/2+'px'
+          this.target.style.opacity = 100/ Math.abs(dv);
         }
-        if(Math.abs(e.dx)*1.7 >= this.target.clientWidth)
+        var x = Math.abs(dv)*1.7 ;
+        var b = this.target[this.orientation.clientSize];
+        //console.log(x,b)
+        if(x >= b)
         {
-          this.fire('remove',{target:this.target});
+          TweenMax.to(this.target,.8,{css:{opacity:0,scale:0},
+            onComplete:function()
+            {
+              this.fire('remove',{target:this.target,key:this.key});
+            }
+            .bind(this)
+          });
+
         }
       },
     });

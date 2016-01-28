@@ -1,0 +1,61 @@
+*Post Project;
+
+#gottlob
+  post-app:
+    post-navbar:
+        $fb.user[%session_id].name
+    post-list:
+        bridge(%name) {
+            $x:0
+            $list:$fb.config.currentList
+        -each in $fb.posts
+            post-item:
+                {{ name }}
+            }
+    post-chat:
+        -each $contactKey in $fb.chat.open
+            post-chat-mensages:
+                $contactKey:
+                -each [ m in $fb.chat.messages[contactKey] ]
+                    -if [ m['isEnable'] || m['isShowEver'] ]
+                        post-chat-mensages-item:
+                            div horizontal:
+                                core-item:
+                                    {{ m['body'] }}
+    	post-chat-contacts:
+    		post-chat-contact-item:
+    	post-chat-config:
+    		paper-tabs:
+    			-each [ $fb.configCategory ]
+    				paper-tab:
+    					{{ nome }}
+    		core-animated-pages:
+    			-each [ c in $fb.configCategory ]
+    				section:
+    					-each [ o in c.options]
+    						span:
+    							{{o.nome}}
+    							-on click:function()
+                                {
+
+                                }
+#frege
+
+
+#gottlob
+  gerencial-main:
+    paper-tabs:
+        paper-tab.1:
+          Estoque
+        paper-tab.2:
+          Relatorios
+    core-animated-pages:
+      section.1:
+        $out-attr:
+        gerencial-estoque:
+      section.2:
+        gerencial-relatorios:
+      section.3:
+        gerencial-cadastros:
+        
+          

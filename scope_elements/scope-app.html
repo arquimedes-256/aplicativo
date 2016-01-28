@@ -1,0 +1,96 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../bower_components/core-icons/maps-icons.html">
+<link rel="import" href="../bower_components/core-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/core-icons/maps-icons.html">
+
+<link rel="import" href="scope-tabelaporto.html">
+<link rel="import" href="scope-operacoes.html">
+<link rel="import" href="scope-contratos.html">
+<link rel="import" href="scope-localizacoes.html">
+
+<polymer-element name="scope-app">
+  <template>
+   <core-header-panel fit>
+    <div class="core-header">
+      <div layout horizontal>
+        <div><img src="../imgs/horse.png" id="icon"></div>
+        <div id="title">scope</div>
+      </div>
+    </div>
+    <div class="content" fit>
+      <paper-tabs selected="{{ currentPage }}">
+        <paper-tab>
+          <core-icon icon="settings"></core-icon>
+        </paper-tab>
+        <paper-tab>
+          <core-icon icon="assignment"></core-icon>
+        </paper-tab>
+        <paper-tab>
+          <core-icon icon="view-module"></core-icon>
+        </paper-tab>
+        <paper-tab>
+          <core-icon icon="maps:place"></core-icon>
+        </paper-tab>
+      </paper-tabs>
+      <core-animated-pages transitions="cross-fade" selected="{{ currentPage }}">
+        <section>
+          <div cross-fade>
+            <scope-operacoes></scope-operacoes>
+          </div>
+        </section>
+        <section>
+          <div cross-fade>
+            <scope-contratos></scope-contratos>
+          </div>
+        </section>
+        <section>
+          <div cross-fade>
+            <scope-tabelaporto></scope-tabelaporto>
+          </div>
+        </section>
+        <section>
+          <div cross-fade>
+            <scope-localizacoes></scope-localizacoes>
+          </div>
+        </section>
+    </core-animated-pages>
+    </div>
+  </core-header-panel>
+  <style shim-shadowdom>
+
+    .core-header {
+      height: 60px;
+      line-height: 60px;
+      font-size: 18px;
+      padding: 0 10px;
+      background-color: #4F7DC9;
+      color: #FFF;
+      transition: height 0.2s;
+    }
+    
+    .content,
+    div[cross-fade] {
+      background:#CFD8DC;
+    }
+    #icon
+    {
+      width: 32px;
+      margin-top: 11px;
+    }
+    #title
+    {
+      margin-left: 7px;
+    }
+
+  </style>
+  </template>
+  <script>
+    Polymer({
+
+    });
+  </script>
+</polymer-element>

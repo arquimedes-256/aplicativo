@@ -1,0 +1,94 @@
+<link rel="import" href="../bower_components/firebase-list/firebase-list.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="scope-globals.html">
+<link rel="import" href="scope-map-input.html">
+<link rel="import" href="scope-operacao-item.html">
+
+
+<polymer-element name="scope-operacoes" layout vertical>
+  <template>
+    <scope-globals id="g"></scope-globals>
+    <!--
+    <core-overlay id="overlay" 
+		layered backdrop 
+		transition="core-transition-center"
+		opened="{{ opened }}">
+      <scope-operacao-item operacaoKey="{{ currentOperacaoKey }}" disabledEditButton></scope-operacao-item>
+		</core-overlay>
+		-->
+		
+    <firebase-list 
+      id="operacoesBase"
+      location="{{ $.g.data.location }}/operacoes/{{ $.g.data.filial }}/{{ $.g.data.ano }}/{{ $.g.data.mes }}"
+      data="{{ operacoesData }}">
+    </firebase-list>
+    
+    <firebase-list 
+      id="empresasBase"
+      location="{{ $.g.data.location }}/empresas"
+      data="{{ empresasData }}">
+    </firebase-list>
+ 
+       
+    <h1>Operações {{ $.g.data.filial }}</h1>
+    
+    <paper-button id="add" raised on-click="{{ insertHandler }}">
+      <core-icon icon="add"></core-icon>
+      Inserir nova operação</paper-button>
+    
+    <div layout vertical>
+      <template repeat="{{ o in operacoesData }}">
+        <div layout horizontal>
+          <scope-operacao-item operacaoKey="{{ o.$key }}" on-edit="{{ editHandler }}" disabledEditButton></scope-operacao-item>
+        </div>
+      </template>
+    </div>
+    <style>
+      #add
+      {
+        background:#FFF;
+      }
+    </style>
+  </template>
+  <script>
+      Polymer({
+        insertHandler:function()
+        {
+          this.$.operacoesBase.push(
+          {
+            "agencia" : "oceanus",
+            "armador" : "oceanus",
+            "dataManobra" : 1,
+            "diaManobra" : 0,
+            "manobras" : {
+              "atracacao" : {
+                "jatoba" : true
+              },
+              "desatracacao" : {
+                "cristal" : true
+              }
+            },
+            "navio" : "diversos",
+            "status" : "edicao",
+            "terminal" : "cais-comercial",
+            "vlrCartaCredito" : 0,
+            "vlrDescontoNota" : 0,
+            "vlrDolar" : 0,
+            "vlrFaturadoDolar" : 0,
+            "vlrFaturadoReal" : 0,
+            "vlrISS" : 0,
+            "vlrPISC" : 0
+            
+          })
+        },
+        editHandler:function(e,d,s)
+        {
+          this.opened = true;
+          this.currentOperacaoKey = d.operacaoKey;
+        }
+      });
+  </script>
+</polymer-element>

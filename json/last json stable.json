@@ -1,13 +1,2031 @@
 {
-  "categorias" : {
+  "categoria-produtos" : {
+    "-JqfQ793nTVqgVYWiARy" : {
+      "-JsSMuNteQug3xa5Xf7G" : true
+    },
+    "-JsSMc5R7LAjc7oX5L2g" : {
+      "calabresa" : true,
+      "macarronada" : true
+    },
+    "-JsSMdNBt1TqyorNn7TT" : {
+      "rosbife" : true
+    },
+    "-JsSMduHHqKN_7qf15TD" : {
+      "-JsSMuNteQug3xa5Xf7G" : true
+    },
+    "-JsSQFLQcQWgf6nw29ii" : {
+      "-JqQqh7w00Y8jdc6b-84" : true,
+      "-JsB9YY5S0-EDujWK3Qt" : true
+    },
     "bebida" : {
-      "nome" : "Bebida"
+      "-JsvOHJfxnr0ekxtMTrL" : true,
+      "-JsvSVP6xcOIgw8jOjR0" : true,
+      "-JsvSme6Hb9GFITx-lqf" : true,
+      "-JsvTL0859CBeyB6bFbp" : true,
+      "-JsvU8fuXRqJpbnSvPQj" : true,
+      "-JsvV1uDPB5g3x8FkzCd" : true,
+      "-JsvVCZfCV0qAx8T0lwu" : true,
+      "-JsvWPbVDWmHkhCARr3E" : true,
+      "-JsvXK2Ts-O2kRUYbbTs" : true,
+      "-JsvXXyWPwk1PZEahbj3" : true,
+      "-JsvY87FJAbrjuu68vkJ" : true,
+      "-Jsvl6SzESfeffaz_j-d" : true,
+      "-JsvlPMhFJznMPO4z5tM" : true,
+      "-JsvljCiYiIOPV2mbY-g" : true,
+      "-Jsvlxpp4dEevlPcG3KZ" : true,
+      "-Jsvm9p0DEL1wUs5q1V9" : true,
+      "-JsvmOweOzHAUuFC_IMH" : true,
+      "coca-cola" : true
     },
     "comida" : {
-      "nome" : "Comida"
+      "-JsB9o0GkYDGRfa_Ykr3" : true,
+      "macarronada" : true,
+      "rosbife" : true
     },
     "pizzas" : {
-      "nome" : "Pizzas"
+      "-JsB9YY5S0-EDujWK3Qt" : true,
+      "calabresa" : true
+    }
+  },
+  "categorias" : {
+    "-JsSMdNBt1TqyorNn7TT" : {
+      "nome" : "Pratos Frios",
+      "thumb" : "imgs/shrimp.jpg"
+    },
+    "-JsSMduHHqKN_7qf15TD" : {
+      "nome" : "Pratos Inverno",
+      "thumb" : "imgs/soup.jpg"
+    },
+    "-JsSQFLQcQWgf6nw29ii" : {
+      "nome" : "Dica do Chef",
+      "thumb" : "imgs/chef.jpg"
+    },
+    "bebida" : {
+      "nome" : "Cervejas",
+      "thumb" : "imgs/sucos.jpg"
+    },
+    "comida" : {
+      "nome" : "Comida",
+      "thumb" : "imgs/comida.jpg"
+    },
+    "pizzas" : {
+      "nome" : "Pizzas",
+      "thumb" : "imgs/pizza.jpg"
+    }
+  },
+  "categorias-raiz" : {
+    "cat-raiz-test1" : {
+      "childrens" : {
+        "bebida" : true
+      },
+      "nome" : "Cervejas"
+    }
+  },
+  "estoque" : {
+    "-JmJXvqvMl_W3spXa8uG" : {
+      "dataLancamento" : 1428421303717,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JmJXvqzfpkWUD-UMevy" : {
+      "dataLancamento" : 1428421303721,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmJYx1dA-C7fgetMKVq" : {
+      "dataLancamento" : 1428421570627,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJYxUB_6xr4FUxF-WG" : {
+      "dataLancamento" : 1428421572453,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJYxpUXAgW_3dqwlVS" : {
+      "dataLancamento" : 1428421573881,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJYyB3oSUt_OixP7Ru" : {
+      "dataLancamento" : 1428421575326,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_eJO64ZootbvMRDV" : {
+      "dataLancamento" : 1428422018217,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_g36F5XAa_cu2-W1" : {
+      "dataLancamento" : 1428422025367,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_gnbarf6aJvwPW7p" : {
+      "dataLancamento" : 1428422028407,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_hgx-xkEbw5cxuAh" : {
+      "dataLancamento" : 1428422032077,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_iLKvmH-ovplxaz6" : {
+      "dataLancamento" : 1428422034725,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_i_wML5BPRAYFEHs" : {
+      "dataLancamento" : 1428422035724,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_itm-TzuL5VkvL1G" : {
+      "dataLancamento" : 1428422036994,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_j8ZaXALHYzrGWmJ" : {
+      "dataLancamento" : 1428422038004,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_jKcmha3T7cziNIH" : {
+      "dataLancamento" : 1428422038776,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJ_jXzIvxVUBVmIJUK" : {
+      "dataLancamento" : 1428422039631,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJd8gEkWfCFonAeOGK" : {
+      "dataLancamento" : 1428422933187,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJdoi-4Pwshu6tVBj1" : {
+      "dataLancamento" : 1428423109361,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJekSCK8Jy3SlnOy4I" : {
+      "dataLancamento" : 1428423354049,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJelR-zqsUtqCNfDKA" : {
+      "dataLancamento" : 1428423358067,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJpPlKfyWah9wa85Py" : {
+      "dataLancamento" : 1428426148809,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmJyi7ohzbVQF4zLI_s" : {
+      "dataLancamento" : 1428428587390,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK2GXS_IeeWn8fYcxN" : {
+      "dataLancamento" : 1428429780863,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK2GXkhwjyc0Z06vZB" : {
+      "dataLancamento" : 1428429780882,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK2NW38bv0kTZCYJj_" : {
+      "dataLancamento" : 1428429809577,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK2NWJTcq_UvI6-HiT" : {
+      "dataLancamento" : 1428429809593,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK2p8Nb5njKhDrD-m7" : {
+      "dataLancamento" : 1428429926743,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK2q7g3lU-GyCC-fYl" : {
+      "dataLancamento" : 1428429930795,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK6QKFRr84szOePnpj" : {
+      "dataLancamento" : 1428430869503,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK6aXXhZP7dEQ5rltX" : {
+      "dataLancamento" : 1428430915461,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK755lKwvRIuiDNcut" : {
+      "dataLancamento" : 1428431044701,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK78LYQLcTC-8RaIwf" : {
+      "dataLancamento" : 1428431057999,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK7DDPGrO91HwcTX1D" : {
+      "dataLancamento" : 1428431077953,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK7azxBVPZnblSneCA" : {
+      "dataLancamento" : 1428431179432,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK7k-qaU_JS3w4LSq7" : {
+      "dataLancamento" : 1428431216351,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK7yzgM1ZdQFyqTivp" : {
+      "dataLancamento" : 1428431277712,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK8QlEs00vNpmxfVir" : {
+      "dataLancamento" : 1428431395568,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK8XegZVjBLmpYHOaB" : {
+      "dataLancamento" : 1428431423820,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK8Xemn0xNxCgkjl_B" : {
+      "dataLancamento" : 1428431423825,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK8_qSYHLfPSv09nR3" : {
+      "dataLancamento" : 1428431436907,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK8_qiXR1j3-v_8vxK" : {
+      "dataLancamento" : 1428431436924,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK8nTm6qzuGJu5jOQ9" : {
+      "dataLancamento" : 1428431492745,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmK8nTs4yKhcbEYKpDI" : {
+      "dataLancamento" : 1428431492751,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK9QSk4oidK4LJXmBp" : {
+      "dataLancamento" : 1428431656520,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmK9WKm9yh_xQ65jbf4" : {
+      "dataLancamento" : 1428431680546,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JmK9Y-BkzBkRLm-FRoB" : {
+      "dataLancamento" : 1428431687396,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JmK9zUv9md43ez71phi" : {
+      "dataLancamento" : 1428431804114,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JmKAA8-75LvaK1KDu9t" : {
+      "dataLancamento" : 1428431851741,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKAA849yD7mDMbMEcv" : {
+      "dataLancamento" : 1428431851747,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKB8UmPYGYem6Wj7ZM" : {
+      "dataLancamento" : 1428432107138,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKB8V9AoCj27aI6GY-" : {
+      "dataLancamento" : 1428432107164,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKBjYJsjB1uDAskC5e" : {
+      "dataLancamento" : 1428432263011,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKBjYP1_PgsPoIWJVs" : {
+      "dataLancamento" : 1428432263018,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKCECXwhyW0YW6WmKz" : {
+      "dataLancamento" : 1428432392691,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKCH_mRO8hIuWXzh-5" : {
+      "dataLancamento" : 1428432406534,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKDAxwWNG5WiUmvjnm" : {
+      "dataLancamento" : 1428432641541,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKDAy1nYyoF7bNfw6w" : {
+      "dataLancamento" : 1428432641547,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKHNSf4MxxupjdAPwu" : {
+      "dataLancamento" : 1428433741297,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKHSWSGdsbYTAhjHvP" : {
+      "dataLancamento" : 1428433762020,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmKHSWZAtwQlw5sZ1By" : {
+      "dataLancamento" : 1428433762027,
+      "item" : "macarronada",
+      "quantidade" : -4
+    },
+    "-JmKHSWb_iSqTLlPDY6o" : {
+      "dataLancamento" : 1428433762030,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmKHSWgdlVLHZWZt1rC" : {
+      "dataLancamento" : 1428433762035,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JmLUYIB-vHNJFNSZTZl" : {
+      "dataLancamento" : 1428453970520,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmLUYcPpXp0S_2gKoGX" : {
+      "dataLancamento" : 1428453971879,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmPHsKq39U5l8eYQiPK" : {
+      "dataLancamento" : 1428517756901,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmPHsKzcHq0C8tKg92J" : {
+      "dataLancamento" : 1428517756910,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JmPHsL1Ah7FpbAPLi1w" : {
+      "dataLancamento" : 1428517756913,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmPHsL5vC5sBrxuzsOZ" : {
+      "dataLancamento" : 1428517756917,
+      "item" : "calabresa",
+      "quantidade" : -9
+    },
+    "-JmPHsL7g3AHytILDNq9" : {
+      "dataLancamento" : 1428517756919,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JmPHsLAGrc8MQwBml8a" : {
+      "dataLancamento" : 1428517756922,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmPOUnvJ--LqIdCx0bQ" : {
+      "dataLancamento" : 1428519491434,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmPOrCHSbvwhvOQY1AJ" : {
+      "dataLancamento" : 1428519587264,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmPP7_Mjpi_iJKhUiXW" : {
+      "dataLancamento" : 1428519658438,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JmPh9dRa4owHNCHe4aK" : {
+      "dataLancamento" : 1428524674625,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JmUJr5aSxF74Tn7IbwA" : {
+      "dataLancamento" : 1428602187161,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmxakWMPVlzd1dk1g2Q" : {
+      "dataLancamento" : 1429110181015,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmyQxEdA_p0QjT-VluK" : {
+      "dataLancamento" : 1429124152402,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmySB07uClLsyi2dlgW" : {
+      "dataLancamento" : 1429124475054,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-JmySBEcC1VsuT0MqCi-" : {
+      "dataLancamento" : 1429124475985,
+      "item" : "calabresa",
+      "quantidade" : 1
+    },
+    "-Jn7B9IjK5H8et87PIC5" : {
+      "dataLancamento" : 1429287790592,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-Jn7B9IuN6rmMS5aBUPe" : {
+      "dataLancamento" : 1429287790602,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JrVpJcjU1mc42yzdKN3" : {
+      "dataLancamento" : 1433996200890,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JrVpJcu61n-K8H_JdM3" : {
+      "dataLancamento" : 1433996200903,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JrVq0bRdFOF07UTM9th" : {
+      "dataLancamento" : 1433996385128,
+      "item" : "calabresa",
+      "quantidade" : -4
+    },
+    "-JsAy7eETZUyR-E2At4-" : {
+      "dataLancamento" : 1434719957685,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsAy7eGbfpJniob3ZfM" : {
+      "dataLancamento" : 1434719957687,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsB4nVqRUXKmamKLZWj" : {
+      "dataLancamento" : 1434721968220,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsB52MQcxTM52EkhtvR" : {
+      "dataLancamento" : 1434722033153,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsB5U81AU5R9ijMwFqS" : {
+      "dataLancamento" : 1434722146920,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsB7QhWMVmk1BcSubZm" : {
+      "dataLancamento" : 1434722657159,
+      "item" : "macarronada",
+      "quantidade" : -2
+    },
+    "-JsB7QhXGpe8y_dQSSqZ" : {
+      "dataLancamento" : 1434722657160,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-JsB9N2Ls03Kd8v0AJvA" : {
+      "dataLancamento" : 1434723166527,
+      "item" : "-JqQqh7w00Y8jdc6b-84",
+      "quantidade" : 1
+    },
+    "-JsHA9l6SQcmzbzkGKgj" : {
+      "dataLancamento" : 1434824027734,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsHAEVo19WqhA4xkB-d" : {
+      "dataLancamento" : 1434824047171,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsSJWbqMgfsjrmb0yqX" : {
+      "dataLancamento" : 1435011001058,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsSJZMeKuWF0HTG72T8" : {
+      "dataLancamento" : 1435011012310,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsSL3fBZUL_gHZgy3Qa" : {
+      "dataLancamento" : 1435011406744,
+      "item" : "-JqQqh7w00Y8jdc6b-84",
+      "quantidade" : 1
+    },
+    "-JsSLK9WZ3gJMTiYGkpE" : {
+      "dataLancamento" : 1435011495369,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsfDy9HQIVUb13RQRWF" : {
+      "dataLancamento" : 1435244435970,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JsfDy9JL8TvpEVBEDqN" : {
+      "dataLancamento" : 1435244435972,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsfDy9KO-yl_ZNnxGus" : {
+      "dataLancamento" : 1435244435973,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JsfDy9KO-yl_ZNnxGut" : {
+      "dataLancamento" : 1435244435973,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsgdCTl2rcXHjFJFTGn" : {
+      "dataLancamento" : 1435268096880,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsgdCTqEq7qPCN8p6w3" : {
+      "dataLancamento" : 1435268096885,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jsgdbum6svFghVKufc9" : {
+      "dataLancamento" : 1435268205169,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jsgdbun9xR6qhAvMMrB" : {
+      "dataLancamento" : 1435268205170,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jsgdbun9xR6qhAvMMrC" : {
+      "dataLancamento" : 1435268205170,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmI024AXRpY86y5qKr" : {
+      "dataLancamento" : 1435362941632,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JsmI028APC1aY4NcWdw" : {
+      "dataLancamento" : 1435362941635,
+      "item" : "coca-cola",
+      "quantidade" : -1
+    },
+    "-JsmI029YCVUv_MF2B5L" : {
+      "dataLancamento" : 1435362941637,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmI02AJ7FPo8TQ1qgu" : {
+      "dataLancamento" : 1435362941638,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JsmLlQPsJbYZjayaWKO" : {
+      "dataLancamento" : 1435363926225,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsmLlQSJJXL0GR_G4WX" : {
+      "dataLancamento" : 1435363926228,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmMOy2Nju40kMuKCsP" : {
+      "dataLancamento" : 1435364092282,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JsmMOy3UyH59D6gl-cX" : {
+      "dataLancamento" : 1435364092283,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JsmMrxhmxI8LrY38Wab" : {
+      "dataLancamento" : 1435364215140,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JsmMrxmPysHlszH9igD" : {
+      "dataLancamento" : 1435364215145,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JsmMw-Nj5c02smAF_Rf" : {
+      "dataLancamento" : 1435364231695,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsmMw-ObTlYETnIXyWp" : {
+      "dataLancamento" : 1435364231696,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmNLPNN09_ili3XRFJ" : {
+      "dataLancamento" : 1435364339855,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsmNLPOzoNY2iG89_xd" : {
+      "dataLancamento" : 1435364339856,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmPALPzWPlr2ImSVhC" : {
+      "dataLancamento" : 1435364818832,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JsmPALRNYtNKUQnP1Sw" : {
+      "dataLancamento" : 1435364818835,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsmPALRNYtNKUQnP1Sx" : {
+      "dataLancamento" : 1435364818835,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsmRvVvrgMlulInrYW_" : {
+      "dataLancamento" : 1435365540402,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsmRvVx_18t_Xt9pPVH" : {
+      "dataLancamento" : 1435365540404,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jsvb-4ZvUWhwAaJOAdN" : {
+      "dataLancamento" : 1435519157110,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-Jsvb-4axmNknnHHYHuf" : {
+      "dataLancamento" : 1435519157112,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jsvb-4b8Rf84fuHiuSd" : {
+      "dataLancamento" : 1435519157113,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-Jsvb-4b8Rf84fuHiuSe" : {
+      "dataLancamento" : 1435519157113,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-Jsvb-4c0UpOZxkuqSVv" : {
+      "dataLancamento" : 1435519157114,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JsvbNUu43t-yqMGzZEW" : {
+      "dataLancamento" : 1435519257100,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JsvbSId3KyFm2VrKfc4" : {
+      "dataLancamento" : 1435519276795,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JsvbSIeSBv5Ixo_A9cC" : {
+      "dataLancamento" : 1435519276796,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JsvbSIeSBv5Ixo_A9cD" : {
+      "dataLancamento" : 1435519276796,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JsvbifjZ9vdbKtahRBh" : {
+      "dataLancamento" : 1435519347966,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JsvcKb357r5_c6H-NmS" : {
+      "dataLancamento" : 1435519507413,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JswyS-K0CTujraBAmdc" : {
+      "dataLancamento" : 1435542099945,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JsxDIaENT8JU1gJHDCg" : {
+      "dataLancamento" : 1435546238960,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsxDTUZIXveUh9RAOJc" : {
+      "dataLancamento" : 1435546300561,
+      "item" : "-JsvWPbVDWmHkhCARr3E",
+      "quantidade" : -1
+    },
+    "-JsxDm2J0utE7nyi632N" : {
+      "dataLancamento" : 1435546363700,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JsxDm2MUvTRdyqIWBzu" : {
+      "dataLancamento" : 1435546363704,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsxEIaGTvAhRfsxhzku" : {
+      "dataLancamento" : 1435546501033,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JsxEOqXQJ272AUcKjou" : {
+      "dataLancamento" : 1435546526651,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jt0THRQvwLOHUqBIs6B" : {
+      "dataLancamento" : 1435617538767,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jt0THRUIVtf-0qxOrrg" : {
+      "dataLancamento" : 1435617538771,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jt0U04f5IgqwlUHF_vU" : {
+      "dataLancamento" : 1435617729823,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jt0UCs70IoVLN5juYqA" : {
+      "dataLancamento" : 1435617782204,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-Jt0UXSaxnGfhOOMckU2" : {
+      "dataLancamento" : 1435617866522,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-Jt0Vgxr8BiEKNUtAR8R" : {
+      "dataLancamento" : 1435618171655,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jt0VgxsuvMeAbs1SS4F" : {
+      "dataLancamento" : 1435618171657,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jt0WQVQsgcpUEeiHccx" : {
+      "dataLancamento" : 1435618362284,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-Jt5mS-lz0yMxX423Ebp" : {
+      "dataLancamento" : 1435706715577,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jt5mS-omUeeWiZtiMuc" : {
+      "dataLancamento" : 1435706715580,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-Jt5mS-pYjHdii5n0tPK" : {
+      "dataLancamento" : 1435706715582,
+      "item" : "-JsvWPbVDWmHkhCARr3E",
+      "quantidade" : -11
+    },
+    "-Jt5mS-q2ZQQp2gIiiQl" : {
+      "dataLancamento" : 1435706715583,
+      "item" : "-Jsvm9p0DEL1wUs5q1V9",
+      "quantidade" : -1
+    },
+    "-Jt8CN7vIZD7cAwdesmr" : {
+      "dataLancamento" : 1435747317005,
+      "item" : "-JsvV1uDPB5g3x8FkzCd",
+      "quantidade" : -1
+    },
+    "-Jt8CN82tdbVhNGo4vHU" : {
+      "dataLancamento" : 1435747317015,
+      "item" : "-JsvY87FJAbrjuu68vkJ",
+      "quantidade" : -1
+    },
+    "-Jt8CN8CuyTNljzVbr4-" : {
+      "dataLancamento" : 1435747317025,
+      "item" : "-Jsvl6SzESfeffaz_j-d",
+      "quantidade" : -3
+    },
+    "-Jt8CN8ExJttkrHm9Ue0" : {
+      "dataLancamento" : 1435747317027,
+      "item" : "-JsvlPMhFJznMPO4z5tM",
+      "quantidade" : -1
+    },
+    "-JtF9ahj5U3J_Os6niqE" : {
+      "dataLancamento" : 1435864041445,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtF9ahmt8hg1KWQ4_vn" : {
+      "dataLancamento" : 1435864041447,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtF9ahnpenxzKXVrhmB" : {
+      "dataLancamento" : 1435864041449,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtF9ahoZNDbEPtv-z0L" : {
+      "dataLancamento" : 1435864041450,
+      "item" : "-JsvV1uDPB5g3x8FkzCd",
+      "quantidade" : -1
+    },
+    "-JtF9ahpb34S1CuZw975" : {
+      "dataLancamento" : 1435864041451,
+      "item" : "-JsvVCZfCV0qAx8T0lwu",
+      "quantidade" : -1
+    },
+    "-JtF9ahqov-2WgbjRcfd" : {
+      "dataLancamento" : 1435864041452,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtFGldporwGGfKF-pIR" : {
+      "dataLancamento" : 1435865921045,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtFGldrFoESDeIyLRF2" : {
+      "dataLancamento" : 1435865921048,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtFH61NDYINOPCLmY5t" : {
+      "dataLancamento" : 1435866008813,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtFH61PrLSwDrrg0KvS" : {
+      "dataLancamento" : 1435866008815,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtFH61QmjfVy-3QOR6L" : {
+      "dataLancamento" : 1435866008816,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtFHgT7-bhkKPFE6RRf" : {
+      "dataLancamento" : 1435866162162,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtFO6B4oSL6AvzDpcdR" : {
+      "dataLancamento" : 1435867844435,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtFO6B6p0QYthEjI76k" : {
+      "dataLancamento" : 1435867844437,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -4
+    },
+    "-JtFO9GjSWr__sbtj8mM" : {
+      "dataLancamento" : 1435867857085,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtFO9GkKSvrR-GIXgPl" : {
+      "dataLancamento" : 1435867857086,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtFO9GlEfdT0if3Qtka" : {
+      "dataLancamento" : 1435867857087,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtFO9Gm8IK84XP-kGta" : {
+      "dataLancamento" : 1435867857088,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtFprLcaCrdmq4jpY1u" : {
+      "dataLancamento" : 1435875381849,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtFprLeNSgeJSpsayAU" : {
+      "dataLancamento" : 1435875381852,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtFpupicDUE3YZlvLI_" : {
+      "dataLancamento" : 1435875396128,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtFpupkBOIMetXtYDFQ" : {
+      "dataLancamento" : 1435875396130,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtFpuplJ-fJRWynNzSm" : {
+      "dataLancamento" : 1435875396130,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtFqcAMSDS3jIw11tRD" : {
+      "dataLancamento" : 1435875581911,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtFqcAO0gkRtk7zrJnZ" : {
+      "dataLancamento" : 1435875581913,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtFqcAPISYuiCAGj5om" : {
+      "dataLancamento" : 1435875581914,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtIbyeTQ4-jyXd_PP8Z" : {
+      "dataLancamento" : 1435922065164,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JtIbyep3Y00tvlODYA-" : {
+      "dataLancamento" : 1435922065188,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JtL1naATTM7eEBipiBQ" : {
+      "dataLancamento" : 1435962671283,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtL1naHklUxSp-Zq1k2" : {
+      "dataLancamento" : 1435962671292,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JtL1naIKQzcw993_ooP" : {
+      "dataLancamento" : 1435962671293,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtL1naJmxG7xlzIpDWM" : {
+      "dataLancamento" : 1435962671294,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtL1naJmxG7xlzIpDWN" : {
+      "dataLancamento" : 1435962671294,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtQ8EccvxIGu3ahbYSn" : {
+      "dataLancamento" : 1436048249433,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtQ8EchdpDTDTEPvMi_" : {
+      "dataLancamento" : 1436048249440,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtQ8EcjKLtMdgimnzY7" : {
+      "dataLancamento" : 1436048249442,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -5
+    },
+    "-JtQ8Eckg69Cdzo3WWpo" : {
+      "dataLancamento" : 1436048249443,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtQ8EclRYqjWRkPbSWx" : {
+      "dataLancamento" : 1436048249444,
+      "item" : "-JsvXK2Ts-O2kRUYbbTs",
+      "quantidade" : -1
+    },
+    "-JtQ8EcmkrD0yFPGuHu-" : {
+      "dataLancamento" : 1436048249445,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JtVWxnoPEl1ravz0mUO" : {
+      "dataLancamento" : 1436138600631,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtVWxntcQ_SH3ZZ2k6j" : {
+      "dataLancamento" : 1436138600636,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtZ3-Pb7ryi8Q1fxfrE" : {
+      "dataLancamento" : 1436197852359,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtZ3-PfZ6XYJLAM7CAi" : {
+      "dataLancamento" : 1436197852363,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtZ3-Pgl9KjlpVgKfCg" : {
+      "dataLancamento" : 1436197852364,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtZ3-Pgl9KjlpVgKfCh" : {
+      "dataLancamento" : 1436197852364,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtZ3-PhGf-rdJDljbUB" : {
+      "dataLancamento" : 1436197852365,
+      "item" : "rosbife",
+      "quantidade" : -26
+    },
+    "-JtZ37BHg7m7ZdBZeLLT" : {
+      "dataLancamento" : 1436197884210,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtZ37BIMn1yLidJ9N2b" : {
+      "dataLancamento" : 1436197884211,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtZ37BLbLIES8Rpr4Eg" : {
+      "dataLancamento" : 1436197884214,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtZ37BNWSDlDhLy4ogm" : {
+      "dataLancamento" : 1436197884216,
+      "item" : "-JsvVCZfCV0qAx8T0lwu",
+      "quantidade" : -1
+    },
+    "-JtZ3dzjMEqQTtdo3cT8" : {
+      "dataLancamento" : 1436198022671,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtZ3dzlZxc_oOlh85pc" : {
+      "dataLancamento" : 1436198022673,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtfAsjpoNUEJaMgayOs" : {
+      "dataLancamento" : 1436317361840,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtfAsjv9XuhL-S-I4Ls" : {
+      "dataLancamento" : 1436317361847,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -3
+    },
+    "-JtfAsjxcEugRi-fklw3" : {
+      "dataLancamento" : 1436317361849,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtfAsjyI5pzgVvh64xB" : {
+      "dataLancamento" : 1436317361850,
+      "item" : "-JsvXXyWPwk1PZEahbj3",
+      "quantidade" : -2
+    },
+    "-JtfAsk-t9RGzwXI1i8U" : {
+      "dataLancamento" : 1436317361851,
+      "item" : "-JsvY87FJAbrjuu68vkJ",
+      "quantidade" : -1
+    },
+    "-JtfAsk0YQjIki-Ttmtw" : {
+      "dataLancamento" : 1436317361853,
+      "item" : "-JsB9o0GkYDGRfa_Ykr3",
+      "quantidade" : -3
+    },
+    "-JtfAsk2otDp4byeeNWN" : {
+      "dataLancamento" : 1436317361854,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtfInnDSMuZ5-f_q8oE" : {
+      "dataLancamento" : 1436319438684,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-Jtj8NW3a6HqxzJl9kgm" : {
+      "dataLancamento" : 1436383814714,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jtj8NW6oLnofxgVh4sm" : {
+      "dataLancamento" : 1436383814717,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-Jtj8NW9JFIykSHnzlWG" : {
+      "dataLancamento" : 1436383814720,
+      "item" : "-JsvV1uDPB5g3x8FkzCd",
+      "quantidade" : -5
+    },
+    "-Jtj8NWB9xdrrrdK-LZ0" : {
+      "dataLancamento" : 1436383814722,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jtj8NWE78HlZI0G5MJI" : {
+      "dataLancamento" : 1436383814725,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jtj8NWFCfABYSRzfh2F" : {
+      "dataLancamento" : 1436383814726,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-Jtj8NWHR93Lzryl599t" : {
+      "dataLancamento" : 1436383814728,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-Jtj8eAbE-IUAb7k0uOD" : {
+      "dataLancamento" : 1436383887078,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jtj8viKZWb41O5nU7wd" : {
+      "dataLancamento" : 1436383958914,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtjIS3bOcyFWdzz31Ww" : {
+      "dataLancamento" : 1436386454780,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjISsXWFEUGRfeTfPq" : {
+      "dataLancamento" : 1436386458103,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjItgKxULnbATXLJLL" : {
+      "dataLancamento" : 1436386571990,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjIvvS3Yauty8ILQH0" : {
+      "dataLancamento" : 1436386581150,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjJAb5PsKn1Rg0C9mE" : {
+      "dataLancamento" : 1436386645377,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtjLrcbjTq6S2owGRcG" : {
+      "dataLancamento" : 1436387349992,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjMO4Yxg3OtDkQmPmj" : {
+      "dataLancamento" : 1436387486999,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjOYAA7jyfFfQAJq8v" : {
+      "dataLancamento" : 1436388052590,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjOYADcLvFee6uLlG5" : {
+      "dataLancamento" : 1436388052593,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtjQLJ-sCrf16TFx_Zx" : {
+      "dataLancamento" : 1436388524190,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjQiifbbMHmstlS2UX" : {
+      "dataLancamento" : 1436388624198,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtjQzT2AIkF8J0b0i37" : {
+      "dataLancamento" : 1436388692769,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JtjTJUI-Xzqaz4tzA1e" : {
+      "dataLancamento" : 1436389303141,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JtjT_IMJ7TGdDABTs2h" : {
+      "dataLancamento" : 1436389372045,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JtjTdqa9ueTtdm2UGAB" : {
+      "dataLancamento" : 1436389390642,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtjTgjeWe2tbCYJmsd5" : {
+      "dataLancamento" : 1436389402485,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjTjS0quOSuFhA-Jni" : {
+      "dataLancamento" : 1436389413581,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtjTjSNxggkNuWYik1J" : {
+      "dataLancamento" : 1436389413604,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjTw_a23qEOnTWkRjz" : {
+      "dataLancamento" : 1436389467368,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtjUx4cm72E7-K_qyM_" : {
+      "dataLancamento" : 1436389731567,
+      "item" : "macarronada",
+      "quantidade" : -4
+    },
+    "-JtjVZHDbWKlm5e04Pi4" : {
+      "dataLancamento" : 1436389892110,
+      "item" : "-JsB9o0GkYDGRfa_Ykr3",
+      "quantidade" : -1
+    },
+    "-JtjgSBOg1OZ71Il5siE" : {
+      "dataLancamento" : 1436393008734,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtjgSBwa3KA6HO0CXho" : {
+      "dataLancamento" : 1436393008768,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-JtjgUDBlQ6UJA6VkXJo" : {
+      "dataLancamento" : 1436393017041,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjmhypYgxq-gcV2p1_" : {
+      "dataLancamento" : 1436394650331,
+      "item" : "rosbife",
+      "quantidade" : -29
+    },
+    "-Jtjmhz-96oUXNp1s3lv" : {
+      "dataLancamento" : 1436394650343,
+      "item" : "-JsB9o0GkYDGRfa_Ykr3",
+      "quantidade" : -19
+    },
+    "-Jtjmhz6MIULd_vgsc49" : {
+      "dataLancamento" : 1436394650350,
+      "item" : "macarronada",
+      "quantidade" : -4
+    },
+    "-JtjmhzI6rJ_XSdXOfoc" : {
+      "dataLancamento" : 1436394650362,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtjmhzPXvMkP1wtRx3-" : {
+      "dataLancamento" : 1436394650369,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -4
+    },
+    "-JtjmhzU2fHrnz_GhM0x" : {
+      "dataLancamento" : 1436394650374,
+      "item" : "calabresa",
+      "quantidade" : -16
+    },
+    "-Jtjmhz_Qk9hKGnVe3kY" : {
+      "dataLancamento" : 1436394650380,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -5
+    },
+    "-JtjmoH9k9JCTneaeYrA" : {
+      "dataLancamento" : 1436394676145,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjmoHJ_6dOE20GS8da" : {
+      "dataLancamento" : 1436394676155,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjmoHcAq0-YoN9B9RK" : {
+      "dataLancamento" : 1436394676175,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtjmrJfYadYVjAPN5jN" : {
+      "dataLancamento" : 1436394688594,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtjmrJnTvsvnTUOOswr" : {
+      "dataLancamento" : 1436394688602,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-Jtjmw2WqeEcUSOFr9vb" : {
+      "dataLancamento" : 1436394707976,
+      "item" : "-JsvWPbVDWmHkhCARr3E",
+      "quantidade" : -1
+    },
+    "-Jtjmw2i8MRkSXI9Xq24" : {
+      "dataLancamento" : 1436394707989,
+      "item" : "-JsvXK2Ts-O2kRUYbbTs",
+      "quantidade" : -1
+    },
+    "-JtjmzFG9yTWimOHECCt" : {
+      "dataLancamento" : 1436394721080,
+      "item" : "-JsvWPbVDWmHkhCARr3E",
+      "quantidade" : -1
+    },
+    "-JtjmzFRrZGJ-ZwAMVaH" : {
+      "dataLancamento" : 1436394721091,
+      "item" : "-JsvXK2Ts-O2kRUYbbTs",
+      "quantidade" : -1
+    },
+    "-Jtjn0ZRf2BbIgsYr2yj" : {
+      "dataLancamento" : 1436394730563,
+      "item" : "-Jsvm9p0DEL1wUs5q1V9",
+      "quantidade" : -1
+    },
+    "-Jtjn0Zd0O526DBOdcsV" : {
+      "dataLancamento" : 1436394730576,
+      "item" : "-JsvmOweOzHAUuFC_IMH",
+      "quantidade" : -1
+    },
+    "-JtjnJ2D-02aVRF9GaEY" : {
+      "dataLancamento" : 1436394806258,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtjnJ2dqvTMkmOUD5gg" : {
+      "dataLancamento" : 1436394806285,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjnJ2uTvRdCnTDBnWl" : {
+      "dataLancamento" : 1436394806302,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjnbwbBpNAqXH9WSTa" : {
+      "dataLancamento" : 1436394887755,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjnbwwEVy3qc7LP3vv" : {
+      "dataLancamento" : 1436394887776,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjnbxETzK4-_S4QVtI" : {
+      "dataLancamento" : 1436394887795,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtjqhjJnU5UKGfzV3kE" : {
+      "dataLancamento" : 1436395697895,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-Jtjqhjcz1y5hlCzjI7g" : {
+      "dataLancamento" : 1436395697916,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjqhjvuU68d7RQTKAQ" : {
+      "dataLancamento" : 1436395697935,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-Jtjs2uMksWs5TUkSw7l" : {
+      "dataLancamento" : 1436396050850,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-Jtjs2uaKtufa16pOt5D" : {
+      "dataLancamento" : 1436396050866,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jtjs2uokboFAm_mZMRA" : {
+      "dataLancamento" : 1436396050880,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjsNSopdkHX1BVcc74" : {
+      "dataLancamento" : 1436396135039,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -5
+    },
+    "-JtjsNTCrIudNJbmFjDr" : {
+      "dataLancamento" : 1436396135065,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjsNT_6VDYdv_pe0N2" : {
+      "dataLancamento" : 1436396135089,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjsXgtbjurOepySKLp" : {
+      "dataLancamento" : 1436396176963,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -5
+    },
+    "-JtjsXhNRXxVKEgwLxOK" : {
+      "dataLancamento" : 1436396176994,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjsXhfEdad2FrpS-m7" : {
+      "dataLancamento" : 1436396177013,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-Jtjtp6In91xhLaFkgY9" : {
+      "dataLancamento" : 1436396514525,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -7
+    },
+    "-Jtjtp6YSL6fLuFyFwfg" : {
+      "dataLancamento" : 1436396514541,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jtjtp6oSyqa3CYEf5ko" : {
+      "dataLancamento" : 1436396514558,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-Jtju4yydLTGtxY1uJeP" : {
+      "dataLancamento" : 1436396583617,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -7
+    },
+    "-Jtju4zVH4zpndWrFuuF" : {
+      "dataLancamento" : 1436396583651,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jtju4zpfQOvuXdYrnim" : {
+      "dataLancamento" : 1436396583672,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjuXtswLgAum-V04S-" : {
+      "dataLancamento" : 1436396702075,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtjuXuKiycC67YQUkDs" : {
+      "dataLancamento" : 1436396702104,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtjuXukF5WCTWws5-sD" : {
+      "dataLancamento" : 1436396702131,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtjuXvG44uEExODik5Y" : {
+      "dataLancamento" : 1436396702164,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtjulYzfnk-60NwhF95" : {
+      "dataLancamento" : 1436396762113,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jtjun5DxuNEU6NL5HnW" : {
+      "dataLancamento" : 1436396768400,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkAa3d-a3yZHiVquQE" : {
+      "dataLancamento" : 1436401171498,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtkB1WtsWgaNMibATAD" : {
+      "dataLancamento" : 1436401287453,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtkB88V76Mt9kimwrkA" : {
+      "dataLancamento" : 1436401314564,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkB8I0ZO8J_xM7TvjP" : {
+      "dataLancamento" : 1436401315174,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkBSrBBJ4s-1l_tDAK" : {
+      "dataLancamento" : 1436401399408,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtkBSrWOfWHyVNfNmLT" : {
+      "dataLancamento" : 1436401399429,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkBSrpDQpuIe55825r" : {
+      "dataLancamento" : 1436401399449,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkBlyXqz3xLXnDP5-k" : {
+      "dataLancamento" : 1436401481796,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtkBxmnqEcRqDIJck9V" : {
+      "dataLancamento" : 1436401530196,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkBy5T0nmmoVzKDhEV" : {
+      "dataLancamento" : 1436401531456,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkCFwnNEB_xwR9Y78x" : {
+      "dataLancamento" : 1436401608642,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkCFx6qvSwsPTBh5UT" : {
+      "dataLancamento" : 1436401608663,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkCFxsjpp4cotYGOSx" : {
+      "dataLancamento" : 1436401608712,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-JtkCKLb31KQM0HTirLw" : {
+      "dataLancamento" : 1436401626679,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -3
+    },
+    "-JtkVfGWdvKfzqn6pz4Q" : {
+      "dataLancamento" : 1436406697114,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtkVfHHuLiEKIEwMUQY" : {
+      "dataLancamento" : 1436406697164,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-JtkVfHeLpsf5qQ_yE9o" : {
+      "dataLancamento" : 1436406697188,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtkVfI6TQKwltE5Dot0" : {
+      "dataLancamento" : 1436406697217,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -18
+    },
+    "-JtkVfIWeiuuCHG0oLjs" : {
+      "dataLancamento" : 1436406697242,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtkW2Nr_7Vd-fgRi22u" : {
+      "dataLancamento" : 1436406795889,
+      "item" : "-JsB9o0GkYDGRfa_Ykr3",
+      "quantidade" : -4
+    },
+    "-JtkW2ONrdMhl2haNjuz" : {
+      "dataLancamento" : 1436406795922,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-JtkW2OnXALMu08Lb52L" : {
+      "dataLancamento" : 1436406795949,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtkWjKw9AHE2j36hJZ_" : {
+      "dataLancamento" : 1436406975991,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -5
+    },
+    "-JtkWjLUnCgp3V9000ui" : {
+      "dataLancamento" : 1436406976026,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkWv-3OfE2cUxRjSH7" : {
+      "dataLancamento" : 1436407023660,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtkWv-_ybeJHr_yDbUx" : {
+      "dataLancamento" : 1436407023693,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtkWv08a8TtPDuNwOAQ" : {
+      "dataLancamento" : 1436407023730,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-Jtkawt27IG5pyvtr65Q" : {
+      "dataLancamento" : 1436408342110,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -22
+    },
+    "-JtkawtiijsyeVcFOtAI" : {
+      "dataLancamento" : 1436408342152,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -13
+    },
+    "-JtkbEUzxaQSEd6rLCty" : {
+      "dataLancamento" : 1436408418320,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtkbHX8zQR_TIgwUPSO" : {
+      "dataLancamento" : 1436408430745,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-JtkdHP9vTfP3jgFcIZe" : {
+      "dataLancamento" : 1436408954526,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtkdHQ28loZIPnjKXod" : {
+      "dataLancamento" : 1436408954583,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-Jtkdg_RsOJwARiTnajg" : {
+      "dataLancamento" : 1436409061734,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jtkrm__M3MXHNwoaB5n" : {
+      "dataLancamento" : 1436412756334,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-Jtkrma4DPPgzgPLxKkR" : {
+      "dataLancamento" : 1436412756366,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -4
+    },
+    "-JtkwBwteomho18sOTMx" : {
+      "dataLancamento" : 1436413912805,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -4
+    },
+    "-JtkwBxAXBrvZ3P18DN7" : {
+      "dataLancamento" : 1436413912824,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -4
+    },
+    "-JtkwBxMaxE15IJJwt0l" : {
+      "dataLancamento" : 1436413912835,
+      "item" : "calabresa",
+      "quantidade" : -4
+    },
+    "-JtkwfCyY-6H8S-b4RGM" : {
+      "dataLancamento" : 1436414036771,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -3
+    },
+    "-JtkwfDF0YAc97u3vXZq" : {
+      "dataLancamento" : 1436414036790,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -4
+    },
+    "-Jtl4_QbxpOzy_d0Ya_t" : {
+      "dataLancamento" : 1436416372345,
+      "item" : "rosbife",
+      "quantidade" : -9
+    },
+    "-Jtl4_QyKBA_sYA6p6Vn" : {
+      "dataLancamento" : 1436416372367,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -3
+    },
+    "-Jtl4_RF9UhHB2QSZ7DQ" : {
+      "dataLancamento" : 1436416372386,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-Jtl4ao-uPNbWQNR6v4l" : {
+      "dataLancamento" : 1436416378002,
+      "item" : "rosbife",
+      "quantidade" : -3
+    },
+    "-Jtl4dT-UvasQGtxifUl" : {
+      "dataLancamento" : 1436416388882,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -3
+    },
+    "-Jtl78xIKuIWtZQ0RRH_" : {
+      "dataLancamento" : 1436417046245,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-Jtl78xcWL1CaEfR7upI" : {
+      "dataLancamento" : 1436417046265,
+      "item" : "-JsvV1uDPB5g3x8FkzCd",
+      "quantidade" : -1
+    },
+    "-Jtl78xxQGdLeqmBS587" : {
+      "dataLancamento" : 1436417046287,
+      "item" : "-JsvVCZfCV0qAx8T0lwu",
+      "quantidade" : -1
+    },
+    "-JtlBhZn-CcPd3_OIHeU" : {
+      "dataLancamento" : 1436418240656,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -4
+    },
+    "-JtnK4fZiVTtxTPagCiI" : {
+      "dataLancamento" : 1436453990617,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -6
+    },
+    "-JtnaEGwAyhIUe2u2-n5" : {
+      "dataLancamento" : 1436458490772,
+      "item" : "rosbife",
+      "quantidade" : -2
+    },
+    "-JtnaJatO9eOrZ54O4AT" : {
+      "dataLancamento" : 1436458512594,
+      "item" : "rosbife",
+      "quantidade" : -3
+    },
+    "-JtnsqTwhw--3a0Tkn4j" : {
+      "dataLancamento" : 1436463374759,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -6
+    },
+    "-JtnsqUAERN4uJv42scY" : {
+      "dataLancamento" : 1436463374776,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -6
+    },
+    "-JtnsqUFDYgPh2VUcsX8" : {
+      "dataLancamento" : 1436463374781,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtnsqUKJ3w_7bdNByo_" : {
+      "dataLancamento" : 1436463374786,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jtnt2A6EqOwyXfdzzSx" : {
+      "dataLancamento" : 1436463426740,
+      "item" : "-JsB9YY5S0-EDujWK3Qt",
+      "quantidade" : -1
+    },
+    "-JtnvOqlbMJ2BvakM1p2" : {
+      "dataLancamento" : 1436464035725,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtnvQwEjiXnOxel69ms" : {
+      "dataLancamento" : 1436464044267,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jto-_xp4UtrPJ_cNPmP" : {
+      "dataLancamento" : 1436465404258,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-Jto-_xw1woFqI0vSQBt" : {
+      "dataLancamento" : 1436465404265,
+      "item" : "macarronada",
+      "quantidade" : -1
+    },
+    "-Jto-_y-TdlBhR8PgVln" : {
+      "dataLancamento" : 1436465404269,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-Jto6PFNhV6LRAdS7_JA" : {
+      "dataLancamento" : 1436467175642,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -1
+    },
+    "-Jto6PG1HafVcTu0A_az" : {
+      "dataLancamento" : 1436467175684,
+      "item" : "calabresa",
+      "quantidade" : -1
+    },
+    "-JtoFHIirZ6WZymZpmFZ" : {
+      "dataLancamento" : 1436469509763,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -4
+    },
+    "-JtoFJV1NDDOxUVv1tS7" : {
+      "dataLancamento" : 1436469518743,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtoG8887Vf8CWdQuj8n" : {
+      "dataLancamento" : 1436469734366,
+      "item" : "rosbife",
+      "quantidade" : -5
+    },
+    "-JtoMKXYvanDJ3cCnlLw" : {
+      "dataLancamento" : 1436471357966,
+      "item" : "calabresa",
+      "quantidade" : -4
+    },
+    "-JtoQo-DoHaK7h1yn8pH" : {
+      "dataLancamento" : 1436472531320,
+      "item" : "-JsvOHJfxnr0ekxtMTrL",
+      "quantidade" : -1
+    },
+    "-JtoQo-VMwdh0By983Vq" : {
+      "dataLancamento" : 1436472531339,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-JtoQo-piZlkNhQow_X7" : {
+      "dataLancamento" : 1436472531360,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtoQo084fzTItNOEyTS" : {
+      "dataLancamento" : 1436472531380,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtoQo0VJ2VMumcAdxqu" : {
+      "dataLancamento" : 1436472531403,
+      "item" : "-JsvV1uDPB5g3x8FkzCd",
+      "quantidade" : -1
+    },
+    "-JtoReDRlJokSJuNuJaY" : {
+      "dataLancamento" : 1436472753393,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -8
+    },
+    "-JtoReDnw7iqzCgEqn6t" : {
+      "dataLancamento" : 1436472753416,
+      "item" : "macarronada",
+      "quantidade" : -4
+    },
+    "-JtoWDGrohGPpIw0XZI1" : {
+      "dataLancamento" : 1436473949644,
+      "item" : "-JsvU8fuXRqJpbnSvPQj",
+      "quantidade" : -1
+    },
+    "-JtoWFb3QOqiALxEd_gV" : {
+      "dataLancamento" : 1436473959193,
+      "item" : "rosbife",
+      "quantidade" : -11
+    },
+    "-JtoWHczk3iAPUU82X3v" : {
+      "dataLancamento" : 1436473967508,
+      "item" : "-JsSMuNteQug3xa5Xf7G",
+      "quantidade" : -6
+    },
+    "-Jtog0yTeV9KubHgKDX1" : {
+      "dataLancamento" : 1436476782790,
+      "item" : "rosbife",
+      "quantidade" : -8
+    },
+    "-JtpDr653NlTrI2NqHqW" : {
+      "dataLancamento" : 1436485906144,
+      "item" : "-JsvSme6Hb9GFITx-lqf",
+      "quantidade" : -1
+    },
+    "-JtpFhj1A8npClkFGek9" : {
+      "dataLancamento" : 1436486399087,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtpP60PCQMv1DAkj76v" : {
+      "dataLancamento" : 1436488869754,
+      "item" : "-JsvXXyWPwk1PZEahbj3",
+      "quantidade" : -1
+    },
+    "-Jtq0-8ylUgJ-X16smho" : {
+      "dataLancamento" : 1436499057493,
+      "item" : "-JsvSVP6xcOIgw8jOjR0",
+      "quantidade" : -1
+    },
+    "-Jtq0-9Fa5WzWRpkG4wZ" : {
+      "dataLancamento" : 1436499057511,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
+    },
+    "-Jtq0-9Q9Dopu3SW8oWR" : {
+      "dataLancamento" : 1436499057523,
+      "item" : "rosbife",
+      "quantidade" : -4
+    },
+    "-JtrRj3Qexy2tQu00tUC" : {
+      "dataLancamento" : 1436523097174,
+      "item" : "rosbife",
+      "quantidade" : -1
+    },
+    "-JtrRj4E5U0KpJFatLYO" : {
+      "dataLancamento" : 1436523097226,
+      "item" : "-JsvTL0859CBeyB6bFbp",
+      "quantidade" : -1
     }
   },
   "garcons" : {
@@ -21,6 +2039,21 @@
       "name" : "Garçon 2"
     }
   },
+  "images" : {
+    "calabresa-img" : {
+      "data" : "http://www.culturamix.com/wp-content/gallery/origem-do-dia-da-pizza-historias-e-receitas-2/origem-do-dia-da-pizza-historias-e-receitas-5.png"
+    },
+    "coca-cola-img" : {
+      "data" : "http://www.smokersheavenshop.co.uk/images/P/coke-stash-can.jpg",
+      "marginLeft" : "12%"
+    },
+    "macarronada-img" : {
+      "data" : "imgs/macarronada.jpg"
+    },
+    "rosbife-img" : {
+      "data" : "https://cocarcafe.files.wordpress.com/2011/10/rosbife2.jpg"
+    }
+  },
   "mesas" : {
     "mesa1" : {
       "alertTo" : false,
@@ -31,131 +2064,488 @@
       "name" : "Mesa 2"
     }
   },
+  "ofertas" : [ {
+    "bebida" : {
+      "coca-cola" : true
+    },
+    "comida" : {
+      "macarronada" : true,
+      "rosbife" : true
+    }
+  }, null, {
+    "bebida" : {
+      "coca-cola" : true
+    }
+  } ],
   "pedidos" : {
     "mesa1" : {
+      "-JsSMdNBt1TqyorNn7TT" : {
+        "aberto" : {
+          "rosbife" : 0
+        },
+        "all" : {
+          "rosbife" : 5
+        },
+        "fechado" : {
+          "rosbife" : 5
+        }
+      },
       "bebida" : {
         "aberto" : {
-          "coca-cola" : 0
+          "-JsvTL0859CBeyB6bFbp" : 0
+        },
+        "all" : {
+          "-JsvSVP6xcOIgw8jOjR0" : 1,
+          "-JsvTL0859CBeyB6bFbp" : 2,
+          "-JsvXXyWPwk1PZEahbj3" : 1
         },
         "entregue" : {
-          "coca-cola" : 1
-        },
-        "fechado" : {
-          "coca-cola" : 1
-        },
-        "pago" : {
-          "coca-cola" : 122
+          "-JsvXXyWPwk1PZEahbj3" : 1
         },
         "pronto" : {
-          "coca-cola" : 7
-        }
-      },
-      "comida" : {
-        "aberto" : {
-          "rosbife" : 0
-        },
-        "entregue" : {
-          "rosbife" : 0
-        },
-        "fechado" : {
-          "rosbife" : 4
-        },
-        "pago" : {
-          "rosbife" : 68
-        },
-        "pronto" : {
-          "rosbife" : 10
-        }
-      },
-      "pizzas" : {
-        "aberto" : {
-          "calabresa" : 0
-        },
-        "entregue" : {
-          "calabresa" : 0
-        },
-        "fechado" : {
-          "calabresa" : 1
-        },
-        "pago" : {
-          "calabresa" : 6
-        },
-        "pronto" : {
-          "calabresa" : 11
-        }
-      }
-    },
-    "mesa2" : {
-      "bebida" : {
-        "aberto" : {
-          "coca-cola" : 0
-        },
-        "fechado" : {
-          "coca-cola" : 0
-        }
-      },
-      "comida" : {
-        "aberto" : {
-          "rosbife" : 0
-        },
-        "entregue" : {
-          "rosbife" : 0
-        },
-        "fechado" : {
-          "rosbife" : 0
-        },
-        "pago" : {
-          "rosbife" : 1
-        },
-        "pronto" : {
-          "rosbife" : 0
-        }
-      },
-      "pizzas" : {
-        "aberto" : {
-          "calabresa" : 0
-        },
-        "fechado" : {
-          "calabresa" : 0
-        }
-      }
-    },
-    "undefined" : {
-      "pizzas" : {
-        "aberto" : {
-          "calabresa" : 0
-        },
-        "fechado" : {
-          "calabresa" : 0
-        },
-        "pronto" : {
-          "calabresa" : 0
+          "-JsvSVP6xcOIgw8jOjR0" : 1,
+          "-JsvTL0859CBeyB6bFbp" : 2,
+          "-JsvXXyWPwk1PZEahbj3" : 0
         }
       }
     }
   },
   "produtos" : {
-    "bebida" : {
-      "coca-cola" : {
-        "descricao" : "Coca-Cola é um refrigerante carbonado vendido em lojas do mundo todo, restaurantes e máquinas de venda automática em todo o mundo. Ele é produzido pela The Coca-Cola Company, sediada em Atlanta, Estados Unidos, e é muitas vezes referido apenas como Coca-Cola (a marca registrada da empresa Coca-Cola nos Estados Unidos desde 27 de março de 1944). Originalmente concebida como um remédio patenteado quando foi inventada no final do século XIX por John Pemberton, a Coca-Cola foi comprada pelo empresário Asa Griggs Candler, cujas táticas publicitárias levaram a bebida ao domínio do mercado de refrigerantes no mundo ao longo do século XX.",
-        "nome" : "Coca-cola",
-        "preco" : 4
-      }
+    "-JsB9YY5S0-EDujWK3Qt" : {
+      "descricao" : "Amondega\n\nAlmôndega, ou porpeta é uma carne moída (eventualmente substituída por proteína de soja) enrolada em formato de bola, conhecida em alguns lugares do Brasil como pelotas de carne, na Itália como polpetta, na Espanha como albóndiga e na Suécia como köttbullar.",
+      "nome" : "Almondega Deliciosa",
+      "preco" : 47,
+      "quantidade" : -3
     },
-    "comida" : {
-      "rosbife" : {
-        "descricao" : "A carne é preparada de forma que a parte exterior fique bem caramelizada, enquanto o interior fica mal passado, dando fatias com uma cor rosada. O rosbife é normalmente servido como prato principal, com vários acompanhamentos, entre os quais o mais importante é o gravy (com exceção do Sunday roast, que é tradicionalmente servido com Yorkshire puddings, pãezinhos assados muitas vezes aproveitando os sucos da carne assada)",
-        "nome" : "Rosbife",
-        "preco" : 40,
-        "preparavel" : true
-      }
+    "-JsB9o0GkYDGRfa_Ykr3" : {
+      "nome" : "Guaraná Antartica",
+      "preco" : 4,
+      "quantidade" : 0
     },
-    "pizzas" : {
-      "calabresa" : {
-        "nome" : "Pizza de Calabresa",
-        "preco" : 30,
-        "preparavel" : true
+    "-JsSMuNteQug3xa5Xf7G" : {
+      "descricao" : "O crepe, palavra que vem do francês crêpe, derivada do latim crispus, que significa crespo, 1 é um tipo de panqueca feito a base de farinha de trigo, leite e ovos. A massa é preparada de forma que possa formar uma camada delgada no fundo duma frigideira apenas pincelada com manteiga ou outra gordura. O crepe é geralmente comido depois de enriquecido com algum recheio, que pode ser doce ou salgado. 2",
+      "nome" : "Delicioso Crepe",
+      "preco" : 34,
+      "quantidade" : -7
+    },
+    "-JsSNLlImnts5BQxhUDl" : {
+      "descricao" : "O crepe,  palavra que vem do francês crêpe, derivada do latim crispus, que significa crespo, 1 é um tipo de panqueca feito a base de farinha de trigo, leite e ovos. A massa é preparada de forma que possa formar uma camada delgada no fundo duma frigideira apenas pincelada com manteiga ou outra gordura. O crepe é geralmente comido depois de enriquecido com algum recheio, que pode ser doce ou salgado. 2",
+      "nome" : "Delicioso Crepe de Queijo",
+      "preco" : 33,
+      "quantidade" : 0
+    },
+    "-JsvOHJfxnr0ekxtMTrL" : {
+      "descricao" : "Heineken International é uma cervejaria holandesa, fundada em 1863 por Wandscheer Heineken na cidade de Amsterdã. Heineken possui cerca de 140 cervejarias em mais de 70 países, empregando aproximadamente 57 5574 pessoas\nAs cervejarias da Heineken estão localizadas em Zoeterwoude e em 's-Hertogenbosch e o seu primeiro prédio, fechado em 1988, tornou-se o museu Heineken Experience, situado em Amsterdã.",
+      "nome" : "Heineken- Larger 355 ml",
+      "preco" : 7,
+      "propriedades" : {
+        "Cor" : "Dourado",
+        "País" : "Holanda",
+        "ml" : 355
+      },
+      "quantidade" : -1
+    },
+    "-JsvSVP6xcOIgw8jOjR0" : {
+      "descricao" : "Heineken International é uma cervejaria holandesa, fundada em 1863 por Wandscheer Heineken na cidade de Amsterdã. Heineken possui cerca de 140 cervejarias em mais de 70 países, empregando aproximadamente 57 5574 pessoas\nAs cervejarias da Heineken estão localizadas em Zoeterwoude e em 's-Hertogenbosch e o seu primeiro prédio, fechado em 1988, tornou-se o museu Heineken Experience, situado em Amsterdã.",
+      "nome" : "Heineken- Larger 600 ml",
+      "preco" : 11,
+      "propriedades" : {
+        "Cor" : "Dourado",
+        "País" : "Holanda",
+        "ml" : 600
+      },
+      "quantidade" : -3
+    },
+    "-JsvSme6Hb9GFITx-lqf" : {
+      "descricao" : " AMSTEL teve início no dia 11 de junho de 1870, quando a cervejaria começou a ser construída na cidade de Amsterdã. A cervejaria foi idealizada por dois empresários da cidade, Jonkheer de Pesters e J.H. van Marwijk Kooy, em virtude da alta popularidade da cerveja da região da Bavária na Holanda, que na época possuía aproximadamente 560 cervejarias espalhadas pelo país. Apesar da enorme concorrência, a cerveja foi lançada no mercado como AMSTEL LAGER BEER, tendo seu nome inspirado no Rio Amstel, onde estava situada a cervejaria e de onde era retirada a água para sua produção",
+      "nome" : "Amstel 600 ml",
+      "preco" : 10,
+      "propriedades" : {
+        "Cor" : "Âmbar",
+        "País" : "Holanda",
+        "ml" : 600
+      },
+      "quantidade" : -3
+    },
+    "-JsvTL0859CBeyB6bFbp" : {
+      "descricao" : "Sagres é uma marca de cerveja de Portugal. Foi criada em 1940 como cerveja de prestígio, para representar a Sociedade Central de Cervejas na Exposição do Mundo Português, inaugurada em maio desse ano.1",
+      "nome" : "Sagres 600 ml",
+      "preco" : 10,
+      "propriedades" : {
+        "Cor" : "Cobre",
+        "País" : "Portugal",
+        "ml" : 600
+      },
+      "quantidade" : 0
+    },
+    "-JsvU8fuXRqJpbnSvPQj" : {
+      "descricao" : "Sol é uma marca de cerveja mexicana produzida pela empresa Cervecería Cuauhtémoc-Moctezuma (empresa fundada em 1890 na cidade de Monterrey e pertencente ao grupo FEMSA1 ) e produzida desde 18992 .",
+      "nome" : "Sol Premium 355 ml",
+      "preco" : 7,
+      "propriedades" : {
+        "Cor" : "Amarelo",
+        "País" : "México",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-JsvV1uDPB5g3x8FkzCd" : {
+      "descricao" : "Xingu é uma marca de cerveja brasileira criada em 1988 por Cesario Mello Franco.2 Atualmente, a cerveja é comercializada em cerca de 20 países (EUA, Canadá, Europa, Japão, entre outros) pela Cervejas Premium do Brasil e no Brasil sua distribuição é feita pela Cervejaria Heineken. Mais conhecida pela cerveja escura (Xingu Black), a Xingu também conta, desde 2013, com a versão clara (Xingu Gold)",
+      "nome" : "Xingu 355 ml ",
+      "preco" : 6,
+      "propriedades" : {
+        "Cor" : "Escura",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : -1
+    },
+    "-JsvVCZfCV0qAx8T0lwu" : {
+      "descricao" : "A grande tradição da Cervejaria Antarctica lançou em 1935 esta cerveja de aroma e sabor adocicados e amargor suave, Antarctica Malzbier possui um processo de fabricação diferente das cervejas tipo pilsen, durante o seu processo de fabricação é adicionado caramelo em calda que garante o sabor, a cor e o aroma diferenciado do produto.",
+      "nome" : "Antartica Malzebier 355 ml",
+      "preco" : 6,
+      "propriedades" : {
+        "Cor" : "Escura",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-JsvVkXXEXeaDvlx72oi" : {
+      "descricao" : "Como toda típica cerveja do tipo pilsen, é clara e tem baixa fermentação. Principal produto da cervejaria Antarctica, é composta de extrato primitivo e tem aroma, sabor e amargor suaves. Antarctica Pilsen é uma clássica cerveja Pilsen que combina tradição e Qualidade. A cada dia conquista mais admiradores e é hoje conhecida como a cerveja BOA de verdade.",
+      "nome" : "Antartica Pilsen 600 ml",
+      "preco" : 6,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 600
+      },
+      "quantidade" : 0
+    },
+    "-JsvWARPrqjMj_sAaSWA" : {
+      "descricao" : "Como toda típica cerveja do tipo pilsen, é clara e tem baixa fermentação. Principal produto da cervejaria Antarctica, é composta de extrato primitivo e tem aroma, sabor e amargor suaves. Antarctica Pilsen é uma clássica cerveja Pilsen que combina tradição e Qualidade. A cada dia conquista mais admiradores e é hoje conhecida como a cerveja BOA de verdade",
+      "nome" : "Antartica Pilsen 355 ml",
+      "preco" : 0,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-JsvWPbVDWmHkhCARr3E" : {
+      "nome" : "Bohemia Pilsen 600 ml",
+      "preco" : 10,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 600
+      },
+      "quantidade" : -12
+    },
+    "-JsvXK2Ts-O2kRUYbbTs" : {
+      "nome" : "Bohemia Pilsen 355 ml",
+      "preco" : 6,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-JsvXXyWPwk1PZEahbj3" : {
+      "descricao" : " Bohemia Confraria foi lançada em 2005 como mais uma edição especial e limitada, a partir de uma receita nascida na idade média criada pelos monges, com toques pessoais dos mestres cervejeiros da Bohemia adicionando aveia, por exemplo.\nOs Monges europeus, no século XI, foram os responsáveis pela adição do lúpulo na cerveja que deu à bebida sabor e aroma diferenciados.\n",
+      "nome" : "Bohemia Confraria Abadia 355 ml",
+      "preco" : 10,
+      "propriedades" : {
+        "Cor" : "Amarelo-palha",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-JsvY87FJAbrjuu68vkJ" : {
+      "descricao" : "Bohemia Escura é uma cerveja do tipo Schwarzbier, desenvolvida especialmente pelo mestre cervejeiro de Bohemia, utilizando maltes raros importados de Munique, que proporcionam uma cor única, um sabor com toque especial, muito mais suave, envolvente e uma espuma aveludada, encorpada e cremosa. É uma verdadeira tentação, que chega até você numa garrafa exclusiva, premiada pela Associação Brasileira de Embalagens, com taças especialmente desenhadas, para que você possa saborear com muito mais prazer uma das melhores cervejas do mundo. Histórico A Bohemia Escura foi lançada como edição especial e limitada nos anos de 2002 e 2003 , com o seu enorme sucesso a sua produção passou a ser definitiva.",
+      "nome" : "Bohemia Escura Schwarzbier 355 ml",
+      "preco" : 9,
+      "propriedades" : {
+        "Cor" : "Escura",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : -1
+    },
+    "-Jsvl6SzESfeffaz_j-d" : {
+      "descricao" : "Para quem procura uma cerveja escura e encorpada com sabor diferenciado, Brahma Malzbier é ideal, pois tem um sabor levemente adocicado e aroma de caramelo. Além disso, é muito nutritiva, por ser rica em carboidratos. Brahma lançou a primeira cerveja tipo Malzbier no mercado.",
+      "nome" : "Brahma Malzebier 355 ml",
+      "preco" : 6,
+      "propriedades" : {
+        "Cor" : "Escura",
+        "País" : "Brasil",
+        "ml" : 355
+      },
+      "quantidade" : -3
+    },
+    "-JsvlPMhFJznMPO4z5tM" : {
+      "descricao" : " Brahma Chopp é clara, brilhante, transparente e internacionalmente conhecida como uma cerveja de excelente qualidade. É mais leve, com paladar clássico da baixa fermentação e tem sabor encorpado, aroma neutro, amargor menos acentuado e médio teor alcoólico. Histórico A cerveja Brahma Chopp em barril foi lançada em 1888, e em garrafa, em 1934. A garrafa de 300ml foi lançada em 1967; cinco anos mais tarde, em 1972, foi lançada a Brahma Chopp lata, e, em 1993, a long neck. O slogan da Brahma Chopp, até 1991, era “Produto de Qualidade”.",
+      "nome" : "Brahma Pilsen 600 ml",
+      "preco" : 9,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 600
+      },
+      "quantidade" : -1
+    },
+    "-JsvljCiYiIOPV2mbY-g" : {
+      "descricao" : "Cerveja Brahma Extra é uma cerveja da empresa brasileira Brahma, fabricante de cerveja fundada em 1888 pelo suíço Joseph Villiger, com o nome de Manufactura de Cerveja Brahma Villiger & Companhia. Atualmente faz parte da Companhia de Bebidas das Américas (AmBev), que foi criada em 1999 a partir da associação das cervejarias Brahma e Antarctica. Apesar da fusão, a AmBev ainda vende a cerveja com as mesmas características anteriores e com o mesmo nome Brahma Extra.",
+      "nome" : "Brahma extra 600 ml",
+      "preco" : 10,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 600
+      },
+      "quantidade" : 0
+    },
+    "-Jsvlxpp4dEevlPcG3KZ" : {
+      "nome" : "Brahma extra 355 ml",
+      "preco" : 7,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "ml" : 355
+      },
+      "quantidade" : 0
+    },
+    "-Jsvm9p0DEL1wUs5q1V9" : {
+      "descricao" : "Skol é uma marca de cerveja de propriedade da empresa dinamarquesa Carlsberg, com licença para ser fabricada no Brasil. Seu nome vem da palavra escandinava skål, que significa \"à vossa saúde/à nossa saúde\"; expressão comum que antecede brindes. É hoje a maior do segmento no mercado brasileiro e a quinta maior do segmento no mundo1 . É comercializada no tipo Pilsen.",
+      "nome" : "Skol Pilsen 600 ml",
+      "preco" : 9,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Dinamarca",
+        "ml" : 600
+      },
+      "quantidade" : -1
+    },
+    "-JsvmOweOzHAUuFC_IMH" : {
+      "descricao" : "A Cervejaria Serramalte (antiga Cervejaria e Maltaria da Serra Ltda) é uma cervejaria brasileira que foi fundada em janeiro de 1953 na cidade de Getúlio Vargas, no estado do Rio Grande do Sul.\nNo início atuava somente no setor de maltaria, e após a construção da cervejaria, em 1957, foi lançada a cerveja Serramalte. A cervejaria foi adquirida pela Antarctica em 1980.\nÉ uma cerveja tipo extra comercializada em garrafa de 600 ml.",
+      "nome" : "Serra Malte Extra 600 ml",
+      "preco" : 11,
+      "propriedades" : {
+        "Cor" : "Clara",
+        "País" : "Brasil",
+        "ml" : 600
+      },
+      "quantidade" : 0
+    },
+    "calabresa" : {
+      "descricao" : "O tradicional sabor calabresa ganha um toque ainda mais especial com a receita da Casa. A Pizza Calabresa é composta por linguiça calabresa, cebola e queijo mussarela, além de salpicada com deliciosas azeitonas pretas.",
+      "nome" : "Pizza Calabresa",
+      "photo" : "calabresa-img",
+      "preco" : 30,
+      "preparavel" : true,
+      "quantidade" : 1
+    },
+    "coca-cola" : {
+      "descricao" : "Coca-Cola é um refrigerante carbonado vendido em lojas do mundo todo, restaurantes e máquinas de venda automática em todo o mundo. Ele é produzido pela The Coca-Cola Company, sediada em Atlanta, Estados Unidos, e é muitas vezes referido apenas como Coca-Cola (a marca registrada da empresa Coca-Cola nos Estados Unidos desde 27 de março de 1944). Originalmente concebida como um remédio patenteado quando foi inventada no final do século XIX por John Pemberton, a Coca-Cola foi comprada pelo empresário Asa Griggs Candler, cujas táticas publicitárias levaram a bebida ao domínio do mercado de refrigerantes no mundo ao longo do século XX.",
+      "nome" : "Coca-cola",
+      "photo" : "coca-cola-img",
+      "preco" : 4,
+      "quantidade" : -27
+    },
+    "macarronada" : {
+      "descricao" : "A macarronada é um dos pratos de massa mais apreciados pelas cozinheiras. Essa refeição pode ser feita sem dar muito trabalho e fica muito suculenta. Quem gosta de macarrão não pode perder.",
+      "nome" : "Macarronada",
+      "photo" : "macarronada-img",
+      "preco" : 20,
+      "preparavel" : true,
+      "quantidade" : -27
+    },
+    "rosbife" : {
+      "descricao" : "A carne é preparada de forma que a parte exterior fique bem caramelizada, enquanto o interior fica mal passado, dando fatias com uma cor rosada. O rosbife é normalmente servido como prato principal, com vários acompanhamentos, entre os quais o mais importante é o gravy (com exceção do Sunday roast, que é tradicionalmente servido com Yorkshire puddings, pãezinhos assados muitas vezes aproveitando os sucos da carne assada)",
+      "nome" : "Rosbife",
+      "photo" : "rosbife-img",
+      "preco" : 40,
+      "preparavel" : true,
+      "quantidade" : -45
+    }
+  },
+  "relogios" : {
+    "mesa1" : {
+      "-JsSMdNBt1TqyorNn7TT" : {
+        "aberto" : {
+          "rosbife" : 1436499075730
+        },
+        "fechado" : {
+          "rosbife" : 1436523099049
+        }
+      },
+      "-JsSMduHHqKN_7qf15TD" : {
+        "aberto" : {
+          "-JsSMuNteQug3xa5Xf7G" : 1436488820697
+        },
+        "pronto" : {
+          "-JsSMuNteQug3xa5Xf7G" : 1436473961237
+        }
+      },
+      "-JsSQFLQcQWgf6nw29ii" : {
+        "aberto" : {
+          "-JsB9YY5S0-EDujWK3Qt" : 1436463405754
+        },
+        "pronto" : {
+          "-JsB9YY5S0-EDujWK3Qt" : 1436463412090
+        }
+      },
+      "bebida" : {
+        "aberto" : {
+          "-JsvOHJfxnr0ekxtMTrL" : 1436472503436,
+          "-JsvSVP6xcOIgw8jOjR0" : 1436488980575,
+          "-JsvSme6Hb9GFITx-lqf" : 1436488809691,
+          "-JsvTL0859CBeyB6bFbp" : 1436488985828,
+          "-JsvU8fuXRqJpbnSvPQj" : 1436472767163,
+          "-JsvV1uDPB5g3x8FkzCd" : 1436472512880,
+          "-JsvXK2Ts-O2kRUYbbTs" : 1436488848521,
+          "-JsvXXyWPwk1PZEahbj3" : 1436488850585,
+          "-JsvmOweOzHAUuFC_IMH" : 1436488842365
+        },
+        "entregue" : {
+          "-JsvXXyWPwk1PZEahbj3" : 1436489044645
+        },
+        "pronto" : {
+          "-JsvOHJfxnr0ekxtMTrL" : 1436472525013,
+          "-JsvSVP6xcOIgw8jOjR0" : 1436499051350,
+          "-JsvSme6Hb9GFITx-lqf" : 1436485907897,
+          "-JsvTL0859CBeyB6bFbp" : 1436523099051,
+          "-JsvU8fuXRqJpbnSvPQj" : 1436473943374,
+          "-JsvV1uDPB5g3x8FkzCd" : 1436472525092,
+          "-JsvXXyWPwk1PZEahbj3" : 1436488855813
+        }
+      },
+      "comida" : {
+        "aberto" : {
+          "macarronada" : 1436465387782,
+          "rosbife" : 1436465387009
+        },
+        "fechado" : {
+          "macarronada" : 1436472747140,
+          "rosbife" : 1436465389679
+        }
+      },
+      "pizzas" : {
+        "aberto" : {
+          "-JsB9YY5S0-EDujWK3Qt" : 1436507609948,
+          "calabresa" : 1436467174466
+        },
+        "fechado" : {
+          "calabresa" : 1436471352124
+        }
       }
+    }
+  },
+  "vendas" : {
+    "-JmPfcdJ1c5AMHdIavue" : {
+      "Categoria" : "Bebida",
+      "Mesa" : "mesa1",
+      "Produto" : "Coca-cola",
+      "Quantidade" : 3,
+      "Valor" : 12,
+      "data" : 1428524272364
+    },
+    "-JmU5xBy1d-5874Kj2M9" : {
+      "Categoria" : "Bebida",
+      "Mesa" : "mesa1",
+      "Produto" : "Coca-cola",
+      "Quantidade" : 0,
+      "Valor" : 0,
+      "data" : 1428598543392
+    },
+    "-JmU5xC2iCQ9NHIbnvd-" : {
+      "Categoria" : "Comida",
+      "Mesa" : "mesa1",
+      "Produto" : "Rosbife",
+      "Quantidade" : 10,
+      "Valor" : 400,
+      "data" : 1428598543539
+    },
+    "-JmU7436mJ0drN0N9yy3" : {
+      "Categoria" : "Bebida",
+      "Mesa" : "mesa1",
+      "Produto" : "Coca-cola",
+      "Quantidade" : 0,
+      "Valor" : 0,
+      "data" : 1428598837756
+    },
+    "-JmU743AJ1LLH6VYhxct" : {
+      "Categoria" : "Comida",
+      "Mesa" : "mesa1",
+      "Produto" : "Macarronada",
+      "Quantidade" : 10,
+      "Valor" : 200,
+      "data" : 1428598837902
+    },
+    "-JmU743BQR1twr5f0Am6" : {
+      "Categoria" : "Comida",
+      "Mesa" : "mesa1",
+      "Produto" : "Rosbife",
+      "Quantidade" : 0,
+      "Valor" : 0,
+      "data" : 1428598837903
+    },
+    "-Jsgcbv1hsSMf_IvBZrc" : {
+      "Categoria" : "Crepes",
+      "Mesa" : "mesa1",
+      "Produto" : "Coca-cola",
+      "Quantidade" : 1,
+      "data" : 1435267926416,
+      "valor" : 4
+    },
+    "-Jsgcbv6uGMroXDhjB55" : {
+      "Categoria" : "Pratos Quentes",
+      "Mesa" : "mesa1",
+      "Produto" : "Pizza Calabresa",
+      "Quantidade" : 1,
+      "data" : 1435267926730,
+      "valor" : 30
+    },
+    "-Jsgcbv8iJlW3bcoLiIP" : {
+      "Categoria" : "Pratos Inverno",
+      "Mesa" : "mesa1",
+      "Produto" : "Delicioso Crepe",
+      "Quantidade" : 1,
+      "data" : 1435267926985,
+      "valor" : 34
+    },
+    "-Jsgcbv8iJlW3bcoLiIQ" : {
+      "Categoria" : "Bebida",
+      "Mesa" : "mesa1",
+      "Produto" : "Coca-cola",
+      "Quantidade" : 8,
+      "data" : 1435267927413,
+      "valor" : 32
+    },
+    "-Jsgcbv9z4aP83iR7zI9" : {
+      "Categoria" : "Comida",
+      "Mesa" : "mesa1",
+      "Produto" : "Macarronada",
+      "Quantidade" : 5,
+      "data" : 1435267927653,
+      "valor" : 100
+    },
+    "-JsgcbvBqX8X8_E3E3RD" : {
+      "Categoria" : "Comida",
+      "Mesa" : "mesa1",
+      "Produto" : "Rosbife",
+      "Quantidade" : 4,
+      "data" : 1435267928115,
+      "valor" : 160
+    },
+    "-JsgcbvI-E5N-89cI0Xt" : {
+      "Categoria" : "Pizzas",
+      "Mesa" : "mesa1",
+      "Produto" : "Pizza Calabresa",
+      "Quantidade" : 5,
+      "data" : 1435267928126,
+      "valor" : 150
     }
   }
 }

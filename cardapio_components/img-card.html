@@ -1,29 +1,87 @@
-<polymer-element name="img-card" attributes="data width">
+<polymer-element name="img-card" attributes="data width nome 
+ignoreBorderRadius ignoreMargin isMini">
   <template>
-    <div>
-      <img src="{{url}}"/>
+    <div style="z-index:0" relative>
+      <img _src="{{url}}" relative style="z-index:0;min-width:30px;left:-4px" id="img"/>
     </div>
     <style>
-      img {
+      div
+      {
         width: {{width}}px;
-        height : {{width}}px;
+        height: {{width}}px;
+        display: block;
+        overflow:hidden;
+        text-align:center;
+        background:#FFF;
       }
       img {
-        border-radius: 50%;
-        display: block;
-        margin: 10px;
+        height : inherit;
+        margin-left:{{ data.marginLeft }};
       }
     </style>
+    <template if="{{isMini}}">
+      <style> img {width: 85px;} </style>
+    </template>
+    <template if="{{!ignoreBorderRadius}}">
+      <style>
+        div{
+          border-radius: 50%;
+        }
+      </style>
+    </template>
+
+    <template if="{{!ignoreMargin}}">
+      <style>
+        div{
+        margin: 10px;
+        }
+      </style>
+    </template>
+
   </template>
   <script>
     Polymer({
-      url:'',
+      ignoreBorderRadius:false,
+      isMini:false,
+      ignoreMargin:false,
       width:146,
+      ready:function()
+      {
+        this.async(function()
+        {
+          setInterval(function()
+          {
+            if(_.isEmpty(this.$.img.src) || this.$.img.src == window.location.href)this.nomeChanged();
+          }
+          .bind(this),
+          300*PHI)
+        },
+        300*PHI);
+      },
+      nomeChanged:function()
+      {
+        if(this.nome && !_.isEmpty(this.nome))
+          this.url = "imgs/"+(this.nome).trim().toLowerCase()
+          .replace(/\s+/g,"-")
+          .replace("ç","c")
+          .replace("â","a")
+          .replace("é","e")
+          +".jpg";
+      },
+      urlChanged:function(od,nw)
+      {
+        if(_.isUndefined(nw) || document.location.href == nw && od)
+          this.url = od;
+        //console.log('od,nw:',od,nw)
+      },
       dataChanged:function()
       {
-        this.url = this.data;
-        if(_.isObject(this.url))
+        if(_.isString(this.data))
+        null; // throw console.error('precisa ser um objecto',this.data,this.parentNode);
+        else if(_.isObject(this.data))
           this.url = this.data.data;
+        else
+          throw console.error('tipo desconhecido', this.data)
       }
     });
   </script>

@@ -1,0 +1,105 @@
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../scope_elements/scope-combo.html">
+
+
+<link rel="import" href="gerencial-estoque-calculator.html">
+<link rel="import" href="gerencial-date-controller.html">
+
+<polymer-element 
+	name="gerencial-tool-estoque" attributes="lancamento lancamentoKey" layout vertical>
+	<template>
+		<style>
+			:host {
+				display: block;
+				margin:8px;
+			}
+			
+		</style>
+		<cardapio-globals id="g"></cardapio-globals>
+		<gerencial-estoque-calculator id="estoqueCalculator">
+		</gerencial-estoque-calculator>
+		
+		<firebase-element 
+			location="{{ $.g.location }}/estoque"
+			data="{{ estoqueData }}"
+			id="estoqueBase">
+		</firebase-element>
+		<firebase-element 
+			location="{{ $.g.location }}/produtos"
+			data="{{ produtosData }}">
+		</firebase-element>
+
+		<gerencial-date-controller>
+		</gerencial-date-controller>
+
+		<template if="{{ lancamento }}">
+			<span title>
+				<core-icon icon="swap-vert"></core-icon>
+				Lançamento atual:</span>
+			<gerencial-estoque-item 
+				isVertical
+				lancamento="{{ lancamento }}"
+				lancamentoKey="{{ lancamentoKey }}">
+			</gerencial-estoque-item>
+			<paper-button 
+				id="removeLancamento"
+				raised 
+				on-click="{{ removeCurrentLancamentoHandler }}">
+				<core-icon 
+					icon="delete">
+				</core-icon> 
+				Remover Lançamento
+			</paper-button>
+		</template>
+
+		<paper-button id="novoLancamento" raised on-click="{{ pushLancamentoHandler }}">
+			<core-icon icon="add"></core-icon>Novo Lançamento
+		</paper-button>
+		<style>
+			#novoLancamento { background: #D50000; color: #FFF;}
+			#removeLancamento { background :#FFD600;}
+			span[title] { margin-top: 26px;font-size: 21px;}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			lancamentoKeyChanged:function()
+			{
+				var k = this.lancamentoKey;
+				if(k && !_.isString(k))
+					throw new Error('k lancamentoKey precisa ser uma String');
+			},
+			pushLancamentoHandler:function()
+			{
+				var item = _.first(_.keys(this.produtosData));
+
+				if(!item) {
+					queryIt('produtos');
+					this.pushLancamentoHandler();
+					return;
+				}
+
+				this.$.estoqueBase.push(
+				{
+					dataLancamento:new Date().getTime(),
+					item:item,
+					quantidade:1
+				});
+
+				this.calcEstoque();
+			},
+			calcEstoque:function()
+			{
+				this.$.estoqueCalculator.calcLancamento();
+			},
+			removeCurrentLancamentoHandler:function()
+			{
+				delete this.estoqueData[this.lancamentoKey];
+				this.lancamentoKey = undefined;
+				this.$.estoqueBase.commit();
+
+				this.calcEstoque();
+			}
+		});
+	</script>
+</polymer-element>

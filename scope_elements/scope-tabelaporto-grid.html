@@ -1,0 +1,188 @@
+<polymer-element name="scope-tabelaporto-grid" attributes="terminalKey portoKey">
+  <template>
+
+    <scope-globals id="g"></scope-globals>
+    <scope-validator id="validator"></scope-validator>
+
+    <firebase-element
+      location="{{ $.g.data.location }}/terminais"
+      data="{{ terminaisData }}"></firebase-element>
+      
+    <firebase-element
+      portoBase
+      location="{{ $.g.data.location }}/portos/{{ $.g.data.filial }}/{{ portoKey }}"
+      data="{{ portoData }}"></firebase-element>
+      
+    <firebase-element
+      location="{{ $.g.data.location }}/tabela-porto/{{ $.g.data.filial }}/{{ currentTarifacaoMap[currentTarifacao] }}/{{ terminalKey }}"
+      data="{{ tabelaPortoData }}"
+      keys="{{ tabelaPortoKeys }}"
+      id="tabelaPortoBase"
+      ></firebase-element>
+
+    <paper-shadow on-set-value="{{ setValueHandler }}">
+      <h4>{{ portoData.nome }} / {{ terminaisData[terminalKey].nome }} - {{ currentTarifacaoMapN[currentTarifacao] }}</h4>
+      <h6>Tabela porto por faixa de DWT:</h6>
+      
+      <paper-tabs selected="{{ currentTarifacao }}">
+        <paper-tab>Liner</paper-tab>
+        <paper-tab>Tramp</paper-tab>
+      </paper-tabs>
+      
+      <paper-button flex id="add" raised on-click="{{ openDialog }}">
+        <core-icon icon="add"></core-icon> 
+        adicionar tarifa
+      </paper-button>
+      <div>
+        
+      <template repeat="{{ k,i in tabelaPortoKeys }}">
+        <template if="{{ k | isValid }}">
+          
+          <scope-input
+            isNumber
+            label="
+            de
+              {{ (tabelaPortoKeys[i-1] && tabelaPortoKeys[i-1] || 0) | formatNumber(1)  }}
+            até
+              {{ k | formatNumber }}"
+            value="{{ tabelaPortoData[k] }}"
+            attributeName="{{ k }}">
+          </scope-input>
+  
+          <scope-tabelaporto-grid-fab
+            icon="clear"
+            on-click="{{ deleteHandler }}"
+            de="{{ tabelaPortoKeys[i]  }}"
+            ate="{{ k }}"
+            valueOfNext="{{ tabelaPortoData[tabelaPortoKeys[i+1]] }}"
+            valueOfPrev="{{ tabelaPortoData[tabelaPortoKeys[i]] }}">
+          </scope-tabelaporto-grid-fab>
+          
+        </template>
+      </template>
+      </div>
+    </paper-shadow>
+
+    <scope-tabelaporto-grid-faixadialog id="gridDialog"
+      on-insert-new-faixa="{{ inserNewFaixaHandler }}">
+
+    </scope-tabelaporto-grid-faixadialog>
+    <style>
+        #add
+        {
+          width:100%;
+          padding-right: 21px;
+          margin-top:10px;
+        }
+      paper-shadow
+      {
+        background:#FFF;
+        padding:8px;
+        margin:8px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer(
+      'scope-tabelaporto-grid', 
+      {
+        currentTarifacao:0,
+        currentTarifacaoMapN:['Liner','Tramp'],
+        currentTarifacaoMap:['liner','tramp'],
+        openDialog:function()
+        {
+          var data = this.$.tabelaPortoBase.data;
+          var dialog = this.$.gridDialog
+          var max = _.max(_.map(_.keys(data),parseFloat));
+          var maxValue = data[max];
+          
+          dialog.dialogAte = max+5;
+          dialog.$.valueInput.value = maxValue;
+          dialog.$.dialog.open();
+        },
+        setValueHandler:function(e,d,s)
+        {
+          if(this.$.tabelaPortoBase.data)
+            this.$.tabelaPortoBase.data[d.attributeName] = parseFloat(d.value);
+        },
+        deleteHandler:function(e,d,s)
+        {
+          delete (this.$.tabelaPortoBase.data[s.ate]);
+          this.$.tabelaPortoBase.commit();
+        },
+        /** add new faixa callback **/
+        inserNewFaixaHandler:function(e,d,s)
+        {
+          this.$.validator.testEach({
+            target:d,
+            elements:['valueOfNext','valueOfPrev','value'],
+            caller:_.isNumber
+          });
+          
+          if(!this.$.tabelaPortoBase.data[d.ate])
+          {
+            if(true)//(d.valueOfPrev < d.value) && (d.value < d.valueOfNext)
+            {
+              this.$.tabelaPortoBase.data[d.ate] = d.value;
+              this.$.gridDialog.destruct();
+            }
+            else
+              this.$.gridDialog.showInvalidError();
+          }
+        },
+        /** 
+         * open dialog 
+         * @Deprecated
+         */
+        addNovaFaixaHandler:function(e,d,s)
+        {
+          var ate = parseFloat(s.ate) + 5;
+          var de  = parseFloat(s.de);
+  
+          while(this.tabelaPortoData[ate])
+          {
+            de  = ate;
+            ate += 5;
+          }
+          if( _.some([s.valueOfNext,s.valueOfPrev],_.isNumber) )
+          {
+            s.valueOfNext = parseFloat(s.valueOfNext) || 0;
+            s.valueOfPrev = parseFloat(s.valueOfPrev) || 0;
+          }
+          this.$.gridDialog.construct({
+            title : this.terminaisData[this.terminalKey].nome,
+            de    : de,
+            ate   : ate || Infinity,
+            valueOfNext : s.valueOfNext || Infinity,
+            valueOfPrev : s.valueOfPrev
+          });
+        },
+        isValid:function(v)
+        {
+          return !_.isUndefined(eval(v));
+        },
+        formatNumber:function(number,add1)
+        {
+          if(!number)
+            return 0;
+          else
+            number = parseFloat(number);
+          
+          if(_.isNaN(number))
+            return "∞";
+          
+          if(add1) number += 0.001;
+          
+          var number = number.toFixed(3) + '';
+          var x = number.split('.');
+          var x1 = x[0];
+          var x2 = x.length > 1 ? '.' + x[1] : '';
+          var rgx = /(\d+)(\d{3})/;
+          while (rgx.test(x1)) {
+              x1 = x1.replace(rgx, '$1' + ',' + '$2');
+          }
+          return (x1 + x2);
+        }
+    });
+  </script>
+</polymer-element>

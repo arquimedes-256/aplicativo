@@ -1,0 +1,69 @@
+
+<polymer-element name="cardapio-filtro-links" attributes="propriedade produtosData">
+	<template>
+		<div layout vertical>
+			<template repeat="{{k in groupKeys}}">
+				<div layout horizontal on-click="{{ clickHandler }}" key="[[ k ]]" relative>
+
+              		<paper-ripple fit></paper-ripple>
+					<div>
+						<template if="{{ k != 'undefined' }}">
+							<img-card nome="{{ k }}" width="20"></img-card>
+						</template>
+						<template if="{{ k == 'undefined' }}">
+							<core-icon icon="done-all" style="
+    margin: 6px;
+    margin-right: 9px;
+"></core-icon>
+						</template>
+					</div>
+					<div style="line-height:38px"
+						>
+						{{ k != 'undefined' ? k : 'Todos' }}
+					</div>
+					<div>
+						<template if="{{ checkedMap[k] }}">
+							<core-icon icon="check" style="
+							
+    position: relative;
+    top: 6px;
+    left: 2px;
+"></core-icon>
+						</template>
+					</div>
+				</div>
+			</template>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			observe:{'produtosData propriedade':'go'},
+			checkedMap:{},
+			go:function()
+			{
+				var K = this.propriedade;
+				var G = _.groupBy(this.produtosData,function(v)
+					{
+						return v.propriedades && v.propriedades[K]
+					});
+				this.groupKeys = _.keys(G).reverse();
+				this.groupData = G;
+			},
+			clickHandler:function(e,d,s)
+			{
+				var obj = {key:this.propriedade,value:s.getAttribute('key')};
+
+				this.fire('set-filtro',obj)
+
+				if (obj.value === "undefined" || obj.value === undefined) {
+					this.checkedMap = {}
+					return
+				}
+				if(this.checkedMap[obj.value])
+					delete this.checkedMap[obj.value]
+				else
+					this.checkedMap[obj.value] = true;
+			}
+		})
+	</script>
+</polymer-element>

@@ -3,60 +3,10 @@
 <link rel="import" href="../bower_components/firebase-element/firebase-login.html">
 
 <polymer-element name="cardapio-globals"
-  attributes="useBases mesa k_mesas location
-  k_categorias produtos k_produtos pedidos_abertos pedidosKeys data">
+  attributes="useBases">
 
   <template>
-    <template if="{{useBases}}">
-    <firebase-login
-      id="login"
-      user="{{user}}"
-      statusKnown="{{statusKnown}}"
-      location="{{location}}"
-      provider="{{provider}}">
-    </firebase-login>
-
-<!-- bases -->
-    <firebase-element
-      id="base_mesas"
-      location="{{location}}/mesas/{{data.currentMesa}}"
-      data="{{ mesa }}"
-      keys="{{ k_mesas }}">
-    </firebase-element>
-
-    <firebase-element
-      id="base_categorias"
-      location="{{location}}/categorias"
-      data="{{categorias}}"
-      keys="{{k_categorias}}">
-    </firebase-element>
-
-    <firebase-element
-      id="base_produtos"
-      location="{{location}}/produtos/{{data.currentCategoryKey}}"
-      data="{{produtos}}"
-      keys="{{k_produtos}}">
-    </firebase-element>
-
-    <firebase-element
-      id="base_produtos_todos"
-      location="{{location}}/produtos"
-      data="{{ produtos_todos }}"
-      keys="{{ k_produtos_todos }}">
-    </firebase-element>
-
-    <firebase-element
-      id="base_pedidos"
-      location="{{ location }}/pedidos/{{ data.currentMesa }}"
-      data="{{ pedidos_abertos }}"
-      keys="{{ pedidosKeys }}">
-    </firebase-element>
-
-    <firebase-element
-      id="base_pedidos_aberto"
-      location="{{ location }}/pedidos/{{ data.currentMesa }}/{{ data.currentCategoryKey }}/aberto">
-    </firebase-element>
-    </template>
+    
 
   </template>
   <script>
@@ -65,6 +15,7 @@
         currentCategoryKey:null,
         currentMesa : 'mesa1'
     };
+    var fbLocation = 'https://restaurantegraph.firebaseio.com';
 
 
     var $d = function(s) 
@@ -85,14 +36,87 @@
         b.queryChanged();
       }
     }
+    window.renderAllClocks = function()
+    {
+      var A = document.querySelectorAll('* /deep/ cardapio-wishlist-item');
+      _.each(A,function(a)
+      {
+        a.renderAllIcons();
+      })
+    }
+    window.queryIt = function(path,key)
+    {
+      var s = 'html /deep/ firebase-element[location]';
+      var u = fbLocation+'/'+path+ (key ? '/'+key : "");
+      var baseList = document.querySelectorAll(s);
+      var x = 0;
+
+      _.each(baseList,function(b)
+      {
+        if(b.location == u)
+          b.queryChanged(),
+          x++;
+      });
+
+      if (x == 0) {
+        console.trace('queryIt sem efeito, por favor confira path e keys',u)
+      }
+      else
+        console.info(x+' elements afetados')
+    }
+    window.calculateAll = function()
+    {
+      var cardapioWishListCategory = document.querySelector('* /deep/ cardapio-wishlist-element[id="all"]');
+                if(!cardapioWishListCategory)
+                  throw new Error('precisa existir um cardapio-wishlist-category');
+                
+                cardapioWishListCategory.calculateAll();
+
+
+      setTimeout(function()
+      {
+          var B = document.querySelectorAll('* /deep/ [id="pedidosAbertoBase"]');
+          for(var i=0;i<B.length;i++)
+            B[i].queryChanged();
+      },1000)
+
+    
+    }
+    window.setRelogio = function(from,_this)
+    {
+        var globals = _this.globals || _this.$.globals;
+        var baseRelogios = _this.$.baseRelogios;
+        var categoryKey = (_this.categoriaKey || _this._categoryKey);
+
+        var url = "relogios/"+ globals.data.currentMesa 
+          +"/"
+          + categoryKey +"/"+ from +"/"+  _this.productKey;
+
+        if(!baseRelogios)
+          baseRelogios = {
+            ref:new Firebase(globals.location+"/"+url)
+          }
+        
+        baseRelogios.ref.set(Firebase.ServerValue.TIMESTAMP);
+
+        queryIt(url);
+    }
+    //gambiarra feita para segurar os categories
+    setInterval(function()
+    {
+      var C = document.querySelectorAll('* /deep/ cardapio-wishlist-category');
+      for(var i=0;i<C.length;i++)
+          C[i].onChangeQTD();
+    },
+    5000);
 
     Polymer({
+      useBases:false,
       ready:function()
       {
-        this.useBases = true;
         this.data = data;
       },
-      location:'https://scorching-torch-2274.firebaseio.com'
+      location:fbLocation
     })
   </script>
 </polymer-element>

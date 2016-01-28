@@ -1,0 +1,109 @@
+<link rel="import" href="../bower_components/core-icons/av-icons.html">
+<script src="../scripts/jquery.nanoscroller.min.js"></script>
+
+<polymer-element name="gerencial-explorer-item" attributes="estudo">
+	<template>
+		<link rel="stylesheet" href="../scripts/nanoscroller.css">
+		<paper-shadow id="shadow" >
+			<div id="main" relative style="width: 100%;;height:{{mainHeight}}">
+				<div id="main-content"   ></div>
+			</div>
+			<div relative style="
+							font-size: 13px;
+							padding: 5px;
+							text-align:left;
+							height: 41px;
+							background-color: {{ strongColor }};
+							line-height: 40px;
+							position:absolute;
+							bottom:0;left: 0;
+							width: {{width}}">
+				<paper-ripple fit></paper-ripple>
+				<span style="color:{{ fontColor }};position:absolute;left:19px;top:7px">
+
+					{{ estudo.nome }}
+				</span>
+				<core-icon icon="av:play-arrow" style="
+				color:{{ fontColor }};
+				position:absolute;right:19px;top:15px"></core-icon>
+			</div>
+		</paper-shadow>
+		<style>/*
+			#main-content {
+				overflow:{{overflow}}
+			}*/
+			#shadow{
+				height: {{ height }};
+				width:{{shadowWidth}};
+				background:{{weakColor}};
+				padding: {{shadowPadding}};
+				margin-left:{{shadowMarginLeft}};
+			}
+			:host
+			{
+				display:block;
+				margin:4px;
+			}
+		</style>
+
+		<template if="{{ estudo.key == 'cadastros' }}">
+			<style>
+				:host {
+					margin-left:-2px!important;
+				}
+			</style>
+		</template>
+		
+	</template>
+	<script>
+		Polymer({
+			mainHeight:'90%',
+			height:'266px',
+			shadowWidth:'inherit',
+			fontColor:"#616161",
+			strongColor:"#1de9b6",
+			weakColor:"#b9f6ca",
+			width: '97.3%',
+			shadowPadding:'0px',
+			overflow:'hidden',
+			ready:function()
+			{
+			
+				this.heranca = document
+					.createElement('gerencial-explorer-item-'+this.estudo.key);
+
+				this.$['main-content'].appendChild(this.heranca)
+				// seta o tipo do flex: one, two, three ...
+				this.setAttribute(this.estudo.flexType,'');
+
+				this.heranca.parent = this;
+			},
+			estudoChanged:function()
+			{
+				var e = this.estudo;
+
+				if(e.weakColor)
+					this.weakColor = e.weakColor;
+				if(e.strongColor)
+					this.strongColor = e.strongColor;
+				if(e.fontColor)
+					this.fontColor = e.fontColor;
+				if(e.width)
+					this.width = e.width;
+				if(e.height)
+					this.height = e.height;
+				if(e.shadowWidth)
+					this.shadowWidth = e.shadowWidth;
+				if(e.shadowPadding)
+					this.shadowPadding = e.shadowPadding;
+				if(e.overflow)
+					this.overflow = e.overflow;
+				if(e.mainHeight)
+					this.mainHeight = e.mainHeight;
+				if(e.shadowMarginLeft)
+					this.shadowMarginLeft = e.shadowMarginLeft;
+
+			}
+		})
+	</script>
+</polymer-element>

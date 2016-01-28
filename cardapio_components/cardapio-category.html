@@ -5,8 +5,10 @@
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 
 <link rel="import" href="cardapio-products.html">
+<link rel="import" href="cardapio-filtro-interface.html">
+<link rel="import" href="cardapio-category-keyboard.html">
 
-<polymer-element name="cardapio-category" attributes="category products products_keys">
+<polymer-element name="cardapio-category" attributes="categoryKey">
 
   <template>
     <style>
@@ -20,7 +22,7 @@
         position: absolute;
       }
       #section1 {
-        background-color: rgb(255, 255, 141);
+        background-color:none;
       }
       #core_icon {
         height: 256px;
@@ -34,42 +36,94 @@
         padding: 24px;
         color: rgb(255, 255, 255);
         font-size: 32px;
-        background-color: rgb(255, 235, 59);
+        background-color: #D7CCC8;
       }
       #div2 {
         position: absolute;
-        color: rgb(255, 255, 255);
+        color: #FFAB00;
         bottom: 50px;
         right: 24px;
       }
       #paper_fab {
-        overflow: visible;
-        background-color: rgb(255, 64, 129);
+        overflow: visible;      }
+      #div1{
+        background:#FFAB00;
+      }
+      cardapio-products {
+        /**
+        height:595px;
+        overflow-y:scroll;
+        margin-top: 43px;
+        **/
       }
     </style>
+    <cardapio-globals id="g"></cardapio-globals>
+    <firebase-element
+      location="{{ $.g.location }}/categorias/{{ categoryKey }}"
+      data="{{ categoriaData }}">
+    </firebase-element>
+
     <section id="section" layout vertical>
       <section
         id="section1"
-        class="top" flex layout horizontal center center-justified hero
+        class="top" flex layout horizontal hero
         hero-id="top">
-        <cardapio-products id="products" products="{{ products }}" products_keys="{{ products_keys }}"></cardapio-products>
+      <core-drawer-panel rightDrawer drawerWidth="169px" id="drawer">
+          <div main style="overflow-y: auto;">
+            <cardapio-products 
+              id="cardapioProducts" 
+              on-delete-filtros="{{ onDeleteFiltros }}"></cardapio-products>
+          </div>
+          <div drawer relative style="overflow-y: auto;">
+            <paper-shadow fit style="background:#FFF">
+
+              <cardapio-filtro-interface 
+                on-set-filtro="{{ setFiltroHandler }}"
+                on-sujs="{{ setSujHandler }}"></cardapio-filtro-interface>
+            </paper-shadow>
+          </div>
+      </core-drawer-panel>
       </section>
-      <div id="div" class="bottom" hero hero-id="bottom">
-        <span id="span">{{ category['nome'] }}</span>
+      <div id="div" class="bottom" hero hero-id="bottom" style="display:none">
+        <span id="span">{{ categoriaData['nome'] }}</span>
       </div>
       <div id="div1" hero class="dummy"></div>
       <div id="div2" class="fab fab-0">
-        <paper-fab icon="av:play-arrow" id="paper_fab" on-click="{{ fireBackCategory }}" cross-fade-delayed></paper-fab>
+        
       </div>
+      <cardapio-category-keyboard relative></cardapio-category-keyboard>
     </section>
+    <style>
+    </style>
   </template>
 
   <script>
 
     Polymer({
+      ready:function()
+      {
+        window.toggleRightMenu = this.toggleRightMenu.bind(this);
+      },
+      //depreciado
       fireBackCategory:function()
       {
         this.fire('back-cardapio-category');
+      },
+      setSujHandler:function(e,d,s)
+      {
+        this.$.cardapioProducts.sujestions = d.sujs;
+      },
+      setFiltroHandler:function(e,d,s)
+      {
+        this.$.cardapioProducts.addFiltro(d);
+      },
+      onDeleteFiltros:function(e,d,s)
+      {
+        console.log('onDeleteFiltros',d) 
+      },
+      toggleRightMenu:function()
+      {
+        this.$.drawer.togglePanel()
       }
     });
 

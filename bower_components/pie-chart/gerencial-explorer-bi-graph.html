@@ -1,0 +1,15 @@
+
+
+<polymer-element name="gerencial-explorer-bi-graph" attributes="table">
+	<template>
+
+	</template>
+	<script>
+	Polymer({
+		observe:{'table':'generateDataFromTable'},
+		generateDataFromTable:function() {
+			var trList = table.querySelectorAll('tr');
+		}
+	})
+	</script>
+</polymer-element>

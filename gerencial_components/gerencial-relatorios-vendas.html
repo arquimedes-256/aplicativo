@@ -1,0 +1,73 @@
+<polymer-element name="gerencial-relatorios-vendas" 
+	attributes="config fact mensureList derivedAttributes" flex>
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			#output table
+			{
+				margin: 30px auto
+			} 
+		</style>
+		<link 
+			rel="stylesheet" 
+			href="../bower_components/pivottable/dist/pivot.css">
+
+		<cardapio-globals id="g"></cardapio-globals>
+		<firebase-list 
+			location="{{ $.g.location }}/{{fact}}"
+			list="{{ factList }}"></firebase-list>
+		<div id="output">
+
+		</div>
+	</template>
+	<script>
+		Polymer({
+			fact:'vendas',
+			derivedAttributes:{},
+			ready:function(){
+				this.factList = [];
+			},
+			observe:{'config config.lastUpdate factList mensureList derivedAttributes':'renderReport'},
+			renderReport:function()
+			{
+				if(!this.config)
+					return;
+
+				var a = jQuery(this.$.output);
+
+				var obj = 
+				    {
+				        rows: this.config.rows,
+				        cols: this.config.cols,
+				        derivedAttributes:
+				        _.extend(this.derivedAttributes,{
+				        	"Mês":function(a)
+				        	{
+				        		return new Date().getMonth(a.dataLancamento)+1;
+				        	},
+				        	"Ano":function(a)
+				        	{
+				        		return new Date().getFullYear(a.dataLancamento);
+				        	},
+			        		"Dia":function(a)
+				        	{
+				        		return new Date().getDate(a.dataLancamento)+1;
+				        	}
+				        }),
+				    };
+
+		
+
+
+
+				obj.aggregator =  this.config.f;
+
+				a.pivot(this.factList,obj
+				);
+				//console.log(this.factList);
+			}
+		});
+	</script>
+</polymer-element>

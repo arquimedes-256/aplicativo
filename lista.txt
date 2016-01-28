@@ -1,0 +1,7 @@
+comida
+petiscos
+pizza
+vinho
+cerveja
+refrigerante
+sucos

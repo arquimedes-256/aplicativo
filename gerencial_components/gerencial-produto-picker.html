@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/core-overlay/core-overlay.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+<polymer-element name="gerencial-produto-picker" attributes="">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+			<cardapio-globals id="g">
+			</cardapio-globals>
+
+			<firebase-element 
+				location="{{ $.g.location }}/images"
+				data="{{ imagesData }}"
+				keys="{{ imagesKeys }}"></firebase-element>
+
+			<firebase-element 
+				location="{{ $.g.location }}/produtos"
+				data="{{ produtosData }}"
+				keys="{{ produtosKeys }}"></firebase-element>
+				<firebase-element 
+					location="{{ $.g.location }}/categorias-produtos"
+					data="{{ categoriasProdutosData }}"
+					keys="{{ categoriasProdutosKeys }}"></firebase-element>
+
+			<core-overlay id="overlay" backdrop layout fullbleed>
+				<paper-shadow z="1" layout vertical>
+					<paper-input label="Pesquisar:" 
+						floatingLabel
+						value="{{ queryVal }}">
+					</paper-input>
+					<template repeat="{{ k in produtosKeys }}">
+						<paper-item layout horizontal 
+							on-click="{{ clickProdutoHandler }}"
+							key="[[ k ]]">
+							<img-card 
+							data="{{ imagesData[produtosData[k].photo] }}" 
+							width="64"></img-card>
+							<div flex>
+							{{ produtosData[k].nome }}
+							<div>
+						</paper-item>
+					</template>
+				</paper-shadow>
+			</core-overlay>
+			<style>
+				paper-shadow {background:#FFF;}
+				paper-input { margin:10px 0;}
+			</style>
+	</template>
+	<script>
+		Polymer({
+			open:function()
+			{
+				this.$.overlay.open();
+			},
+			clickProdutoHandler:function(e,d,s)
+			{
+				var key = s.getAttribute('key');
+				this.fire('pick',{key:key});
+				this.$.overlay.close();
+			},
+			queryValChanged:function()
+			{
+				this.job('query',function()
+				{
+					var Kx = _.difference(this.produtosKeys, this.categoriasProdutosKeys);
+					//console.log(Kx)
+				});
+			}
+		});
+	</script>
+</polymer-element>

@@ -1,89 +1,190 @@
-
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
- 
-<polymer-element name="cardapio-total"
-attributes="from to disabledSend disabledMoney sendText totalItens mainTitle">
-  <template>
-      <cardapio-globals id="globals"></cardapio-globals>
-      <paper-shadow layout horizontal>
-        <span flex>Total {{ mainTitle }}: </span>
-        <template if="{{ !disabledMoney }}">
-          <b>{{ total }} R$</b>
+<link rel="import" href="../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+
+<polymer-element name="cardapio-total" attributes="permissions from to disabledSend disabledMoney sendText totalItens mainTitle">
+    <template>
+        <link href="../site-stable/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <cardapio-globals id="globals"></cardapio-globals>
+        <firebase-element location="{{ $.globals.location }}/mesas/{{$.globals.data.currentMesa}}" data="{{ mesaData }}" keys="{{ mesaKeys }}"></firebase-element>
+        <paper-shadow layout horizontal>
+            <span flex>Total {{ _mainTitle }}: </span>
+            <template if="{{ !disabledMoney }}">
+                <b>$ {{ total }}</b>
+            </template>
+            <template if="{{ disabledMoney }}">
+                <b>x{{ totalItens }}</b>
+            </template>
+        </paper-shadow>
+        <div>
+            <span style="font-size: 11px;margin-left: 7px;">Modo de pagamento:</span>
+            <br/>
+            <paper-radio-button checked="{{isMoney}}" style="
+            margin-left: 8px;">
+            </paper-radio-button>
+
+            <img src="../imgs/money-icon.png" style="
+              width: 24px;
+              position: relative;
+              top: 4px;
+              border-radius: 2px;
+        " />
+
+            <paper-radio-button name="c" checked="{{isCard}}">
+            </paper-radio-button>
+
+            <core-icon icon="credit-card"></core-icon>
+
+        </div>
+        <div layout horizontal>
+            <template if="{{ mostrarSendBtn && total }}">
+                <paper-button flex class="blink_me" id="check" on-click="{{ send }}" showing?="{{ total }}" raised send-btn>
+                    <core-icon icon="send"></core-icon>{{ sendText }}
+                </paper-button>
+            </template>
+        </div>
+
+        <template if="{{ permissions.alert.to  }}">
+            <paper-button raised on-click="{{ alertToHandler }}" flex alert-button>
+
+                <template if="{{ !(mesaData.alertTo == permissions.alert.to) }}">
+                    <core-icon icon="social:notifications"></core-icon>
+                    {{ permissions.alert.text }}
+                </template>
+                <template if="{{ mesaData.alertTo == permissions.alert.to }}">
+                    <core-icon icon="social:notifications-off"></core-icon>
+                    {{ permissions.alert.cancelText }}
+                </template>
+
+            </paper-button>
+
+
         </template>
-        <template if="{{ disabledMoney }}">
-          <b>x{{ totalItens }}</b>
-        </template>
-      </paper-shadow>
-      <div layout horizontal>
 
-          <paper-button
-            flex
-            class="blink_me"
-            id="check"
-            hidden?="{{ disabledSend }}"
-            on-click="{{ send }}" showing?="{{ total }}"
-            raised
-            ><core-icon icon="check"></core-icon>{{ sendText }}</paper-button>
 
-      </div>
-      <style>
-      #check
-      {
-        margin-right:10px;
-        background:#F50057;
-        color:#FFF;
-      }
-      paper-shadow
-      {
-        padding: 10px;
-        margin:10px;
-        background:#fff;
-      }
-      paper-button {
-        transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 500ms, background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: -webkit-transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 500ms, background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transform: scale(0);
-        transform: scale(0);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-      }
-      paper-button[showing] {
-        -webkit-transform: none;
-        transform: none;
-      }
-      </style>
-  </template>
-  <script>
-    Polymer({
-      disabledSend:false,
-      disabledMoney:false,
-      ready:function()
-      {
-        this.total = 0;
-        this.totalItens = 0;
-      },
-      calcWishs:function()
-      {
-        this.job('total-calc',function()
-        {
-          var wishs = this.parentNode.querySelectorAll('cardapio-wishlist');
-          this.total = 0 ;
-          this.totalItens = 0;
+        <style>
+            paper-radio-button /deep/ .fill {
+              background:#FFC107!important;
+            }
+            paper-button[alert-button] {
+                width: 94%;
+            }
+            
+            #check {
+                margin-right: 10px;
+                background: #F50057;
+                color: #FFF;
+            }
+            
+            paper-shadow {
+                padding: 10px;
+                margin: 10px;
+                background: #fff;
+            }
+            
+            [alert-button] {
+                margin-bottom: 17px;
+                background: #880E4F;
+                /*#E65100;*/
+                color: #FFF;
+                top: 11px;
+            }
+        </style>
+    </template>
+    <script>
+        Polymer({
+            isMoneyChanged: function() {
+                this.isCard = !this.isMoney;
+            },
+            isCardChanged: function() {
+                this.isMoney = !this.isCard;
+            },
+            disabledSend: false,
+            disabledMoney: false,
+            _totalDecorator: 0,
+            mainTitleChanged: function() {
+                this._mainTitle = this.mainTitle.toLowerCase();
+            },
+            // Alert: Mans in code
+            totalChanged: function() {
+                //TweenMax.to(this,.3,{_totalDecorator:this.total,ease:Power2.easeOut})
+            },
+            _totalDecoratorChanged: function() {
+                this._totalDecorator = parseInt(this._totalDecorator)
+            },
+            //
+            ready: function() {
+                this.total = 0;
+                this.totalItens = 0;
 
-          for(var i=0;i<wishs.length;i++)
-          {
-            var w = wishs[i];
-            this.total += w.total;
-            this.totalItens += w.totalItens;
-          }
-          if(this.totalItens > 99)
-            this.totalItens = '99';
-          });
-      },
-      send:function()
-      {
-        this.fireAsync('send');
-      }
-    });
-  </script>
+                if (this.from == "all") {
+                    window.pedir = this.send.bind(this);
+
+                    setInterval(function() {
+                            var aberto = document.querySelector('* /deep/ cardapio-wishlist-element[id="aberto"]');
+
+                            if (aberto.$.cardapioTotal.totalItens > 0)
+                                this.mostrarSendBtn = true;
+                            else
+                                this.mostrarSendBtn = false;
+
+                        }
+                        .bind(this), 500);
+                } else {
+                    var perm = JSON.parse(this.permissions || "{}")
+                    var x = perm[this.from];
+                    console.log(this.permissions)
+                    if (x && !x.disabledSend)
+                        this.mostrarSendBtn = true;
+                }
+                //  
+
+
+            },
+            calcWishs: function() {
+                this.job('total-calc', function() {
+                    var wishs = this.parentNode.querySelectorAll('cardapio-wishlist-category');
+
+                    if (wishs.length == 0) {
+                        throw new Error('não existe categoria cadastrada no restaurante');
+                    }
+
+                    this.total = 0;
+                    this.totalItens = 0;
+
+                    for (var i = 0; i < wishs.length; i++) {
+                        var w = wishs[i];
+                        this.total += w.total;
+                        this.totalItens += w.totalItens;
+                    }
+                    if (this.totalItens > 99)
+                        this.totalItens = '99';
+                });
+            },
+            send: function() {
+                this.fire('send');
+                _(document.querySelectorAll('* /deep/ paper-checkbox'))
+                    .each(function(paperCheckBox) {
+                        paperCheckBox.checked = false
+                    });
+
+                //para aparecer o botaozinho de total abertos
+                _(document.querySelectorAll('* /deep/ cardapio-wishlist-category'))
+                    .each(function(a) {
+                        a.calculeTotalAberto();
+                    })
+
+
+            },
+            alertToHandler: function() {
+                var mesa = this.mesaData;
+
+                if (mesa.alertTo) {
+                    mesa.alertTo = false;
+                } else
+                    mesa.alertTo = this.permissions.alert.to;
+
+            },
+        });
+    </script>
 </polymer-element>

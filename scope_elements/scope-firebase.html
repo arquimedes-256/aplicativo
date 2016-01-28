@@ -1,0 +1,34 @@
+<script src="../bower_components/firebase-util/dist/firebase-util.min.js"></script>
+
+<polymer-element 
+	name="scope-firebase" 
+	extends="firebase-element" 
+	attributes="pageSize">
+	<script>
+		Polymer({
+			observe:{'data location ref':'buildRef'},
+			buildRef:function()
+			{
+				if ((this.ref && !(this.ref.scroll)) || !this.ref) {
+					this.ref = new Firebase.util.Scroll(new Firebase(this.location), 'number');
+					if(!this.data) 
+					{
+						this.next();
+					}
+				}
+
+			},
+			next:function()
+			{
+				this.buildRef();
+			  	this.ref.scroll.next(parseInt(this.pageSize));
+			},
+			prev:function()
+			{
+				this.buildRef();
+			  	this.ref.scroll.next(parseInt(this.pageSize));
+
+			}
+		});
+	</script>
+</polymer-element>

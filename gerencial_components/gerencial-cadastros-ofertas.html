@@ -1,0 +1,86 @@
+<polymer-element name="gerencial-cadastros-ofertas" attributes="">
+<template>
+	<style>
+	:host {
+		display: block;
+	}
+	</style>
+	<cardapio-globals id="g"></cardapio-globals>
+	<firebase-element 
+		location="{{ $.g.location }}/categorias"
+		data="{{ categoriasData }}"
+		keys="{{ categoriasKeys }}">
+	</firebase-element>	
+	<firebase-element 
+		location="{{ $.g.location }}/ofertas/{{ currentPage }}"
+		data="{{ ofertasData }}"
+		keys="{{ ofertasKeys }}"
+		id="ofertasBase"></firebase-element>
+
+	<paper-tabs selected="{{currentPage}}">
+		<template repeat="{{ k in diasSemana }}">
+			<paper-tab>
+				[[ k ]]
+			</paper-tab>
+		</template>
+	</paper-tabs>	
+	<core-animated-pages selected="{{currentPage}}" transitions="">
+		<template repeat="{{ s in diasSemana }}">
+		  <section>
+		  	[[ s ]]
+			  	<template repeat="{{ k in categoriasKeys }}">
+			  		<oferta-item 
+			  			ofertaCategoryKey="[[ k ]]" 
+			  			currentPage="{{ currentPage }}"
+			  			data="{{ categoriasData[k] }}"
+			  			dia="{{ s }}"
+			  			ofertaData="{{ ofertasData[k] }}"></oferta-item>
+			  	</template>
+		  </section>
+		</template>
+	</core-animated-pages>
+</template>
+<script>
+Polymer
+({
+	diasSemana:['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+});
+</script>
+</polymer-element>
+<polymer-element name="oferta-item" 
+	attributes="ofertaCategoryKey ofertaData currentPage data dia">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+	paper-shadow 
+	{
+		background: #FFF;
+		margin: 10px;
+		padding: 10px;
+	}
+		</style>
+		<paper-shadow z="1" id="shadow">
+		<h4>{{ dia }} / [[ data.nome ]]</h4>
+			<gerencial-cadastros-categoria-mapper 
+				id="mapper"
+				categoryKey="[[ ofertaCategoryKey ]]"
+				table="ofertas/{{currentPage}}"> 
+			</gerencial-cadastros-categoria-mapper>
+		</paper-shadow>
+	</template>
+	<script>
+		Polymer({
+			ready:function()
+			{
+				
+			},
+			ofertaDataChanged:function()
+			{
+				this._ofertasKeys = _.keys(this.ofertasData);
+			}
+		});
+	</script>
+</polymer-element>
+		

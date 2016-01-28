@@ -1,0 +1,79 @@
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="scope-tabelaporto-grid.html">
+<link rel="import" href="scope-tabelaporto-grid-fab.html">
+<link rel="import" href="scope-tabelaporto-grid-faixadialog.html">
+<link rel="import" href="scope-validator.html">
+
+<polymer-element name="scope-tabelaporto" layout vertical>
+  <template>
+    <scope-globals id="g"></scope-globals>
+    
+    <firebase-element
+      location="{{ $.g.data.location }}/portos/{{ $.g.data.filial }}"
+      keys="{{ portosKeys }}"
+      data="{{ portoData }}"></firebase-element>
+    
+    <firebase-element
+      location="{{ $.g.data.location }}/portos/{{ $.g.data.filial }}/{{ currentPortoKey }}/terminais"
+      keys="{{ terminaisKeys }}"
+      data="{{ portoTerminaisData }}"></firebase-element>
+
+    <firebase-element
+      location="{{ $.g.data.location }}/terminais"
+      data="{{ terminaisData }}"></firebase-element>
+
+    <h1>Tabela porto</h1>
+    <paper-tabs>
+      <template repeat="{{ portoKey in portosKeys }}">
+        <paper-tab portoKey="[[ portoKey ]]" on-click="{{ selectPortoHandler }}">
+          {{ portoData[portoKey].nome }}
+        </paper-tab>
+      </template>
+    </paper-tabs>
+    
+    <template if="{{ portoTerminaisData }}">
+      <paper-tabs selected="{{ currentPage }}">
+        <template repeat="{{ terminalKey in terminaisKeys }}">
+          <paper-tab>
+            {{ terminaisData[terminalKey].nome }}
+          </paper-tab>
+        </template>
+      </paper-tabs>
+    </template>
+    
+    <paper-button id="add" raised auto-vertical flex><core-icon icon="add"></core-icon> Inserir Terminal </paper-button>
+
+    <core-animated-pages selected="{{ currentPage }}">
+      <template repeat="{{ terminalKey in terminaisKeys }}">
+        <section>
+
+            <scope-tabelaporto-grid terminalKey="{{ terminalKey }}" portoKey="{{ currentPortoKey }}"></scope-tabelaporto-grid>
+
+        </section>
+      </template>
+    </core-animated-pages>
+    <style>
+      #add
+      {
+        margin-top: 12px;
+        background: #FFF;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      portosKeysChanged:function()
+      {
+        if(!this.currentPortoKey)
+          this.currentPortoKey = this.portosKeys[0];
+      },
+      selectPortoHandler:function(e,d,s)
+      {
+        this.currentPortoKey = s.getAttribute('portoKey');
+        this.currentPage = 0;
+      }
+    });
+  </script>
+</polymer-element>

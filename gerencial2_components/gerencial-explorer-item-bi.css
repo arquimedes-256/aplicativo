@@ -1,0 +1,186 @@
+        :host {
+            display: block;
+        }
+        :host /deep/ table {
+            background: transparent !important;
+            border: none !important;
+            margin-bottom: 1.25rem !important;
+            table-layout: auto !important;
+        }
+        :host /deep/ tr {
+            background: transparent !important;
+        }
+        :host /deep/ paper-material {
+            background:#FFF;
+        }
+        :host /deep/ paper-material.pvtAxisContainer.pvtRows.ui-sortable.x-scope.paper-material-0 {
+            width: 195px;
+            float: left;
+        }
+        :host /deep/ paper-material.pvtAxisContainer.pvtHorizList.pvtCols.ui-sortable.x-scope.paper-material-0 {
+            width: 650px;
+            padding: 16px;
+            padding-top: 19px;
+            padding-bottom: 19px;
+            float: left;
+        }
+        :host /deep/ paper-material.pvtVals.x-scope.paper-material-0 {
+            float: left;
+            padding: 10px 10px;
+        }
+        :host /deep/ paper-material.pvtAxisContainer.pvtUnused.pvtHorizList.ui-sortable.x-scope.paper-material-0 {
+                width: 847px;
+    padding: 17px 7px;
+    margin-bottom: 13px;
+        }
+        :host /deep/ paper-material {
+            display: inherit;
+            float:left;
+        }
+        :host /deep/ .pvtTriangle {
+            cursor: pointer;
+            color: #000;
+        }
+        :host /deep/ li {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            margin-right: 5px;
+            background:#C5CAE9;
+        }
+        :host /deep/ li span.pvtAttr {
+            background:transparent !important;
+            border:none !important;
+        }
+        :host /deep/ .pvtRenderer {
+            display:none;
+        }
+        :host /deep/ .pvtRendererArea {
+                
+                overflow: scroll;
+                width: 868px;
+        } 
+        :host /deep/ tr:hover td,:host /deep/ tr:hover th  {
+            text-decoration: underline;
+        }
+        :host /deep/ table.pvtTable tr th, :host /deep/  table.pvtTable tr th {
+       background-color:#BDBDBD;
+    font-family: RobotoDraft!important;
+    border: 2px solid #fff;
+    font-size: 9pt;
+    padding: 5px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+}
+ html /deep/ .pvtAggregator,html /deep/ .pvtAggregator:hover {
+  background-color: #FFD600;
+}
+/*html /deep/ .pvtAxisContainer li span.pvtAttr {
+    background: #64DD17;
+    border: none;
+    padding: 11px 21px;
+    white-space: nowrap;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}*/
+
+html /deep/ .pvtAxisContainer li {
+    padding: 8px 6px;
+    list-style-type: none;
+    cursor: move;
+    margin-bottom: 6px;
+    margin-top: 6px;
+}
+html /deep/ .pvtFilterBox {
+      top: -69px!important;
+}
+html /deep/ iron-dropdown {
+  z-index:999;
+}
+html /deep/ paper-menu-button /deep/ * {
+  color:#000!important;
+}
+html /deep/ .unfocused-line.paper-input-container {
+  background:#1A237E!important;
+}
+html /deep/ paper-menu-button /deep/ paper-ripple {
+  background:#9FA8DA;
+}
+html /deep/ .style-scope.paper-input {
+    left: 10px!important;
+    margin-bottom: 1px;
+}
+html /deep/ paper-material {
+  padding: 7px;
+  margin: 2px;
+}
+html /deep/ td[class] {
+  vertical-align: middle!important;
+  text-align: center!important;
+  font-size: 11px;
+}
+html /deep/ td.htNumeric {
+  text-align: right!important;
+}
+/* 09/11/2015 */
+:host /deep/ .pvtAxisContainer.pvtRows.ui-sortable{
+	width: 112px;
+    position: relative;
+    height: 178px;
+    padding: 5px;
+    float: left;
+    background:#BDBDBD;
+}
+:host /deep/ .pvtVals {
+	display: none;
+}
+:host /deep/ .pvtAxisContainer.pvtUnused.pvtHorizList.ui-sortable{
+	    padding: 13px;
+    padding-left: 3px;
+    display:none;
+    width: 981px;
+    margin-bottom: 4px;
+    background:#00E5FF;
+}
+:host /deep/ .pvtAxisContainer.pvtHorizList.pvtCols.ui-sortable{
+	    width: 210px;
+    height: 16px;
+    padding: 11px 3px;
+    margin-bottom: 4px;
+    padding-bottom: 15px;
+    background:#C6FF00;
+
+}
+:host /deep/ .pvtCols li {
+	background:#1DE9B6!important;
+}
+:host /deep/ table.pvtTable .pvtColLabel {
+    text-align: center;
+    background: #BDBDBD;
+}
+:host /deep/ .pvtAxisContainer li {
+	    background:#00BFA5;
+    padding: 8px 6px;
+    list-style-type: none;
+    cursor: move;
+    margin-bottom: 4px;
+}
+:host /deep/ .pvtTotalLabel {
+	    background: #757575!important;
+	    color:#FFF;
+}
+.pvtRendererArea {
+    padding: 5px;
+    padding-top: 0px;
+    height: 241px;
+}
+:host /deep/ scope-olap-dimension {
+	width:281px;
+}
+paper-checkbox { 
+	margin-bottom: 8px;
+}
+:host {width:1200px;}
+:host /deep/ .pvtGrandTotal {
+        background: #FFD600!important;
+}

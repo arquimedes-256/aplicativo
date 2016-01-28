@@ -1,134 +1,304 @@
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/core-media-query/core-media-query.html">
+
 <link rel="import" href="img-card.html">
 
-<polymer-element name="cardapio-products-item" attributes="product productKey from" flex>
+<polymer-element name="cardapio-products-item" 
+  attributes="productKey disableCheck useEditor categoryKey" flex>
   <template>
-    <cardapio-globals id="globals" useBases="{{ false }}"></cardapio-globals>
-    
-    <firebase-element
-      id="base_pedidos"
-      location="{{ $.globals.location }}/pedidos/{{ $.globals.data.currentMesa }}/{{ $.globals.data.currentCategoryKey }}/aberto/{{ productKey }}"
-      >
+
+    <core-media-query 
+        query="max-width:400px" 
+        queryMatches="{{qMatches}}">
+    </core-media-query>
+   
+    <cardapio-globals id="globals"></cardapio-globals>
+    <firebase-element 
+      data="{{ produtoData }}"
+      id="produtoBase"
+      location="{{ $.globals.location }}/produtos/{{ productKey }}">
     </firebase-element>
     
     <firebase-element
+      id="base_pedidos"
+      location="{{ $.globals.location }}/pedidos/{{ $.globals.data.currentMesa }}/{{ _categoryKey }}/aberto/{{ productKey }}"
+      class="pedidos-base-ref2"
+
+      >
+    </firebase-element>
+      <!-- mudar aberto para fechado -->
+      <firebase-element
+          id="baseRelogios"
+          location="{{ $.globals.location }}/relogios/{{ $.globals.data.currentMesa }}/{{ _categoryKey }}/aberto/{{ productKey }}"
+          keys="{{ relogioKeys }}"
+          data="{{ relogioData }}">
+        </firebase-element>
+
+    <firebase-element
       id="baseImgs"
-      location="{{ $.globals.location }}/images/{{ product.photo }}"
+      location="{{ $.globals.location }}/images/{{ produtoData.photo }}"
     ></firebase-element>
     
-    <paper-shadow id="shadow" layout horizontal>
-      <img-card data="{{ $.baseImgs.data.data }}"></img-card>
+    <template if="{{ produtoData }}">
+    <paper-shadow id="shadow" layout horizontal 
+      on-blur="{{ blurHandler }}"
+      on-set-value="{{ setValueHandler }}">
+      <img-card 
+        isMini
+        data="{{ $.baseImgs.data }}" 
+        nome="{{ produtoData.nome }}"
+        width="75"></img-card>
       <div layout vertical flex>
         <div layout vertical>
           <div layout horizontal>
-            <div class="title" flex >
-              {{ product["nome"]  }}
+            <div class="title" flex?="{{ !qMatches }}" on-click="{{ clickTitle }}">
+              <template if="{{ showEditor != 'title' }}">
+                {{ produtoData["nome"]  }}
+              </template>
+              <template if="{{ showEditor == 'title' }}">
+                <scope-input 
+                  label="Nome do produto"
+                  autoFocus
+                  value="{{ produtoData['nome'] }}" 
+                  attributeName="nome">
+                </scope-input>
+              </template>
             </div>
-            <div class="price">
-              {{ product["preco"] }} R$
+            <div class="price" on-click="{{ clickPrice }}">
+              <template if="{{ showEditor != 'price' }}">
+                $ {{ produtoData["preco"] }}
+              </template>
+              <template if="{{ showEditor == 'price' }}">
+                <scope-input 
+                  autoFocus
+                  attributeName="preco" 
+                  isNumeric
+                  label="Preço"
+                  value="{{ produtoData['preco'] }}">
+                </scope-input>
+              </template>
             </div>
           </div>
           <div layout horizontal>
-            <div class="descricao" flex layout vertical>
+            <div class="descricao" flex layout vertical on-click="{{ clickDescricao }}">
               
               <template if="{{ !descrOpened }}">
-                <div class="descr">
-                  {{ product["descricao"] | minify }}
-                </div>
-                <paper-button id="btnMore" raised on-click="{{ openHandler }}">
-                  <core-icon icon="arrow-drop-down"></core-icon>
-                  Mostrar detalhes
-                </paper-button>
+                <template if="{{ showEditor != 'descricao' }}"> 
+                  <div class="descr" relative on-click="{{ openHandler }}">
+                    {{ produtoData["descricao"] | minify }}
+
+                    <div id="btnMore">
+                      <core-icon icon="expand-more"></core-icon>
+                    </div>
+                  </div>
+                </template>
+               
+              </template>
+              <template if="{{ showEditor == 'descricao' }}">
+                <scope-input 
+                  autoFocus
+                  label="Descrição" 
+                  style="position:relative;top: -19px;"
+                  attributeName="descricao"
+                  useTextarea
+                  value="{{ produtoData['descricao'] }}"></scope-input>
               </template>
               
-              <template if="{{ descrOpened }}">
-                <div class="descr">
-                  {{ product["descricao"] }}
+              <template if="{{ descrOpened && showEditor != 'descricao' }}">
+                <div class="descr" on-click="{{ openHandler }}">
+                  {{ produtoData["descricao"] }}
+                <div 
+                  style="opacity: 0.6;" id="btnMore" 
+                  >
+                  <core-icon icon="expand-less"></core-icon>
                 </div>
-                <paper-button id="btnMore" raised on-click="{{ openHandler }}">
-                  <core-icon icon="arrow-drop-up"></core-icon>
-                  Esconder detalhes
-                </paper-button>
+                </div>
               </template>
               
             </div>
             <paper-checkbox id="checkbox" 
+              hidden?="{{ disableCheck }}"
               on-click="{{ fireMark }}" 
               checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
           </div>
         </div>
       </div>
     </paper-shadow>
+  </template>
+    <template if="{{qMatches}}">
+      <style>
+       paper-shadow {
+          height: 73px;
+       }
+        .title {
+            width:200px;
+            display: block;
+                font-size: 13px !important;
+ 
+            font-weight: bold;
+        }
+        img-card {
+            position: relative !important;
+            left: -12px !important;
+            width: 97px !important;
+            top: -10px;
+        }
+        .descr { font-size: 12px}
+      </style>
+    </template>
     <style>
       :host
       {
-        margin:5px;
+        margin:8px;
+        display: block;
       }
       paper-shadow
       {
-        margin: 0 16px;
       }
       .title
       {
         font-size: 24px;
         margin-bottom: 5px;
+        color: #212121!important;
+        display:block;
+
+      }
+      paper-checkbox {
+        position: absolute;
+        top: 8px;
+        right: 11px;
       }
       .price
-      {
-        color:#424242;
+      {  
+        color: #455A64;
         font-size: 19px;
+        position: absolute;
+        bottom: 8px;
+        right: 13px;
       }
       #shadow
       {
         background:#fff;
-        padding:10px;
+        padding:8px;
       }
-      #btnMore {
-        background: #2196F3;
+      /** #FFAB00; **/
+   /*   #btnMore {
+        background: #F57F17;
         color: #FFF;
         margin-top: 11px;
+      }*/
+      #btnMore {
+        /*
+        width: 12px;
+        right: 0;
+        position: absolute;
+        bottom: 7px;*/
       }
       .descr
       {
         text-align: justify;
         margin-right: 8px;
-      }
+      } 
     </style>
+    <template if="{{descrOpened}}">
+      <style>
+      #shadow {height: {{descrHeight}}}
+      </style>
+    </template>
   </template>
   <script>
     Polymer({
       descrOpened:false,
+      disableCheck:false,
+      showEditor: null, 
+      useEditor:false,
+      observe:{'$.globals.data.currentCategoryKey':'globalsCurrentCategoryHandler'},
+      globalsCurrentCategoryHandler:function()
+      {
+        var gck = this.$.globals.data.currentCategoryKey;
+        if(gck)
+          this._categoryKey = gck;
+      },
       ready:function()
       {
-        /*
-        var b = this.$.globals.existProductInWishList(this.productKey);
-        this.$.checkbox.checked = b;
-        */
+        this.showEditor = null;
+        this._categoryKey = this.$.globals.data.currentCategoryKey;
+      },
+      categoryKeyChanged:function()
+      {
+        this._categoriaKey = this.categoryKey;
+      },
+      produtoDataChanged:function()
+      {
+      },
+      setValueHandler:function(e,d,s)
+      {
+        this.produtoData[d.attributeName] = d.value;
+      },
+      blurHandler:function()
+      {
+        if(this.useEditor)
+          this.showEditor = null;
+      },
+      clickPrice:function(e,d,s)
+      {
+        if(this.useEditor)
+          this.showEditor = "price";
+      },
+      clickDescricao:function(e,d,s)
+      {
+        if(this.useEditor)
+          this.showEditor = "descricao";
+      },
+      clickTitle:function(e,d,s)
+      {
+        if(this.useEditor)
+          this.showEditor = "title";
       },
       openHandler:function()
       {
         this.descrOpened = !this.descrOpened;
+          this.async(function(){
+            this.descrHeight =
+             (Math.max(this.shadowRoot.querySelector('.descr').clientHeight+20,100))+'px'
+            alert(this.descrHeight);
+          },10)
       },
       minify:function(v)
       {
-        var s = v.trim();
-        var s1 = v.split(/\s+/);
-        var s2 = "";
+        if(!v)
+          return "...";
+
+        var s   = v.trim();
+        var s1  = v.split(/\s+/);
+        var s2  = "";
         
-        for(var i=0;i<10;i++)
+        for(var i=0;i<8;i++)
         {
-          s2+= s1[i]+" ";
+          var a = s1[i];
+          if(a)
+            s2+= a+" ";
         }
-        return s2+"...";
+
+        return s2 + (s1.length >= 8 ? "..." : "");
+      },
+      setRelogio:function()
+      {
+
+        setRelogio('aberto',this);
+
       },
       fireMark:function(e,d,s)
       {
-        this.fireAsync('product-item-mark',{
+        this.fire('product-item-mark',{
           productKey:this.productKey,
         checked:s.checked});
+        this.setRelogio();
+        this.async(calculateAll,100);
+
         
-        this.async(queryBases,100);
         
       }
     });

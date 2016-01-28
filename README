@@ -1,0 +1,41 @@
+README
+
+Pedidos(Ordem de Fluxo)
+	I.		Aberto		(cliente escolhe e envia para a cozinha		)
+	II.		Fechado		(cozinha pode {ver, enviar para garçon}, quando pedido entra, cai no estoque		)
+	III.	Pronto		(garçon pode {ver, e marcar como entregue}	)
+	IV.		Entregue 	(caixa pode {ver, e marcar como pago}		)
+	V.		Pago 		(quando pedido cai como pago, ele é imediatamente transferido para a tabela fato);
+ 
+Árvore WishList
+|_+] cardapio-app 
+	|_+] cardapio-wishlist-main
+		|_+] 	#{inline-todo cardapio-alerta-garcon}
+		|_+] 	#{paper-tabs},					for each $element in $local://configuration}
+		|_+] cardapio-wishlist-element ,for each $element in $local://configuration
+			|_+] cardapio-wishlist-category , 			for each $firebase://categoria
+				|_+] cardapio-wishlist-item,	for each $pedidoKey in $local://pedidosKeys
+
+Estoque
+	I.		Cadastro/Edição em de Lançamentos na barra lateral
+	II.		Cada lançamento é composto de 
+			{
+				dataLancamento			:Date,
+				item					:Produto,
+				quantidade				:Number,
+			}, 
+			onde TipoUnidade em [ 'grams','litro' ];
+
+
+Gerencial
+
+I -Relatorio dinamico em cima de lista de objetos normalizados em star graph chamados fatos.
+
+II -Dinamizar fluxo da contagem do estoque, eu pensei em funções observadoras que implicam em agregação dos cálculos
+gravados em hashmap por exemplo (o diagrama de fluxo ainda não pensei).
+
+
+
+
+
+

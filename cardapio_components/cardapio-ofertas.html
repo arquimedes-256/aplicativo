@@ -12,7 +12,7 @@
 
     <firebase-element location="{{ $.g.location }}/ofertas/{{ currentDay }}"
       id="ofertasBase"
-      data="{{ categoriasOferta }}"
+      data="{{ categoriasOfertasData }}"
       keys="{{ categoriasOfertaKeys }}">
     </firebase-element>
 
@@ -26,28 +26,31 @@
         <template repeat="{{ p,i in prods }}">
           <section slide-from-right>
             <cardapio-category-item 
+              on-click="{{ clickOfertaHandler }}"
               width-100-margin-0 
-              product="{{ p }}" 
-              objK1="{{ prodsKeys1[i] }}"
-              objK2="{{ prodsKeys2[i] }}"></cardapio-category-item>
+              slideIt
+              width="350"
+              prod-key="[[ p.k2 ]]"
+              cat-key="[[ p.k1 ]]"
+              productData="{{ p.prod }}" 
+              objK1="{{ p.k1 }}"
+              objK2="{{ p.k2 }}"></cardapio-category-item>
           </section>
         </template>
 
       </core-animated-pages>
       <style>
         cardapio-category-item /deep/ section
-        {
-          background: #FFF !important;
+        {  background: #EEEEEE!important;
         }
-        cardapio-category-item /deep/ div.tile-bottom
+        cardapio-category-item /deep/ .tile-bottom-color
         {
-          background: #2196F3 !important;
+          /*background:#FFAB00 !important;*/
           text-align: center;
         }
         cardapio-category-item /deep/ #span1
         {
          position: relative;
-         right: 30px;
         }
 
         cardapio-category-item /deep/ paper-checkbox
@@ -66,21 +69,25 @@
           float: left;
           height: 30%;
           width: 48%;
-          margin: 3px;
         }
         :host
         {
             overflow: hidden;
-            height: 167px;
+            height: 83px;
             margin: 0;
+            width:400px;
             position: relative;
             top: 7px;
+            position: relative;
+            top: -2px;
+            margin-bottom: 1px;
         }
         [width-100-margin-0]
         {
           width: 100%;
           margin: 0;
         }
+        
       </style>
   </template>
 
@@ -89,13 +96,13 @@
     Polymer({
       currentDay:0,
       currentPage:0,
-      miliSeconds:1500 * PHI,
+      miliSeconds:3000 * PHI,
       observe:{'produtosData categoriasOfertaKeys':'iterateProds'},
       ready:function()
       {
         setInterval(function()
         {
-          var p = this.prods;
+          var p = _.toArray(this.prods);
           var n = p.length-1;
           var x = this.currentPage;
 
@@ -109,23 +116,23 @@
         this.job('iterateProdsJob',function()
         {
           this.prods = [];
-          this.prodsKeys1 = [];
-          this.prodsKeys2 = [];
 
           if(this.produtosData)
-            _.each(this.categoriasOferta,function(value,k1)
+            _.each(this.categoriasOfertasData,function(value,k1)
             {
-                var k2  = _.chain(value).keys().first().value();
-                var d   = this.produtosData;
-                var di  = d[k1][k2];
-
-                this.prods.push(di);
-                this.prodsKeys1.push(k1);
-                this.prodsKeys2.push(k2);
-
+              _.each(value,function(v,k2)
+              {
+                this.prods.push(
+                  {k1:k1,k2:k2,prod:this.produtosData[k2]});
+              }
+              .bind(this));
             }
             .bind(this));
         });
+      },
+      clickOfertaHandler:function(e,d,s)
+      {
+        this.fire('open-oferta',{productKey:s.getAttribute('prod-key'),categoryKey:s.getAttribute('cat-key')})
       }
     });
 

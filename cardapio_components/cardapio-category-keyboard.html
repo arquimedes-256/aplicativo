@@ -1,0 +1,100 @@
+
+<polymer-element name="cardapio-category-keyboard" relative>
+  <template>
+    <div relative>
+      <paper-fab icon="send" id="send" style="" on-click="{{ clickHandler }}">
+      </paper-fab>
+
+      <paper-fab icon="search" id="filter" style="" on-click="{{ clickHandler }}">
+      </paper-fab>
+
+      <paper-fab icon="editor:attach-money" id="pay" style="" on-click="{{ clickHandler }}">
+      </paper-fab>
+
+
+      <paper-fab icon="add" on-click="{{ clickHandlerShowItens }}"
+        style="opacity:1;background:#FF6F00;color:#000;position: absolute;right: 50px;bottom: 78px;" mini
+      ></paper-fab>
+    </div>
+  <style>
+
+    #paper_fab {
+      overflow: visible;
+      position: fixed;
+      top: 80%;
+      right: 44px;
+
+    }
+    paper-fab
+    {
+      position: absolute;right: 47px;bottom: 74px;
+      opacity:0;
+      background:#E0E0E0;
+    }
+
+  </style>
+  </template>
+  <script>
+    Polymer({
+      checked:false,
+      clickHandlerShowItens:function()
+      {
+        var PHI2 = PHI * (PHI/2)-.1;
+
+        var itens = {
+          "send":
+            {
+              backgroundColor:0xE91E63,
+              right: 106*PHI2,
+              bottom: 64*PHI2
+            },
+          "filter":
+            {
+              backgroundColor:0x311B92,
+              right: 49*PHI2,
+              bottom: 134*PHI2
+            },
+          "pay":
+            {
+              backgroundColor:0x33691E,
+              right: 93*PHI2,
+              bottom: 110*PHI2
+            }
+
+        }
+
+        this.checked = !this.checked;
+        
+        _.each(itens,function(css,k)
+        {
+          if(!this.checked)
+            css = {
+              backgroundColor:0xE0E0E0,
+              right: 47,
+              bottom: 74,
+              opacity:0,
+              background:0xE0E0E0
+            }
+
+          
+          TweenMax.to(this.$[k],.5,
+            {
+              css:_({opacity:1}).extend(css),
+             
+            })
+        }
+        .bind(this));
+
+      },
+      clickHandler:function(e,d,s)
+      {
+        var id = s.getAttribute('id');
+        //se for filtro,
+        if(id == "filter")
+          this.clickHandlerShowItens();//para abrir e fechar
+
+        this.fire('press-action-button',{id:id})
+      }
+    })
+  </script>
+</polymer-element>

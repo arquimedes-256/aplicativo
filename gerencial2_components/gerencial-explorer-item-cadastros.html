@@ -1,0 +1,56 @@
+<link rel="import" href="../gerencial_components/gerencial-cadastros-categoria.html">
+<link rel="import" href="../gerencial_components/gerencial-cadastros-produto.html">
+
+<polymer-element name="gerencial-explorer-item-cadastros">
+	<template>
+		<template if="{{!isReady}}">
+				<core-icon icon="create" 
+					style="width: 154px;height: 211px;margin-left: 98px;margin-top: 23px;">
+				</core-icon> 
+				<paper-ripple fit on-click="{{init}}"></paper-ripple>
+		
+		</template>
+		<template if="{{isReady}}">
+			<template if="{{!categoryKey}}">
+				<gerencial-cadastros-categoria 
+					on-select-categoria="{{onSelectCategoriaHandler}}">
+				</gerencial-cadastros-categoria>
+			</template>
+			<template if="{{ categoryKey }}">
+				<paper-button raised on-click="{{backToCategory}}" style="width: 97%;margin-left: 5px;background:#CFD8DC!important">
+					<core-icon icon="undo"></core-icon>
+				</paper-button>
+				<gerencial-cadastros-produto categoryKey="{{categoryKey}}"></gerencial-cadastros-produto>
+			</template>
+		</template>
+		<style>
+		gerencial-cadastros-categoria,gerencial-cadastros-produto{
+			height: 250px;overflow:scroll;
+		}
+		</style>
+	</template>
+	<script>
+	Polymer({
+		init:function() {
+			this.async(function(){
+
+				this.isReady = true;
+				this.initResetTimer();	
+			},500*PHI)
+		},
+		onSelectCategoriaHandler:function (e,d) {
+			clearTimeout(this.timeOut);
+			this.categoryKey = d.categoryKey;
+		},
+		backToCategory:function() {
+			this.initResetTimer();
+			this.categoryKey = null;
+		},
+		initResetTimer:function(){
+			this.timeOut = setTimeout(function(){
+				this.isReady = false;
+			}.bind(this),8000*PHI)
+		}
+	})
+	</script>
+</polymer-element>

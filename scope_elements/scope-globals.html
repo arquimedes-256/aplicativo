@@ -1,0 +1,16 @@
+<polymer-element name="scope-globals" attributes="data">
+  <script>
+    var data = {
+      location:"https://sulnorte.firebaseio.com",
+      filial:"STR",
+      ano:2015,
+      mes:"JAN"
+    };
+    Polymer({
+      ready:function()
+      {
+        this.data = data;
+      }
+    })
+  </script>
+</polymer-element>

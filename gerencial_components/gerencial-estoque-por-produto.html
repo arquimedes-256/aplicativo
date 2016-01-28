@@ -1,0 +1,18 @@
+<link rel="import" href="gerencial-produto-item.html">
+<polymer-element 
+	name="gerencial-estoque-por-produto" attributes="" noscript layout vertical>
+	<template>
+		<cardapio-globals id="g"></cardapio-globals>
+		<firebase-element 
+			location="{{ $.g.location }}/produtos"
+			data="{{ produtosData }}"
+			keys="{{ produtosKeys }}"></firebase-element>
+
+		<div horizontal around-justified layout wrap>
+			<template repeat="{{ pk in produtosKeys }}">
+				<gerencial-produto-item produtoKey="{{ pk }}"></gerencial-estoque-item>
+			</template>
+		</div>
+
+	</template>
+</polymer-element>

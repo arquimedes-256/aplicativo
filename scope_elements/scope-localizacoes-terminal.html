@@ -1,0 +1,27 @@
+<link rel="import" href="scope-insert-dialog.html">
+
+<polymer-element name="scope-localizacoes-terminal" attributes="portoKey" layout vertical>
+<template>
+	
+	<scope-insert-dialog 
+		id="insertDialog"
+		nameModel="Terminal" 
+		pathModel="terminais" 
+		pathParentModel="portos"
+		parentKey="{{ portoKey }}">
+	</scope-insert-dialog>
+
+<style>
+paper-shadow
+{
+	background:#FFF;
+	margin:8px;
+}
+</style>
+</template>
+<script>
+Polymer({
+	
+});
+</script>
+</polymer-element>

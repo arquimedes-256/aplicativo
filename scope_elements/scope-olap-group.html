@@ -1,0 +1,151 @@
+<link rel="import" href="scope-olap-dimension.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+
+<polymer-element name="scope-olap-group" attributes="config">
+<template>
+	<style>
+	:host {
+		display: block;
+	}
+	paper-button
+	{
+		background : #FFFF00 !important;
+	}
+
+	</style>
+
+	<!--
+	<div layout horizontal style="width: 203px;">
+		<paper-button 
+		on-click="{{ prev }}" 
+		raised 
+		disabled?="{{ configPointer == 0 }}" flex>
+
+		<core-icon icon="arrow-back"></core-icon>
+	</paper-button>
+	<paper-button flex
+		raised 
+		on-click="{{ next }}"
+		disabled?="{{ configPointer == configList.length-1 }}">
+		<core-icon icon="arrow-forward"></core-icon>
+	</paper-button>
+
+	</div>
+<paper-slider 
+	pin
+	min="0" 
+	max="{{ configList.length-1 }}" 
+	value="{{ configPointer }}"
+	snaps
+	step="1"></paper-slider>
+-->
+<div on-emit-swap="{{ emitSwapHandler }}" layout vertical>
+
+	<scope-olap-dimension 
+	type="cols"
+	icon="view-week"
+	label="Colunas"
+	buttonBackground="#1DE9B6"
+	itens="{{ config.cols }}"></scope-olap-dimension>
+
+	<scope-olap-dimension 
+	type="rows"
+	label="Linhas"
+	icon="view-stream"
+	buttonBackground="#00BFA5"
+	itens="{{ config.rows }}"></scope-olap-dimension>
+</div>
+</template>
+<script>
+Polymer({
+	configPointer:0,
+	ready:function()
+	{
+		this.config =  {
+			cols:['Ano','Mes'],
+			rows:['Categoria','Produto'],
+			vals: ['valor'],
+			lastUpdate:new Date().getTime()
+		};
+		this.configList = [this.config];
+
+	},
+	emitSwapHandler:function(e,d,s)
+	{
+		var item = d.item;
+		var type = d.type;
+		var destType = new String();
+
+		if(_.isUndefined(this.config[type]) && !(type in this.config))
+			throw new Error('type:'+type+' não é válido:');
+		/* swap type */
+		destType = ( (type == 'rows') ? 'cols' : 'rows' );
+		/* clone instancia para */
+		this.lastConfig = this.config;
+		this.config = new _.clone(this.config);
+
+		//branch A
+		if(_.last(this.config[type]) == item)
+		{
+			/* remove da origem */
+			this.config[type] 		= _.uniq(_.difference
+				(this.config[type],[item]));
+			/* adiciona para o destino */
+			this.config[destType] 	= _.uniq(_.union
+				([item],this.config[destType]));
+			//console.log('branch-a')
+		}
+		//branch B
+		else
+		{
+			var array 			= this.config[type];
+			var i 				= array.indexOf(item);
+			var itemNext		= array[i+1];
+
+			if(_.isUndefined(itemNext))
+				throw new Error('itemNext é undefined');
+			if(i == -1)
+				throw new Error('index indefinido');
+			if(array.length == 0)
+				throw new Error('array vazio');
+
+			array[i] 	= itemNext;
+			array[i+1] 	= item;
+			//console.log('branch-b')
+		}
+
+		var a = this.config;
+		var b = _.last(this.configList);
+		if(!b)
+			throw Error('não existe último registro');
+
+		if( !_.isEqual(a.rows,b.rows) || !_.isEqual(b.cols,a.cols))
+		{	
+			this.configList.push(this.config);
+			this.configPointer = this.configList.length-1;
+			console.log('put it')
+		}
+			
+		this.config.lastUpdate = new Date().getTime();
+
+		console.log(this.configList)
+	},
+	configPointerChanged:function()
+	{
+		this.config = this.configList[this.configPointer];
+		console.log('config alterada',this.config)
+		this.fire('scope-olap-group-config-changed',this.config)
+	},
+	prev:function()
+	{
+		if(this.configList[this.configPointer-1])
+			this.configPointer--;
+	},
+	next:function()
+	{
+		if(this.configList[this.configPointer+1])
+			this.configPointer++;
+	}
+});
+</script>
+</polymer-element>

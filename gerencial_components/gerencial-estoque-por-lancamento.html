@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../scope_elements/scope-firebase.html">
+
+<polymer-element name="gerencial-estoque-por-lancamento"
+	attributes="startLancamento endLancamento" 
+	layout vertical>
+	<template>
+		<cardapio-globals id="g"></cardapio-globals>
+
+		<firebase-element
+			location="{{ $.g.location }}/estoque"
+			data="{{ lancamentosData }}"
+			keys="{{ lancamentosKeys }}"
+			limitToLast="10"
+			start="{{ startLancamento }}"
+			end="{{ endLancamento }}"
+			orderByChild="dataLancamento"
+			log
+			id="estoqueBase"
+			dataReady="{{ dataReady }}"></firebase-element>
+
+		<div horizontal around-justified layout wrap>
+			<template repeat="{{ lk in lancamentosKeys }}">
+				<gerencial-estoque-item 
+					lancamento="{{ lancamentosData[lk] }}" 
+					lancamentoKey="{{ lk }}">
+				</gerencial-estoque-item>
+			</template>
+			<div layout horizontal>
+				<paper-spinner active?="{{ !dataReady }}"></paper-spinner>
+			</div>
+		</div>
+		<template if="{{  dataReady && !lancamentosData }}">
+			<div style="text-align:center" >
+				Não existem registros neste mês.
+			</div>
+		</template>
+
+	</template>
+	<script>
+		Polymer({
+			lancamentosDataChanged:function()
+			{
+
+			}
+		})
+		function partition(items, size) {
+		    var result = _.groupBy(items, function(item, i) {
+		        return Math.floor(i/size);
+		    });
+		    return _.values(result);
+		}
+	</script>
+
+</polymer-element>

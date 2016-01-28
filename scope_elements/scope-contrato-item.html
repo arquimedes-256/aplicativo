@@ -1,0 +1,151 @@
+<link rel="import" href="scope-map-input.html">
+<link rel="import" href="scope-input.html">
+<link rel="import" href="scope-date-picker.html">
+
+
+<link rel="import" href="scope-checkbox.html">
+
+<polymer-element name="scope-contrato-item" attributes="contratoKey">
+  <template>
+    <scope-globals id="g"></scope-globals>
+    <firebase-element 
+      location="{{ $.g.data.location }}/contratos/{{ $.g.data.filial }}/{{ contratoKey }}"
+      data="{{ contrato }}"></firebase-element>
+      
+    <paper-shadow 
+      on-set-value="{{ setValueHandler }}"
+      on-select-key="{{ selectKeyHandler }}">
+      
+      <scope-map-input floatingLabel 
+        path="contrato-situacao" 
+        value="{{ contrato.situacao }}"
+        attributeName="situacao"
+        label="Situação">
+      </scope-map-input>
+      
+      <scope-map-input floatingLabel 
+        path="contrato-tipo" 
+        value="{{ contrato.tipoContrato }}" 
+        attributeName="tipoContrato"
+        label="Tipo de Contrato">
+      </scope-map-input>
+      <scope-map-input floatingLabel 
+        path="moedas" 
+        value="{{ contrato.moeda }}" 
+        attributeName="moeda"
+        label="Moeda">
+      </scope-map-input>
+      <scope-map-input floatingLabel 
+        path="empresas" 
+        value="{{ contrato.cliente }}" 
+        attributeName="cliente"
+        label="Cliente">
+      </scope-map-input>
+      
+      <scope-map-input floatingLabel 
+        path="contrato-cambio" 
+        value="{{ contrato.cambio }}" 
+        attributeName="cambio"
+        label="Câmbio">
+      </scope-map-input>
+      
+      <scope-map-input floatingLabel 
+        path="contrato-iss" 
+        value="{{ contrato.calculoISS }}"
+        attributeName="calculoISS" 
+        label="Câmbio">
+      </scope-map-input>
+      
+      <scope-map-input floatingLabel 
+        path="contrato-faturamento" 
+        value="{{ contrato.tipoFaturamento }}"
+        attributeName="tipoFaturamento" 
+        label="Tipo Faturamento">
+      </scope-map-input>
+
+
+      <scope-map-input 
+        path="contrato-condicao-pagament"
+        sufixIfBoolean="dias"
+        label="Condição de pagamento" 
+        floatingLabel 
+        value="{{ contrato.condicaoPagamento }}"
+        attributeName="condicaoPagamento">
+      </scope-map-input>
+      
+      <scope-input 
+        value="{{ contrato.maxDesconto }}" 
+        isNumeric 
+        attributeName="maxDesconto"
+        label="Max Desconto">
+      </scope-input>
+      
+      <scope-input 
+        value="{{ contrato.taxaCambio }}" 
+        isNumeric 
+        attributeName="taxaCambio"
+        label="Taxa de câmbio">
+      </scope-input>
+      
+      
+      <div layout horizontal>
+        <scope-checkbox 
+          value="{{ contrato.isCartaCredito }}" 
+          label="Carta de crédito"></scope-checkbox>
+          
+        <scope-checkbox 
+          value="{{ contrato.isDescontoNota }}" 
+          label="Desconto em nota"></scope-checkbox>
+          
+       <scope-checkbox 
+          value="{{ contrato.isDescontoTarifa }}" 
+          label="Desconto em tarifa"></scope-checkbox>
+      </div>
+      
+      <scope-date-picker 
+        attributeName="dataInicio"
+        label="Data Início" 
+        value="{{ contrato.dataInicio }}">
+        
+      </scope-date-picker>  
+      
+      <scope-date-picker 
+        attributeName="dataFim"
+        label="Data Fim" 
+        value="{{ contrato.dataFim }}">
+        
+      </scope-date-picker>  
+      
+    </paper-shadow>
+    <style>
+      paper-shadow
+      {
+        margin-left:5px;
+        margin-right:5px;
+        padding-left:8px;
+        padding-right:8px;
+        background:#fff;
+        margin-top:10px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+        
+        selectKeyHandler:function(e,d,s)
+        {
+          if(this.contrato)
+            this.contrato[d.attributeName] = d.value;
+        },
+        setValueHandler:function(e,d,s)
+        {
+          if(!_.isUndefined(d.value))
+          {
+            if(this.contrato)
+              this.contrato[d.attributeName] = d.value; 
+          }
+        }
+        
+      });
+  </script>
+</polymer-element>

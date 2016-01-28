@@ -1,0 +1,31 @@
+<polymer-element name="scope-combo" attributes="values label attributeName">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<paper-button raised flex>
+		<core-dropdown-menu label="{{ label }}">
+          <core-dropdown layered class="dropdown">
+            <core-menu>
+              <template repeat="{{ values }}">
+                <core-item key="[[]]" on-click="{{ clickHandler }}">{{}}</core-item>
+              </template>
+            </core-menu>
+          </core-dropdown>
+        </core-dropdown-menu>
+    </paper-button>
+	</template>
+	<script>
+		Polymer({
+			clickHandler:function(e,d,s) {
+				var k = s.getAttribute('key');
+				if(_.isString(k))
+					this.fire('set',{key:k,attributeName:this.attributeName});
+				else 
+					throw new Error('key precisa ser uma String',k);
+			}
+		});
+	</script>
+</polymer-element>

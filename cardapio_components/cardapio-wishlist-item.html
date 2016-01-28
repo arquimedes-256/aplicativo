@@ -6,26 +6,156 @@
 
 
 <polymer-element name="cardapio-wishlist-item" 
-  attributes="pedido produtos pedidoKey disabledSend disabledMoney">
+  attributes="pedido produtos pedidoKey disabledSend disabledMoney from categoriaKey">
   <template>
     <template if="{{ !disabledSend }}">
+      <!--
       <list-remover target="{{ $.row }}" on-remove="{{ removeHandler }}"></list-remover>
+    -->
     </template>
-    <paper-shadow class="row" id="row">
+      <cardapio-globals id="g">
+      </cardapio-globals>
+      <!-- relogios aberto -->
+      <firebase-element
+          id="baseRelogios"
+          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
+          keys="{{ relogioKeys }}"
+          data="{{ relogioData }}">
+      </firebase-element>
+
+      <firebase-element
+          id="baseRelogiosEntregue"
+          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
+          keys="{{ relogioEntregueKeys }}"
+          data="{{ relogioEntregueData }}">
+      </firebase-element>
+
+
+      <!-- relogios pronto -->
+      <firebase-element
+          id="baseRelogiosPronto"
+          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pronto/{{ pedidoKey }}"
+          keys="{{ relogioProntoKeys }}"
+          data="{{ relogioProntoData }}">
+      </firebase-element>
+
+
+      <firebase-element
+          id="basePedidosFechado"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
+          keys="{{ pedidosFechadoKeys }}"
+          data="{{ pedidosFechadoData }}">
+      </firebase-element>
+
+       <firebase-element
+          id="basePedidosPronto"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
+          keys="{{ pedidosProntoKeys }}"
+          data="{{ pedidosProntoData }}">
+      </firebase-element>
+<firebase-element
+          id="basePedidosEntregue"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
+          keys="{{ pedidosEntregueKeys }}"
+          data="{{ pedidosEntregueData }}">
+      </firebase-element>
+
+
+      <firebase-element
+          id="baseRelogiosEntregue"
+          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
+          keys="{{ relogioEntregueKeys }}"
+          data="{{ relogioEntregueData }}">
+      </firebase-element>
+
+      <!-- relogios pago -->
+      <firebase-element
+          id="baseRelogiosPago"
+          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pago/{{ pedidoKey }}"
+          keys="{{ relogioPagoKeys }}"
+          data="{{ relogioPagoData }}">
+      </firebase-element>
+
+    <paper-shadow class="row" id="row" relative>
         <div layout vertical>
           <div layout horizontal>
             <paper-shadow class="qtd" 
               self-center 
               on-click="{{ increment }}">
               <paper-ripple id="ripple"></paper-ripple>
-              x{{ pedido }}
+              {{ pedido | toLabel }}
             </paper-shadow>
-            <div class="name" self-center flex>
-            {{ produtos[pedidoKey].nome }}
+            <template if="{{showMinusButton}}">
+              <paper-shadow on-click="{{ decrementAberto }}"
+              style=" 
+    position: absolute;
+    border-radius: 37px;
+    top: 41px;
+    left: 32px;
+
+    width: 10px;
+    height: 10px;
+
+">
+<paper-ripple fit></paper-ripple>
+  <core-icon icon="image:exposure-minus-1" style="
+    
+    position: relative;
+    left: -6px;
+    top: -5px;
+    width: 17px;
+    opacity: .7;
+
+"></core-icon>
+</paper-shadow>
+            </template>
+            <div class="name" self-center flex style="">
+              <div style="" nameee>
+               {{ produtos[pedidoKey].nome }}
+              </div>
+              <template if="{{pedidosAbertoData > 0}}">
+                <div style="
+      font-size: 12px;
+      color: #9E9E9E;
+  "> Precisa pedir: <b>{{pedidosAbertoData}}</b></div>
+              </template>
             </div>
-            <div class="price" self-center>
+            <template if="{{dtPedido > 0 }}">
+              <style>
+                [nameee] { width:99px }
+              </style>
+              <div style="
+                position: absolute;
+                top: 4px;
+                right: 9px;
+                font-size: 13px;
+                color:#9E9E9E;
+              
+              ">
+              <core-icon icon="{{icon}}" aria-label="alarm" role="img" style="
+                  width: 19px;
+                  position: relative;
+                  top: -2px;
+                  /* display: none; */
+              "></core-icon><div style="
+    
+    position: absolute;
+    font-size: 9px;
+    top: 20px;
+    right: 1px;
+
+">{{ titleIcon }}</div>
+              {{tempo}}
+             </div>
+            </template>
+            <div class="price" self-center style="
+              position: relative;
+              top: 21px;
+              left: 0px;
+              color:#006064;
+            ">
               <template if="{{!disabledMoney}}">
-                R$ {{ produtos[pedidoKey].preco * pedido }}
+                $ {{ produtos[pedidoKey].preco * pedido }}
               </template>
               <template if="{{disabledMoney}}">
                 <div on-click="{{ checkHandler }}">
@@ -94,22 +224,148 @@
       }
       */
     </style>
+    <firebase-element
+          id="pedidosAbertoBase"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/aberto/{{ pedidoKey }}"
+          keys="{{ pedidosAbertoKeys }}"
+          data="{{ pedidosAbertoData }}">
+        </firebase-element>
+
+<!--
+
+     <firebase-element
+          id="pedidosAbertoBase"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
+          keys="{{ pedidosAbertoKeys }}"
+          data="{{ pedidosAbertoData }}">
+        </firebase-element>
+      <firebase-element
+          id="pedidosProntoBase"
+          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pronto/{{ pedidoKey }}"
+          keys="{{ pedidosProntoKeys }}"
+          data="{{ pedidosProntoData }}">
+        </firebase-element>
+-->
+
+
   </template>
   <script>
     Polymer({
       disabledSend:false,
       disabledMoney:false,
       sliderInt:0,
+      dtPedido:0,
+      toLabel:function(n) { return n > 0 ? 'x'+n : 'OK' },
+      ready:function()
+      {
+        setInterval(function()
+        {
+           var A = this.shadowRoot.querySelectorAll('firebase-element');
+           console.log(A)
+          _.each(A,function(a)
+          {
+            a.queryChanged();
+          })
+        }
+        .bind(this),
+        2000);
+      },
+      queryBases:function()
+      {
+        setTimeout(function()
+        {
+          var A = this.shadowRoot.querySelectorAll('firebase-element');
+          _.each(A,function(a)
+          {
+            a.queryChanged();
+          })
+        }
+        .bind(this),
+        200);
+      },
+      renderAllIcons:function()
+      {
+        this.renderIcons(this.relogioData,this.pedidosFechadoData,
+          "alarm","Cozinha");//fechado
+        this.renderIcons(this.relogioProntoData,this.pedidosProntoData,
+          "maps:directions-walk","Garçom");//pronto
+        this.renderIcons(this.relogioEntregueData,this.pedidosEntregueData,
+          "maps:local-bar","Entregue"); //entregue
+
+        // gambiarra do mal, o que importa é que está funcionando, não me pergute como.
+        var f =  this.queryBases.bind(this) ; setTimeout(function() { f() ; f(); },5e3)
+      },
+      renderIcons:function(dtPedido,pedido,icon,titleIcon)
+      {
+        if(dtPedido)
+        {  
+          if(dtPedido > this.dtPedido)
+          {this.dtPedido = dtPedido;
+                    this.icon = icon;
+                    this.titleIcon = titleIcon;
+                    console.trace('renderizado',this.pedidoKey,arguments,this.from) }
+
+        }
+        
+
+      },
+      pedidosFechadoDataChanged:function()
+      {
+        this.renderAllIcons();
+      },
+      relogioDataChanged :function()
+      {
+        this.renderAllIcons();
+      },
+      relogioProntoDataChanged :function()
+      {
+        this.renderAllIcons();
+      },
+      pedidosProntoDataChanged :function()
+      {
+        this.renderAllIcons();
+      },
+      relogioEntregueDataChanged:function()
+      {
+        this.renderAllIcons();
+      },
+      pedidosEntregueDataChanged:function()
+      {
+        this.renderAllIcons();
+      },
       ready:function()
       {
         window.setInterval(function()
         {
-          this.job('sliderIntToZero',function()
+          var d = new Date( new Date().getTime() - this.dtPedido );
+          var m = d.getMinutes();
+          var s = d.getSeconds();
+
+          if(new String(s).length == 1)
+            s = "0"+s;
+          if(new String(m).length == 1)
+            m = "0"+m;
+          
+          this.tempo = m+":"+s ; 
+
+        }
+        .bind(this)
+        ,1000)
+        /**
+        window.setInterval(function()
+        {
+          this.job('job-query-fb',function()
           {
-            if(this.sliderInt)
-              --this.sliderInt;
-          });
-        }.bind(this),1000)
+            var A = this.shadowRoot.querySelectorAll('firebase-element');
+            _.each(_.shuffle(A),function(a)
+            {
+                a.queryChanged();
+            }
+            .bind(this));
+          })
+
+        }.bind(this),2000);
+        **/
       },
       observe:
       {
@@ -127,6 +383,12 @@
             }
           );
         }
+        console.warn("TODO")
+        //this.setRelogio();
+      },
+      markClock:function(to)
+      {
+        console.log('markClock',to,{produtoKey:this.pedidoKey,categoriaKey:this.categoriaKey});
       },
       getProduto:function()
       {
@@ -138,17 +400,69 @@
         {
           this.sliderInt+=2;
         }
-        this.fireAsync('change-qtd')
+        this.fire('change-qtd')
       },
       removeHandler:function()
       {
         this.pedido = 0;
-        this.fireAsync('change-qtd');
+        this.fire('change-qtd');
+      },
+      decrement:function()
+      {
+        this.pedido--;
       },
       increment:function()
       {
-          if(!this.disabledSend)
+          if(!this.disabledSend && this.from != "all")
             this.pedido++;
+          else
+          {
+            //1. Verifica se from  == "all"
+            //2. caso for:
+              //2.1 incremente o pedido em abertos
+              //2.2 mande o botão aparecer
+              //2.3 mande desaparecer após x segundos(async)
+              //2.4 chama calculateAll()
+
+
+              //1. Verifica se from  == "all"
+              if(this.from == "all")
+              {
+                //2.1 incremente o aberto
+                this.incrementAberto();
+                //2.2 mande o botão aparecer
+                this.showMinusButton = true;
+                //2.3 mande desaparecer após x segundos(async)
+
+                this.job('job-minus-btn',function() {
+                
+                  this.showMinusButton = false;
+                }
+                .bind(this),2500)
+              }
+              else 
+                throw new Error('????');
+          }
+      },
+      incrementAberto:function()
+      {
+        this.pedidosAbertoData++;
+        this.calculateAll();
+      },
+      decrementAberto:function()
+      {
+        if(this.pedidosAbertoData > 0 )
+          this.pedidosAbertoData--;
+        this.calculateAll();
+      },
+      calculateAll:function()
+      {
+        this.async(calculateAll,300);
+      },
+      pedidoKey:function()
+      {
+        if(this.pedidoKey && !_.isString(this.pedidoKey))
+          throw new Error('this.pedidoKey precisa ser uma string');
       }
     });
   </script>

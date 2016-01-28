@@ -1,0 +1,137 @@
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../cardapio_components/list-remover.html">
+
+<link rel="import" href="gerencial-produto-picker.html">
+
+<polymer-element 
+	name="gerencial-cadastros-categoria-mapper" 
+	attributes="categoryKey table">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+
+		<cardapio-globals id="g"></cardapio-globals>
+		<firebase-element 
+			location="{{ $.g.location }}/{{ table }}/{{ categoryKey }}" 
+			data="{{ produtosDataByCategoria }}" 
+			keys="{{ produtosKeysByCategoria }}"
+			id="produtosByCategoriaBase"></firebase-element>
+		<firebase-element 
+			location="{{ $.g.location }}/produtos"
+			data="{{ produtosData }}"></firebase-element>
+		<firebase-element 
+			location="{{ $.g.location }}/images"
+			data="{{ imagesData }}"></firebase-element>
+
+		<div layout horizontal id="root"
+			on-remove="{{ onRemoveProduto }}">
+			<paper-fab icon="add" on-click="{{ openPicker }}"></paper-fab>
+			<template if="{{ produtosDataByCategoria }}">
+				<template repeat="{{ k in produtosKeysByCategoria }}">
+					<gerencial-cadastros-categoria-mapper-item
+						produtoKey="{{ k }}"
+						photoData="{{ imagesData[produtosData[k].photo] }}"
+						produtoNome="{{ produtosData[k].nome }}">
+					</gerencial-cadastros-categoria-mapper-item>
+				</template>
+			</template>
+		</div>
+
+			<gerencial-produto-picker 
+				id="picker" 
+				on-pick="{{ onPickProduto }}">
+			</gerencial-produto-picker>
+
+			<style>
+				paper-fab {
+				  margin-right: 14px;
+				  margin-top: 30px;
+				  background: #D50000;
+				  margin-left: 2px;
+				}
+			</style>
+	</template>
+	<script>
+		Polymer({
+			table:"categoria-produtos",
+			ready:function()
+			{
+				console.log('ready')
+			},
+			openPicker:function()
+			{
+				this.$.picker.open();
+			},
+			onPickProduto:function(e,d,s)
+			{
+				var C = this.produtosDataByCategoria;
+				var k = d.key;
+
+				var b = this.$.produtosByCategoriaBase;
+				var o = {}; o[k] = true;
+				var ch = b.ref.update(o);
+
+				this.commitAll();
+			},
+			categoriaProdutoKeysChanged:function()
+			{
+
+			},
+			onRemoveProduto:function(e,d,s)
+			{
+				var k = d.key;
+				var C = this.produtosDataByCategoria;
+				
+				if(C[k])
+				{
+					delete C[k];
+					this.commitAll();
+				}
+			},
+			commitAll:function()
+			{
+				this.$.produtosByCategoriaBase.commit();
+			}
+		});
+	</script>
+</polymer-element>
+
+
+<!-- ITEM -->
+<polymer-element name="gerencial-cadastros-categoria-mapper-item" 
+	attributes="photoData produtoNome produtoKey">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<list-remover 
+			key="{{ produtoKey }}"
+			target="{{ $.item }}" 
+			orientationKey="y"></list-remover>
+
+		<paper-item
+			id="item">
+			<img-card 
+				data="{{ photoData }}" 
+				width="64">
+			</img-card>
+			<div style="text-align:center">
+				{{ produtoNome }}
+			</div>
+		</paper-item>
+	
+	</template>
+	<script>
+		Polymer({
+			onRemoveProduto:function()
+			{
+
+			}
+		});
+	</script>
+</polymer-element>

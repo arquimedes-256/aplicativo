@@ -1,0 +1,54 @@
+<polymer-element name="gerencial-estoque-calculator">
+	<template>
+		<cardapio-globals id="g"></cardapio-globals>
+		
+		<firebase-element 
+			location="{{ $.g.location }}/produtos"
+			id="produtosBase"
+			data="{{ produtosData }}"
+			keys="{{ produtosKeys }}">
+		</firebase-element>
+
+		<firebase-element 
+			location="{{ $.g.location }}/estoque"
+			data="{{ lancamentosData }}">
+		</firebase-element>
+	</template>
+	<script>
+	Polymer({
+		
+		calcLancamento:function()
+		{
+
+			this.job('calc-lancamento',function()
+			{
+
+				var p = this.produtosData;
+				if(!p)
+					return;
+				_.each(this.produtosData,function(produto,key)
+				{
+					produto.quantidade = 0;
+				});
+
+
+				_.each(this.lancamentosData,function(v,k)
+				{
+					var i = v.item;
+
+					p[i].quantidade += v.quantidade;
+
+					//console.log(p[i].nome,p[i].quantidade,v.quantidade)
+				});
+				this.$.produtosBase.commit();
+
+				_.each(this.produtosData,function(value,key)
+				{
+					queryIt('produtos',key);
+				});
+			})
+		}
+
+	});
+	</script>	
+</polymer-element>

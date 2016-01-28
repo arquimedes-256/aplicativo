@@ -1,0 +1,127 @@
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="scope-globals.html">
+
+<link href="../bower_components/core-collapse/core-collapse.html" rel="import">
+
+<link href="../bower_components/paper-dropdown/paper-dropdown.html" rel="import">
+<link href="../bower_components/paper-item/paper-item.html" rel="import">
+<link href="../bower_components/core-icon-button/core-icon-button.html" rel="import">
+
+<link href="../bower_components/core-dropdown/core-dropdown.html" rel="import">
+<link href="../bower_components/core-menu/core-menu.html" rel="import">
+
+
+<link href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html" rel="import">
+<polymer-element name="scope-map-input" 
+  attributes="path value label floatingLabel disabled attributeName sufixIfBoolean nomeFactory">
+  <template>
+    
+    <cardapio-globals id="g"></cardapio-globals>
+
+    <firebase-element 
+      location="{{ $.g.location }}/{{path}}" 
+      id="pathBase"
+      data="{{ pathData }}"
+      keys="{{ pathKeys }}"></firebase-element>
+      
+    <template if="{{ pathData && (pathData[value] || value || value == undefined) }}" 
+    >
+      <template if="{{ disabled }}">
+        <paper-input 
+          disabled
+          value="{{  value | toLabel }}" 
+          label="{{ label }}"
+          floatingLabel?="{{ floatingLabel }}"></paper-input>
+      </template>
+      
+        
+          <paper-input on-click="{{ dropDownClickHandler  }}"
+            value="{{ pathData[value].nome }}" 
+            label="{{ label }}"
+            floatingLabel?="{{ floatingLabel }}" disabled>
+          </paper-input>
+          
+         <core-dropdown id="dropDown" class="open-below">
+                <core-menu class="menu">
+                    <template repeat="{{ k in pathKeys}}">
+                      <paper-item 
+                        on-click="{{ selectKeyHandler }}" 
+                        key="[[ k ]]">
+
+                        {{ pathData[k].nome  }}
+
+                      </paper-item>
+                    </template>
+                </core-menu>
+          </core-dropdown>
+            
+    
+    </template>
+    
+    <template if="{{ value && pathData && !pathData[value] }}">
+      <span>Não existe <b>{{ value }} para {{ label }}</b></span>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      disabled:false,
+      floatingLabel:false,
+      sufixIfBoolean:undefined,
+      ready:function()
+      {
+        this.loopPathObserver();
+      },
+      loopPathObserver:function()
+      {
+        setInterval(function()
+        {
+            if(!this.pathData)
+              this.$.pathBase.queryChanged();
+
+        }.bind(this),
+        500*PHI);
+      },
+      pathDataChanged:function(o,n)
+      {
+        this.fire('pathdata',{pathDataCurrentObject:this.pathData[this.value]})
+      },
+      valueChanged:function()
+      {
+        if(this.value == "" || _.isUndefined(this.value))
+        {
+          this.value = _.first(this.pathKeys);
+        }
+      },
+      toLabel:function(k) 
+      {
+        if( !this.pathData || !this.pathData[k] || !k || k == "")
+          return "no-key";
+
+        if(this.sufixIfBoolean)
+        {
+          if(_.isBoolean(this.pathData[k]))
+            return k+' '+ this.sufixIfBoolean;
+          else
+            return this.pathData[k];
+        }
+        else
+        {
+          if(d = this.pathData[k])
+            return d && ( d.nome || ( this.nomeFactory && this.nomeFactory(d) ) );
+        }
+      },
+      selectKeyHandler:function(e,d,s)
+      {
+        var key = s.getAttribute('key');
+        
+        this.shadowRoot.querySelector('#dropDown').toggle();
+        
+        this.fire('select-key',{value:key,attributeName:this.attributeName})
+      },
+      dropDownClickHandler:function()
+      {
+        this.shadowRoot.querySelector('#dropDown').toggle();
+      }
+    });
+  </script>
+</polymer-element>

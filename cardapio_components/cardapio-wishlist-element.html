@@ -2,24 +2,49 @@
 <link rel="import" href="cardapio-globals.html">
 
 <polymer-element name="cardapio-wishlist-element"
-  attributes="mainTitle sendText from to disabledSend disabledMoney currentMesa useAll">
+  attributes="permissions mainTitle sendText from to disabledSend disabledMoney currentMesa useAll">
   <template>
-      <cardapio-globals id="globals"></cardapio-globals>
-      <span title-w>{{ mainTitle }}</span>
-      <template repeat="{{ k in $.globals.k_categorias }}">
-        <cardapio-wishlist
-        id="wishlist_{{k}}"
-        location="{{ $.globals.location }}"
-        currentMesa="{{ currentMesa || $.globals.data.currentMesa }}"
-        disabledMoney="{{ disabledMoney }}"
-        disabledSend="{{ disabledSend }}"
-        from="{{ from }}"
-        categoria="{{ k }}"
-        from_key="k_[[ from ]]"
-        useAll?="{{ useAll }}"
-        notall?="{{ !useAll }}"
-          on-calc="{{ onWishListCalc }}"
-          on-check-unique="{{ sendHandler }}"></cardapio-wishlist>
+      <cardapio-globals id="g"></cardapio-globals>
+      
+      <firebase-element 
+        location="{{ $.g.location }}/categorias"
+        keys="{{ categoriasKeys }}"
+        data="{{ categoriasData }}">
+      </firebase-element>
+ 
+      <firebase-element 
+        location="{{ $.g.location }}/pedidos/{{$.g.data.currentMesa}}"
+        data="{{ pedidosData }}"
+        keys="{{ pedidoCatKeys }}"
+        id="pedidosBase">
+      </firebase-element>
+
+      <firebase-element 
+        location="{{ $.g.location }}/produtos/"
+        data="{{ produtosData }}">
+      </firebase-element>
+      <!-- Titulo da WishList -->
+      <span title-w>
+        <!--
+        <core-icon icon="maps:local-restaurant"></core-icon>
+      -->
+        {{ mainTitle }}
+      </span>
+      <template repeat="{{ k in categoriasKeys }}">
+        <cardapio-wishlist-category
+          id="wishlist_{{k}}"
+          location="{{ $.g.location }}"
+          currentMesa="{{ currentMesa || $.g.data.currentMesa }}"
+          disabledMoney="{{ disabledMoney }}"
+          disabledSend="{{ disabledSend }}"
+          from="{{ from }}"
+          categoriaKey="{{ k }}"
+          from_key="k_[[ from ]]"
+          useAll?="{{ useAll }}"
+          notall?="{{ !useAll }}"
+            on-calc="{{ onWishListCalc }}"
+            on-check-unique="{{ sendHandler }}">
+        </cardapio-wishlist-category>
       </template>
       <cardapio-total
         disabledSend="{{ disabledSend }}"
@@ -28,7 +53,8 @@
         sendText="{{ sendText }}"
         id="cardapioTotal"
         from="{{ from }}"
-        to="{{ to }}"
+        to="{{ _to }}"
+        permissions="{{permissions}}"
           on-send="{{ sendHandler }}"
         >
       </cardapio-total>
@@ -42,78 +68,7 @@
     }
   </style>
   </template>
-  <script>
-    Polymer({
-      disabledSend:false,
-      disabledMoney:false,
-      useAll:false,
-      onWishListCalc:function()
-      {
-        this.$.cardapioTotal.calcWishs();
-      },
-      sendHandler:function(e,d,s)
-      {
-          var wishs = this.shadowRoot.querySelectorAll('cardapio-wishlist');
-          var g = this.$.globals;
+  <script src="cardapio-wishlist-element.js">
 
-          var pedidoKey = d.pedidoKey;
-          var mesaKey = this.currentMesa || g.data.currentMesa;
-
-          for(var i=0;i<wishs.length;i++)
-          {
-            var w = wishs[i];
-            var URL = g.location+"/pedidos/"+(mesaKey)+"/"+w.categoria;
-
-
-            var from = new Firebase(URL+"/"+this.from);
-            var to = new Firebase(URL+"/"+this.to);
-            var all  = new Firebase(URL+"/all");
-
-            var wItens = w.shadowRoot.querySelectorAll('cardapio-wishlist-item');
-
-
-            for(var j=0; j<wItens.length; j++)
-            {
-              var item = wItens[j];
-              var k = item.pedidoKey;
-
-              if(pedidoKey == k || !pedidoKey)
-              {
-                //direto para o garçon
-                if(this.to == "fechado" && !(item.getProduto().preparavel))
-                {
-                  to = new Firebase(URL+"/pronto");
-                }
-
-
-                var fromProdutosRef = from.child(k);
-                var toProdutosRef = to.child(k);
-                var allProdutosRef = all.child(k);
-
-
-                fromProdutosRef.once('value',function(fromData)
-                {
-                  toProdutosRef.once('value',function(toData)
-                  {
-                    allProdutosRef.once('value',function(allData)
-                    {
-                      allProdutosRef.set(allData.val() + fromData.val())
-                      toProdutosRef.set(toData.val() + fromData.val())
-                      fromProdutosRef.set(0);
-                    });
-                  });
-                });
-
-                to = new Firebase(URL+"/"+this.to);
-              }
-              //console.log(k);
-            }
-            w.total = 0;
-          }
-          this.total = 0;
-          queryBases();
-          console.log('enviado de:'+this.from+' para:'+this.to);
-      }
-    });
   </script>
 </polymer-element>

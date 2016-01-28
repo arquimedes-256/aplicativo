@@ -1,0 +1,30 @@
+ {
+    "coca-cola": {
+        "descricao" : "Coca-Cola é um refrigerante carbonado vendido em lojas do mundo todo, restaurantes e máquinas de venda automática em todo o mundo. Ele é produzido pela The Coca-Cola Company, sediada em Atlanta, Estados Unidos, e é muitas vezes referido apenas como Coca-Cola (a marca registrada da empresa Coca-Cola nos Estados Unidos desde 27 de março de 1944). Originalmente concebida como um remédio patenteado quando foi inventada no final do século XIX por John Pemberton, a Coca-Cola foi comprada pelo empresário Asa Griggs Candler, cujas táticas publicitárias levaram a bebida ao domínio do mercado de refrigerantes no mundo ao longo do século XX.",
+        "nome" : "Coca-cola",
+        "photo" : "coca-cola-img",
+        "preco" : 4
+    },
+    "macarronada":{
+        "descricao" : "A macarronada é um dos pratos de massa mais apreciados pelas cozinheiras. Essa refeição pode ser feita sem dar muito trabalho e fica muito suculenta. Quem gosta de macarrão não pode perder.",
+        "nome" : "Macarronada",
+        "photo" : "macarronada-img",
+        "preco" : 20,
+        "preparavel" : true
+    },
+    "rosbife":{
+        "descricao" : "A carne é preparada de forma que a parte exterior fique bem caramelizada, enquanto o interior fica mal passado, dando fatias com uma cor rosada. O rosbife é normalmente servido como prato principal, com vários acompanhamentos, entre os quais o mais importante é o gravy (com exceção do Sunday roast, que é tradicionalmente servido com Yorkshire puddings, pãezinhos assados muitas vezes aproveitando os sucos da carne assada)",
+        "nome" : "Rosbife",
+        "photo" : "rosbife-img",
+        "preco" : 40,
+        "preparavel" : true
+    },
+    "calabresa":{
+        "descricao" : "O tradicional sabor calabresa ganha um toque ainda mais especial com a receita da Casa. A Pizza Calabresa é composta por linguiça calabresa, cebola e queijo mussarela, além de salpicada com deliciosas azeitonas pretas.",
+        "nome" : "Pizza de Calabresa",
+        "photo" : "calabresa-img",
+        "preco" : 30,
+        "preparavel" : true
+      }
+  }
+

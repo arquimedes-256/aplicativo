@@ -11,10 +11,13 @@ body {
   -webkit-touch-callout: none;
 }
 
+  html /deep/ .datePickerContainer  section
+  {
+    position: relative !important;
+  }
 section {
   margin: 20px;
 }
-
 a, a:hover {
   text-decoration: none;
 }

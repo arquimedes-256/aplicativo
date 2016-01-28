@@ -1,0 +1,43 @@
+<link rel="import" href="gerencial-estoque-item.html">
+<link rel="import" href="gerencial-estoque-por-produto.html">
+<link rel="import" href="gerencial-estoque-por-lancamento.html">
+
+<polymer-element 
+	name="gerencial-estoque" 
+	attributes="startLancamento endLancamento" 
+	layout vertical>
+	<template>
+		<paper-tabs selected="{{ currentPageEstoque }}">
+		  <paper-tab>
+		  	<core-icon icon="av:repeat"></core-icon>
+		  	Entrada-Saída
+		  </paper-tab>
+		  <paper-tab>
+		  	<core-icon icon="shopping-cart"></core-icon>
+		  	Produtos
+			</paper-tab>
+		</paper-tabs>
+		<core-animated-pages selected="{{ currentPageEstoque }}" transitions="slide-from-right">
+		  <section>
+		  	<gerencial-estoque-por-lancamento 
+		  		startLancamento="{{ startLancamento }}"
+		  		endLancamento="{{ endLancamento }}"
+		  		id="estoquePorLancamento"></gerencial-estoque-por-lancamento>
+		  </section>
+		  <section>
+		  	<gerencial-estoque-por-produto></gerencial-estoque-por-produto>
+		  </section>
+		</core-animated-pages>
+		<style>
+			paper-tabs {
+				background : #D50000;
+				color:#FFF;
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			
+		});
+	</script>
+</polymer-element>

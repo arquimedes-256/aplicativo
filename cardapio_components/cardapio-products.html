@@ -1,12 +1,32 @@
 <link rel="import" href="cardapio-products-item.html">
 
-<polymer-element name="cardapio-products" attributes="products products_keys" flex>
+<polymer-element name="cardapio-products" flex attributes="categoriaKey">
 
   <template>
-    <template repeat="{{ k in products_keys }}">
+    <cardapio-globals id="g"></cardapio-globals>
+    <firebase-element 
+      location="{{$.g.location}}/categoria-produtos/{{ $.g.data.currentCategoryKey }}"
+      keys="{{ produtosKeys }}" id="zz"
+      on-data-change="{{ dataChangeHandler }}">
+    </firebase-element>
+      <firebase-element 
+        location="{{ $.g.location }}/produtos"
+        data="{{ produtosData }}"></firebase-element>
+
+    <template if="{{ !_produtosKeys.length && sujetionsKeys.length }}">
+      <h1>Nada com esses filtros foi encontrado</h1>
+      <!-- 
+      <template repeat="{{ k in sujetionsKeys }}">
+        <paper-button raised>{{k}}</paper-button>
+      </template>
+      <h1> essas são as possibilidades com itens existentes, oq fazer com isso ? </h1>
+    -->
+    </template>
+    <template repeat="{{ k in _produtosKeys }}">
       <cardapio-products-item
-        product="{{ products[k] }}"
+        categoriaKey="{{ $.g.data.currentCategoryKey }}"
         productKey="{{ k }}"
+        path="categorias"
         pk="{{ k }}">
       </cardapio-products-item>
     </template>
@@ -20,7 +40,93 @@
   <script>
 
     Polymer({
+      filtros:{},
+      sujestions:[],
+      log:false,
+      sujestionsChanged:function()
+      {
+        this.sujetionsKeys = _.keys(this.sujestions);
+      },
+      dataChangeHandler:function()
+      {
+        this._produtosKeys = _.clone(this.produtosKeys);
+      },
+      rebuildList:function()
+      {
+        var prodsData = this.produtosData;
+        this._produtosKeys = _.clone(this.produtosKeys);
 
+        var newProdutosKeys = []
+        var filtrosKeys = _.pluck(this.filtros,'key');
+        //1. para cada produto
+        _.each(this._produtosKeys,function(k)
+        {
+          var p = prodsData[k];
+          //se não existir propriedades retorne
+          if(!p.propriedades) return;
+
+          if(this.log)
+          {
+            console.log('nome do produto:',p.nome)
+            console.log('testando propriedades:',p.propriedades)
+          }
+          
+          var existeTodos = true;
+          _.each(p.propriedades,function(prop_v,prop_k)
+          {
+            //se propriedade não existe no filtro, não considere 
+            var propriedadeExisteNoFiltro = _(filtrosKeys).contains(prop_k);
+            if(!propriedadeExisteNoFiltro)
+              return;
+
+            var kk = prop_k+":"+prop_v;
+            if(!this.filtros[kk])
+              existeTodos = false//,console.error('Não existe:'+kk);
+             else
+               if(this.log) console.info('Existe: '+kk)
+          }
+          .bind(this))
+
+          if(this.log) console.log('existeTodos:',existeTodos);
+          if(existeTodos)
+            newProdutosKeys.push(k)
+
+        }
+        .bind(this))
+
+        if(newProdutosKeys.length > 0)
+          this._produtosKeys = newProdutosKeys;
+
+        console.log(this.filtros)
+
+      },
+      addFiltro:function(filtro)
+      {
+        if(this.filtros[filtro.key+':'+filtro.value])
+          delete this.filtros[filtro.key+':'+filtro.value];
+        else if( new String(filtro.value) == "undefined" )
+          this.deleteFiltrosComChave(filtro.key);
+        else
+          this.filtros[filtro.key+':'+filtro.value] = filtro;
+
+        this.rebuildList();
+      },
+      deleteFiltrosComChave:function(key)
+      {
+        var regex = new RegExp("^"+key);
+        _.each(this.filtros,function(v,k)
+        {
+          if(regex.test(k))
+            delete this.filtros[k]
+        }
+        .bind(this));
+        this.fire('delete-filtros',{key:key})
+      },
+      removeFiltros:function()
+      {
+       this.filtros = {};
+       this.rebuildList(); 
+      }
     });
 
   </script>

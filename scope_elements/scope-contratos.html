@@ -1,0 +1,24 @@
+<link rel="import" href="scope-contrato-item.html">
+
+<polymer-element name="scope-contratos">
+  <template>
+    <scope-globals id="g"></scope-globals>
+    <firebase-list 
+      location="{{ $.g.data.location }}/contratos/{{ $.g.data.filial }}"
+      data="{{ contratos }}"></firebase-list>
+    
+    <h1>Contratos {{ $.g.data.filial }}</h1>
+    
+    <template repeat="{{ c in contratos }}">
+      <scope-contrato-item 
+        contratoKey="{{ c.$key }}">
+      </scope-contrato-item>
+    </template>
+    
+  </template>
+  <script>
+    Polymer({
+      
+    });
+  </script>
+</polymer-element>

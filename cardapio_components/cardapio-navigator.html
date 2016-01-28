@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<polymer-element name="cardapio-navigator" attributes="currentCategory" layout horizontal flex>
+	<template>
+		<paper-icon-button 
+			on-click="{{ gotoBack }}"
+			icon="arrow-back" 
+			hidden?="{{ !currentCategory }}"></paper-icon-button>
+		<span style="padding-top: 7px;padding-left: 9px;">
+			{{currentCategory.nome}}</span>
+		<paper-icon-button
+			on-click="{{ toggleRightMenu }}"
+			icon="search"
+			style="position:absolute;right:10px"
+			hidden?="{{ !currentCategory }}">
+		</paper-icon-button>
+	</template>
+	<script>
+		Polymer({
+			toggleRightMenu:function(e,d,s)
+			{
+				window.toggleRightMenu();
+			},
+			currentCategoryChanged:function()
+			{
+				this.async(function()
+				{	
+					if(this.currentCategory)
+						this.currentPage = 1;
+					else
+						this.currentPage = 0;	
+				},800 * PHI)
+			},
+			currentPageChanged:function()
+			{
+				if(this.currentPage == 0)
+					this.fire('goto-root');
+				else if(this.currentPage == 1) {
+					//todo
+				}
+			},
+			gotoBack:function()
+			{
+				this.currentPage = 0;
+			}
+		});
+	</script>
+</polymer-element>

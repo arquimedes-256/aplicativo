@@ -258,7 +258,14 @@ Example:
       this.closeObserver();
       // connect to db
       if (this.location) {
-        this.ref = new Firebase(this.location);
+        try{
+          this.ref = new Firebase(this.location);
+        }
+        catch(e)
+        { 
+          console.log(this.location,this,this.parentNode)
+        }
+
       } else {
         this.ref = null;
       }

@@ -1,54 +1,68 @@
-
-
 <polymer-element
   name="cardapio-category-item"
-  attributes="category category_key product product_key objK1 objK2"
-  layout vertical relative>
-
+  attributes="categoryKey productData objK1 objK2 slideIt width"
+  layout vertical>
   <template>
-          
     <cardapio-globals id="g"></cardapio-globals>
-    
+
+    <template if="{{ categoryKey }}">
+      <firebase-element 
+        location="{{ $.g.location }}/categorias/{{ categoryKey }}"
+        data="{{ categoryData }}">
+      </firebase-element>
+    </template>
+
     <div id="tile-general" class="tile" on-click="{{ onClickRoot }}">
-      <section id="section2" class="tile-top" flex layout horizontal center center-justified hero hero-id="top">
-        <template if="{{ !obj['photo'] }}">
-            <core-icon icon="category-icons:knowledge" id="core_icon1" cross-fade-delayed designmeta="topeka-icon"></core-icon>
-        </template>
-        <template if="{{ obj['photo'] }}">
-          <firebase-element 
+      <section id="section2" class="tile-top" flex layout horizontal center center-justified hero hero-id="top" relative>
+
+       
+
+        <firebase-element 
             location="{{ $.g.location }}/images/{{ obj['photo'] }}"
             data="{{ imageData }}"></firebase-element>
-          <img-card data="{{ imageData }}" width="108"></img-card>
-        </template>
-        <template if="{{ obj['preco'] }}">
-          <span price>{{obj['preco']}}</span>R$
+          <img-card nome="{{ obj['nome'] }}" width="[[ width ]]" ignoreBorderRadius 
+          ignoreMargin></img-card>
+          <paper-ripple fit></paper-ripple>
 
+        <template if="{{ obj['preco'] }}">
+<!--
             <paper-checkbox id="checkbox" 
               on-click="{{ fireMark }}" 
-              checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
-
+              checked?="{{ pedidosData > 0  }}"></paper-checkbox>
+-->
         </template>
       </section>
-      <div id="div1" class="tile-bottom" hero hero-id="bottom">
-        <span id="span1">{{ obj['nome'] }}</span>
+
+      <div id="div1" class="tile-bottom" hero hero-id="bottom" relative>
+        <div fit class="tile-bottom-color"></div>
+        <span id="span1" relative style="top: -7px;">{{ obj['nome'] }}
+
+        <template if="{{ obj['preco'] }}">
+          <span price>{{obj['preco']}}</span>R$
+        </template>
+        </span>
       </div>
 
-
       <firebase-element
-        id="base_pedidos"
         location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ objK1 }}/aberto/{{objK2 }}"
-        >
-      </firebase-element>
+        data="{{ pedidosData }}"
+        class="pedidos-base-ref">
+      </firebase-element> 
 
     </div>
     <style>
-
+      img-card {
+          position: relative;
+      }
+      #tile-general {
+        height:160px;
+      }
       :host {
-        box-sizing: border-box;
-        float: left;
-        height: 30%;
-        width: 48%;
-        margin: 3px;
+        display:block;
+        width:400px;
+        
+        height: 83px;
+        overflow:hidden;    margin-bottom: 3px;
       }
       #section2 {
         background-color: rgb(255, 255, 141);
@@ -57,43 +71,34 @@
         height: 128px;
         width: 128px;
       }
+      #section2
+      {
+         height: 128px;
+      }
+      #tile-general 
+      {
+         overflow: hidden;
+      }
+      .tile-bottom {
+         
+      }
+      .tile-bottom-color {
+        background: #3E2723;
+        opacity: 0.7;
+      }
       #div1 {
         padding: 8px;
         color: rgb(255, 255, 255);
-        background-color: rgb(255, 235, 59);
+        position: relative;
+        top: -70px;
+      }
+      [cat-img]
+      {
+        max-width: 403px;
       }
     </style>
   </template>
 
-  <script>
-
-    Polymer({
-      observe:{
-        'category product':'readyObj',
-        'category_key product_key':'readyKey'
-      },
-      readyObj:function(_old,_new)
-      {
-        this.obj = _new;
-      },
-      readyKey:function(_old,_new)
-      {
-        this.objKey = _new;
-      },
-      onClickRoot:function()
-      {
-        this.fire("click-cardapio-category-item",{category:this.category,category_key:this.category_key})
-      },
-      fireMark:function()
-      {
-            this.fireAsync('product-item-mark',{
-              productKey:this.objK1,
-            checked:s.checked});
-        
-        this.async(queryBases,100);
-      }
-    });
-
-  </script>
+  <script src="cardapio-category-item.js"></script>
 
 </polymer-element>

@@ -1,0 +1,42 @@
+
+<link rel="import" href="../gerencial_components/gerencial-cadastros-produto.html">
+<link rel="import" href="../gerencial_components/gerencial-cadastros-categoria.html">
+<link rel="import" href="../gerencial_components/gerencial-cadastros-ofertas.html">
+
+<polymer-element name="gerencial-cadastros" attributes="">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-tabs
+			{
+				background-color: #d50000;
+  color: #FFF;
+			}
+		</style>
+		<paper-tabs selected="{{ currentPageCadastros }}">
+		  <paper-tab><core-icon icon="group-work"></core-icon></paper-tab>
+		  <paper-tab><core-icon icon="maps:local-pizza"></core-icon></paper-tab>
+		  <paper-tab><core-icon icon="today"></core-icon></paper-tab>
+		</paper-tabs>
+
+		<core-animated-pages selected="{{currentPageCadastros}}" transitions="slide-from-right">
+		  <section>
+		  	<gerencial-cadastros-categoria></gerencial-cadastros-categoria>
+		  </section>
+		  <section>
+		  	<gerencial-cadastros-produto></gerencial-cadastros-produto>
+		  </section>
+		  <section>
+		  	<gerencial-cadastros-ofertas></gerencial-cadastros-ofertas>
+		  </section>
+		</core-animated-pages>
+
+	</template>
+	<script>
+		Polymer({
+			
+		});
+	</script>
+</polymer-element>
