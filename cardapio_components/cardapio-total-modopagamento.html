@@ -1,0 +1,66 @@
+<polymer-element name="cardapio-total-modopagamento" 
+    attributes="mesaModoPagamentoData mesaModoPagamentoBase">
+	<template>	
+		<span style="font-size: 11px;margin-left: 7px;">Modo de pagamento:</span>
+            <br/>
+            <div>
+                <paper-radio-button id="M" checked="{{ mesaModoPagamentoData == 'M' }}" on-click="{{ onClickHandler }}">
+                </paper-radio-button>
+                <img src="../imgs/money-icon.png" id="moneyIcon"/>
+
+                <paper-radio-button name="c" id="C" checked="{{ mesaModoPagamentoData == 'C' }}" on-click="{{ onClickHandler }}">
+                </paper-radio-button>
+                <core-icon icon="credit-card"></core-icon>
+                
+                {{mesaModoPagamentoData | toLabel}}
+            </div>
+            
+            <style>  
+            paper-radio-button /deep/ .fill {
+              background:#FFC107!important;
+            }
+            paper-radio-button#M {
+                margin-left:4px;
+            }
+            img#moneyIcon {
+              width: 24px;
+              position: relative;
+              top: 4px;
+              border-radius: 2px;
+            }
+            </style>
+	</template>
+	<script>
+		Polymer({
+            toLabel:function(v){
+                return ({C:"Cartão",M:"Dinheiro"})[v];
+            },
+            writeInServer:function(v) {
+                var B = this.mesaModoPagamentoBase;
+                B.ref.set(v)
+                this.async(function(){
+                    B.queryChanged();
+                },1000)
+                console.log('writeInServer')   
+            },
+            onClickHandler:function(e,d,s) {
+                this.writeInServer(e.target.id);
+                console.log('onChangeHandler')
+            },
+            mesaModoPagamentoDataChanged:function(e,d,s) {
+                console.log('mesaModoPagamentoDataChanged',this.mesaModoPagamentoData)
+                this.writeInServer(this.mesaModoPagamentoData);
+
+                if(!this.refStarted) {
+                    this.refStarted = true;
+                    this.mesaModoPagamentoBase.ref.on('value',function(snap){
+                        this.mesaModoPagamentoData = snap.val();
+                    }.bind(this))
+                }
+            },
+            ready:function() {
+              
+            }
+		})
+	</script>
+</polymer-element>
