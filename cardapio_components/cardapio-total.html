@@ -1,12 +1,18 @@
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="cardapio-total-modopagamento.html">
 
 <polymer-element name="cardapio-total" attributes="permissions from to disabledSend disabledMoney sendText totalItens mainTitle">
     <template>
-        <link href="../site-stable/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <cardapio-globals id="globals"></cardapio-globals>
         <firebase-element location="{{ $.globals.location }}/mesas/{{$.globals.data.currentMesa}}" data="{{ mesaData }}" keys="{{ mesaKeys }}"></firebase-element>
+
+        <firebase-element 
+            location="{{ $.globals.location }}/mesas/modopagamento/{{$.globals.data.currentMesa}}" 
+            data="{{ mesaModoPagamentoData }}"
+            id="mesaModoPagamentoBase"></firebase-element>
+
         <paper-shadow layout horizontal>
             <span flex>Total {{ _mainTitle }}: </span>
             <template if="{{ !disabledMoney }}">
@@ -17,28 +23,16 @@
             </template>
         </paper-shadow>
         <div>
-            <span style="font-size: 11px;margin-left: 7px;">Modo de pagamento:</span>
-            <br/>
-            <paper-radio-button checked="{{isMoney}}" style="
-            margin-left: 8px;">
-            </paper-radio-button>
 
-            <img src="../imgs/money-icon.png" style="
-              width: 24px;
-              position: relative;
-              top: 4px;
-              border-radius: 2px;
-        " />
-
-            <paper-radio-button name="c" checked="{{isCard}}">
-            </paper-radio-button>
-
-            <core-icon icon="credit-card"></core-icon>
+            <cardapio-total-modopagamento 
+                mesaModoPagamentoData="{{ mesaModoPagamentoData }}"
+                mesaModoPagamentoBase="{{$.mesaModoPagamentoBase}}">
+            </cardapio-total-modopagamento>
 
         </div>
         <div layout horizontal>
             <template if="{{ mostrarSendBtn && total }}">
-                <paper-button flex class="blink_me" id="check" on-click="{{ send }}" showing?="{{ total }}" raised send-btn>
+                <paper-button flex class="blink_me" id="sendBtn" on-click="{{ send }}" showing?="{{ total }}" raised send-btn>
                     <core-icon icon="send"></core-icon>{{ sendText }}
                 </paper-button>
             </template>
@@ -63,17 +57,8 @@
 
 
         <style>
-            paper-radio-button /deep/ .fill {
-              background:#FFC107!important;
-            }
             paper-button[alert-button] {
                 width: 94%;
-            }
-            
-            #check {
-                margin-right: 10px;
-                background: #F50057;
-                color: #FFF;
             }
             
             paper-shadow {
@@ -89,30 +74,19 @@
                 color: #FFF;
                 top: 11px;
             }
+            #sendBtn {
+                background: #F50057;
+                color: #FFF;
+            }
         </style>
     </template>
     <script>
         Polymer({
-            isMoneyChanged: function() {
-                this.isCard = !this.isMoney;
-            },
-            isCardChanged: function() {
-                this.isMoney = !this.isCard;
-            },
             disabledSend: false,
             disabledMoney: false,
-            _totalDecorator: 0,
             mainTitleChanged: function() {
                 this._mainTitle = this.mainTitle.toLowerCase();
             },
-            // Alert: Mans in code
-            totalChanged: function() {
-                //TweenMax.to(this,.3,{_totalDecorator:this.total,ease:Power2.easeOut})
-            },
-            _totalDecoratorChanged: function() {
-                this._totalDecorator = parseInt(this._totalDecorator)
-            },
-            //
             ready: function() {
                 this.total = 0;
                 this.totalItens = 0;
