@@ -21,7 +21,7 @@
 
 <polymer-element name="cardapio-app" attributes="categories">
 
-  <template>
+    <template>
 
 
     <cardapio-globals id="globals"></cardapio-globals>
@@ -35,32 +35,23 @@
     <core-scaffold id="core_scaffold">
 
       <core-header-panel mode="seamed" id="core_header_panel" navigation flex>
+
         <core-toolbar id="core_toolbar" layout horizontal style="height: 0;">
-           <!--
-          <core-icon icon="maps:local-restaurant"></core-icon>
-         
-            Gracioso
-          -->
-<!--
-          <paper-tabs selected="{{ $.wishListMain.currentPage }}" flex>
-      <template repeat="{{ e in $.wishListMain.elements }}">
-        <paper-tab hidden?="{{ $.wishListMain.permissions[e.from].disabled }}">
-          <paper-shadow alert-sign hidden?="{{ $[e.from].$.cardapioTotal.totalItens == 0}}">
-            {{ $[e.from].$.cardapioTotal.totalItens }}
-          </paper-shadow>
-          <core-icon icon="{{ e.icon }}"></core-icon>
-        </paper-tab>
-      </template>
-    </paper-tabs>
-  -->
+    
         </core-toolbar>
 
-      <!-- wishlist -->
+      <!-- wishlist , esse 
+
+      "cardapio-wishlist-main" >
+        "cardapio-wishlist-element" > 
+          "cardapio-wishlist-category" >
+            "cardapio-wishlist-item" 
+          contém vários "cardapio-wishlist-category"-->
       <cardapio-wishlist-main id="wishListMain"
       disabletabs
       currentPage="0"
       permissions='{
-        "alert":{"to":"pronto","text":"Chamar o garçon!","cancelText":"Cancelar chamada!"},
+        "alert":{"to":"pronto","text":"Chamar o garçom!","cancelText":"Cancelar chamada!"},
         "fechado":{"disabledSend":true},
         "pronto":{"disabledSend":true,"disabled":true},
         "entregue":{"disabledSend":true,"disabled":true},
@@ -74,18 +65,13 @@
       </core-header-panel>
 
       <div id="div" tool style="width:100%">
-        <!-- Total: {{ $.wishlist.$.service.total }} R$ -->
         <cardapio-navigator 
           currentCategory="{{ $.globals.data.currentCategory }}"
           on-goto-root="{{ onBackCategory }}"></cardapio-navigator>
       </div>
 
       <section id="section" layout vertical designmeta="quiz-demo-grid">
-        <!--
-        <div id="toolbar" class="tall-toolbar categories" horizontal center-justified center layout>
-          <span id="span">Cardápio</span>
-        </div>
-      -->
+
 <!-- catetories -->
 
         <cardapio-category
@@ -113,161 +99,159 @@
             </cardapio-category-item>
 
           </template>
-        </div>
+    </div>
 
-
-<!--
-        <core-overlay layered id="productOverlay" class="dialog" backdrop transition="core-transition-top">
-          <div>
-            <cardapio-products-item 
-              productKey="{{ currentOverlayProductKey }}" 
-              categoryKey="{{ currentOverlayCategoryKey }}"></cardapio-products-item>
-          </div>
-        </core-overlay>
--->
-      </section>
+    </section>
     </core-scaffold>
     <style>
-      .tiles-container {
-        padding-top: 11px;
-      }
-      paper-tabs 
-      {
-          width: 233px;
-          display: block;
-          margin-bottom: 6px;
-          color: #000;
-      }
-      /** /deep/ #mainContainer {
-        top: -5px;
-      }*/
+        .tiles-container {
+            padding-top: 11px;
+        }
+        
+        paper-tabs {
+            width: 233px;
+            display: block;
+            margin-bottom: 6px;
+            color: #000;
+        }
     </style>
-  </template>
+    <style>
+ </style>
+    </template>
 
-  <script>
+    <script>
+        Polymer({
+            currentPage: 0,
+            ready: function() {
+                this.elementList = this.$["tiles-container"];
+                this.elementCategory = this.$["category"];
 
-    Polymer({
-      currentPage:0,
-      ready:function()
-      {
-        this.elementList = this.$["tiles-container"];
-        this.elementCategory = this.$["category"];
+                TweenMax.set(this.elementCategory, {
+                    css: {
+                        opacity: 0,
+                        display: 'none'
+                    }
+                })
+            },
+            onBackCategory: function() {
+                this.$.globals.data.currentCategory = null;
+            },
+            observe: {
+                '$.globals.data.currentCategory': 'fadeHandler'
+            },
+            fadeHandler: function() {
+                //1. scroll top
+                var mainDiv = document.querySelector('* /deep/ [id="mainContainer"]');
+                TweenLite.to(this.elementList, .5, {
+                    css: {
+                        opacity: 0
+                    }
+                })
+                TweenLite.to(mainDiv, .3, {
+                    scrollTo: {
+                        y: 0
+                    },
+                    ease: Power2.easeOut,
+                    onComplete: function() {
 
-        TweenMax.set(this.elementCategory,{css:{opacity:0,display:'none'}})
-      },
-      onBackCategory:function()
-      {
-        this.$.globals.data.currentCategory = null;
-      },
-      observe:{
-        '$.globals.data.currentCategory':'fadeHandler'
-      },
-      fadeHandler:function()
-      {
-        //1. scroll top
-        var mainDiv = document.querySelector('* /deep/ [id="mainContainer"]');
-        TweenLite.to(this.elementList,.5,{css:{opacity:0}})
-        TweenLite.to(mainDiv, .3, {scrollTo:{y:0}, 
-          ease:Power2.easeOut,
-          onComplete:function()
-          {
+                            //2. anime
+                            var isCategory = (this.$.globals.data.currentCategory) != null;
 
-        //2. anime
-        var isCategory = (this.$.globals.data.currentCategory) != null;
+                            var a, b;
+                            (isCategory) ?
+                            (a = this.elementList, b = this.elementCategory) :
+                            (a = this.elementCategory, b = this.elementList);
 
-        var a,b;
-        (isCategory) ? 
-          (a = this.elementList     , b = this.elementCategory  ) : 
-          (a = this.elementCategory , b = this.elementList      ) ;
+                            setTimeout(function() {
+                                b.style.display = "flex";
+                                TweenMax.to(b, .5 * PHI, {
+                                    css: {
+                                        opacity: 1
+                                    },
+                                    ease: Power2.easeIn
+                                });
+                                TweenMax.to(a, .2 * PHI, {
+                                    css: {
+                                        opacity: 0,
+                                        ease: Power2.easeOut
+                                    },
+                                    onComplete: function() {
+                                        a.style.display = "none";
+                                    }
+                                });
 
-          setTimeout(function(){ 
-            b.style.display = "flex";
-            TweenMax.to(b,.5*PHI,{css:{opacity:1},ease:Power2.easeIn});
-            TweenMax.to(a,.2*PHI,{css:{opacity:0,ease:Power2.easeOut},
-              onComplete:function()
-              {
-                a.style.display = "none";
-              }
-            });
+                            }.bind(this), 100 * PHI)
+                        }
+                        .bind(this)
+                });
 
-          }.bind(this),100*PHI)
-          }
-          .bind(this)
-        });
+            },
+            onClickCategory: function(e) {
+                (this.$.globals.data.currentCategory = e.detail.category);
+                this.$.globals.data.currentCategoryKey = e.detail.categoryKey;
 
-      },
-      onClickCategory: function (e)
-      {
-        (this.$.globals.data.currentCategory = e.detail.category);
-        this.$.globals.data.currentCategoryKey = e.detail.categoryKey;
 
-        
-      },
-      //from category
-      pressActionButtonHandler:function(e,d,s)
-      {
-        console.log('pressActionButtonHandler',d);
-        //ir para #total se for send
-        if(d.id == "send")
-          pedir();//pedir foi definido em "ready" em: cardapio-total.html
-        //ir para category se for filter
-        else if(d.id == "filter")
-          toggleRightMenu();//foi definido em cardapio-category.html
-      },
-      putInWishList:function(e,d,s)
-      {
-        this.$.wishListMain.currentPage = 0; //vai para todos
-        var c = (d.categoryKey || this.$.globals.data.currentCategoryKey);
-        var wl = this.shadowRoot.querySelector("* /deep/ #wishlist_"
-          +c+"[notall]");
-        this.$['core_scaffold'].openDrawer();
-        wl.putInWishList(d.productKey,d.checked);
+            },
+            //from category
+            pressActionButtonHandler: function(e, d, s) {
+                console.log('pressActionButtonHandler', d);
+                //ir para #total se for send
+                if (d.id == "send")
+                    pedir(); //pedir foi definido em "ready" em: cardapio-total.html
+                //ir para category se for filter
+                else if (d.id == "filter")
+                    toggleRightMenu(); //foi definido em cardapio-category.html
+            },
+            putInWishList: function(e, d, s) {
+                this.$.wishListMain.currentPage = 0; //vai para todos
+                var c = (d.categoryKey || this.$.globals.data.currentCategoryKey);
+                var wl = this.shadowRoot.querySelector("* /deep/ #wishlist_" + c + "[notall]");
+                this.$['core_scaffold'].openDrawer();
+                wl.putInWishList(d.productKey, d.checked);
 
-      },
-      openOferta:function(e,d,s)
-      {
-        //this.$.productOverlay.open()
-        //this.currentOverlayProductKey = d.productKey;
-        //this.currentOverlayCategoryKey = d.categoryKey;
+            },
+            openOferta: function(e, d, s) {
+                //this.$.productOverlay.open()
+                //this.currentOverlayProductKey = d.productKey;
+                //this.currentOverlayCategoryKey = d.categoryKey;
 
-        // console.log('currentOverlayProductKey',this.currentOverlayProductKey)
-        // console.log('currentOverlayCategoryKey',this.currentOverlayCategoryKey)
+                // console.log('currentOverlayProductKey',this.currentOverlayProductKey)
+                // console.log('currentOverlayCategoryKey',this.currentOverlayCategoryKey)
 
-        //Chama removeFiltros para cardapio-products
-        var cp = document.querySelector('* /deep/ cardapio-products');
-        cp.removeFiltros();
-        //Procura categoria para entrar
-        var C  = document.querySelectorAll("* /deep/ cardapio-category-item");
-        C = _.filter(C,function(c)
-        {
-          return c.categoryKey == d.categoryKey;
-        });
+                //Chama removeFiltros para cardapio-products
+                var cp = document.querySelector('* /deep/ cardapio-products');
+                cp.removeFiltros();
+                //Procura categoria para entrar
+                var C = document.querySelectorAll("* /deep/ cardapio-category-item");
+                C = _.filter(C, function(c) {
+                    return c.categoryKey == d.categoryKey;
+                });
 
-        var cx = _.first(C);
+                var cx = _.first(C);
 
-        //1. vai para categoria:
-        cx.onClickRoot();
-        //2. scroll até produtos
-        var mainDiv = document.querySelector('* /deep/ core-drawer-panel div[main]');
-        
-        // Aguarda 2 segundos para selecionar o produtos
-        setTimeout(function()
-        {     
-          //3.pega y do item:
-          var px = document
-          .querySelector('* /deep/ cardapio-products-item[pk="'+d.productKey+'"]');
-          console.log(px,px.offsetTop)
-          TweenLite.to(mainDiv, 2, {scrollTo:{y:px.offsetTop-8}, 
-            ease:Power2.easeOut,
-            onComplete:function()
-            {
+                //1. vai para categoria:
+                cx.onClickRoot();
+                //2. scroll até produtos
+                var mainDiv = document.querySelector('* /deep/ core-drawer-panel div[main]');
 
+                // Aguarda 2 segundos para selecionar o produtos
+                setTimeout(function() {
+                    //3.pega y do item:
+                    var px = document
+                        .querySelector('* /deep/ cardapio-products-item[pk="' + d.productKey + '"]');
+                    console.log(px, px.offsetTop)
+                    TweenLite.to(mainDiv, 2, {
+                        scrollTo: {
+                            y: px.offsetTop - 8
+                        },
+                        ease: Power2.easeOut,
+                        onComplete: function() {
+
+                        }
+                    });
+
+                }, 1200)
             }
-          });
-
-        },1200)
-      }
-    });
-
-  </script>
+        });
+    </script>
 </polymer-element>

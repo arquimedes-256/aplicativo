@@ -5,9 +5,8 @@
 
 <link rel="import" href="img-card.html">
 
-<polymer-element name="cardapio-products-item" 
-  attributes="productKey disableCheck useEditor categoryKey" flex>
-  <template>
+<polymer-element name="cardapio-products-item" attributes="productKey disableCheck useEditor categoryKey" flex>
+    <template>
 
     <core-media-query 
         query="max-width:400px" 
@@ -57,7 +56,7 @@
               <template if="{{ showEditor != 'title' }}">
                 {{ produtoData["nome"]  }}
               </template>
-              <template if="{{ showEditor == 'title' }}">
+    <template if="{{ showEditor == 'title' }}">
                 <scope-input 
                   label="Nome do produto"
                   autoFocus
@@ -65,12 +64,12 @@
                   attributeName="nome">
                 </scope-input>
               </template>
-            </div>
-            <div class="price" on-click="{{ clickPrice }}">
-              <template if="{{ showEditor != 'price' }}">
+    </div>
+    <div class="price" on-click="{{ clickPrice }}">
+        <template if="{{ showEditor != 'price' }}">
                 $ {{ produtoData["preco"] }}
               </template>
-              <template if="{{ showEditor == 'price' }}">
+        <template if="{{ showEditor == 'price' }}">
                 <scope-input 
                   autoFocus
                   attributeName="preco" 
@@ -79,12 +78,12 @@
                   value="{{ produtoData['preco'] }}">
                 </scope-input>
               </template>
-            </div>
-          </div>
-          <div layout horizontal>
-            <div class="descricao" flex layout vertical on-click="{{ clickDescricao }}">
-              
-              <template if="{{ !descrOpened }}">
+    </div>
+    </div>
+    <div layout horizontal>
+        <div class="descricao" flex layout vertical on-click="{{ clickDescricao }}">
+
+            <template if="{{ !descrOpened }}">
                 <template if="{{ showEditor != 'descricao' }}"> 
                   <div class="descr" relative on-click="{{ openHandler }}">
                     {{ produtoData["descricao"] | minify }}
@@ -94,9 +93,9 @@
                     </div>
                   </div>
                 </template>
-               
-              </template>
-              <template if="{{ showEditor == 'descricao' }}">
+
+            </template>
+            <template if="{{ showEditor == 'descricao' }}">
                 <scope-input 
                   autoFocus
                   label="Descrição" 
@@ -105,8 +104,8 @@
                   useTextarea
                   value="{{ produtoData['descricao'] }}"></scope-input>
               </template>
-              
-              <template if="{{ descrOpened && showEditor != 'descricao' }}">
+
+            <template if="{{ descrOpened && showEditor != 'descricao' }}">
                 <div class="descr" on-click="{{ openHandler }}">
                   {{ produtoData["descricao"] }}
                 <div 
@@ -116,17 +115,14 @@
                 </div>
                 </div>
               </template>
-              
-            </div>
-            <paper-checkbox id="checkbox" 
-              hidden?="{{ disableCheck }}"
-              on-click="{{ fireMark }}" 
-              checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
-          </div>
+
         </div>
-      </div>
+        <paper-checkbox id="checkbox" hidden?="{{ disableCheck }}" on-click="{{ fireMark }}" checked?="{{ $.base_pedidos.data > 0 }}"></paper-checkbox>
+    </div>
+    </div>
+    </div>
     </paper-shadow>
-  </template>
+    </template>
     <template if="{{qMatches}}">
       <style>
        paper-shadow {
@@ -149,158 +145,147 @@
       </style>
     </template>
     <style>
-      :host
-      {
-        margin:8px;
-        display: block;
-      }
-      paper-shadow
-      {
-      }
-      .title
-      {
-        font-size: 24px;
-        margin-bottom: 5px;
-        color: #212121!important;
-        display:block;
+        :host {
+            margin: 8px;
+            display: block;
+        }
+        
+        paper-shadow {}
+        
+        .title {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #212121!important;
+            display: block;
+        }
+        
+        paper-checkbox {
+            position: absolute;
+            top: 8px;
+            right: 11px;
+        }
+        
+        .price {
+            color: #455A64;
+            font-size: 19px;
+            position: absolute;
+            bottom: 8px;
+            right: 13px;
+        }
+        
+        #shadow {
+            background: #fff;
+            padding: 8px;
+        }
 
-      }
-      paper-checkbox {
-        position: absolute;
-        top: 8px;
-        right: 11px;
-      }
-      .price
-      {  
-        color: #455A64;
-        font-size: 19px;
-        position: absolute;
-        bottom: 8px;
-        right: 13px;
-      }
-      #shadow
-      {
-        background:#fff;
-        padding:8px;
-      }
-      /** #FFAB00; **/
-   /*   #btnMore {
+        /** #FFAB00; **/
+        /*   #btnMore {
         background: #F57F17;
         color: #FFF;
         margin-top: 11px;
       }*/
-      #btnMore {
-        /*
+        
+        #btnMore {
+            /*
         width: 12px;
         right: 0;
         position: absolute;
         bottom: 7px;*/
-      }
-      .descr
-      {
-        text-align: justify;
-        margin-right: 8px;
-      } 
+        }
+        
+        .descr {
+            text-align: justify;
+            margin-right: 8px;
+            top: 1px;
+        }
     </style>
     <template if="{{descrOpened}}">
       <style>
       #shadow {height: {{descrHeight}}}
       </style>
     </template>
-  </template>
-  <script>
-    Polymer({
-      descrOpened:false,
-      disableCheck:false,
-      showEditor: null, 
-      useEditor:false,
-      observe:{'$.globals.data.currentCategoryKey':'globalsCurrentCategoryHandler'},
-      globalsCurrentCategoryHandler:function()
-      {
-        var gck = this.$.globals.data.currentCategoryKey;
-        if(gck)
-          this._categoryKey = gck;
-      },
-      ready:function()
-      {
-        this.showEditor = null;
-        this._categoryKey = this.$.globals.data.currentCategoryKey;
-      },
-      categoryKeyChanged:function()
-      {
-        this._categoriaKey = this.categoryKey;
-      },
-      produtoDataChanged:function()
-      {
-      },
-      setValueHandler:function(e,d,s)
-      {
-        this.produtoData[d.attributeName] = d.value;
-      },
-      blurHandler:function()
-      {
-        if(this.useEditor)
-          this.showEditor = null;
-      },
-      clickPrice:function(e,d,s)
-      {
-        if(this.useEditor)
-          this.showEditor = "price";
-      },
-      clickDescricao:function(e,d,s)
-      {
-        if(this.useEditor)
-          this.showEditor = "descricao";
-      },
-      clickTitle:function(e,d,s)
-      {
-        if(this.useEditor)
-          this.showEditor = "title";
-      },
-      openHandler:function()
-      {
-        this.descrOpened = !this.descrOpened;
-          this.async(function(){
-            this.descrHeight =
-             (Math.max(this.shadowRoot.querySelector('.descr').clientHeight+20,100))+'px'
-            alert(this.descrHeight);
-          },10)
-      },
-      minify:function(v)
-      {
-        if(!v)
-          return "...";
+    </template>
+    <script>
+        Polymer({
+            descrOpened: false,
+            disableCheck: false,
+            showEditor: null,
+            useEditor: false,
+            observe: {
+                '$.globals.data.currentCategoryKey': 'globalsCurrentCategoryHandler'
+            },
+            globalsCurrentCategoryHandler: function() {
+                var gck = this.$.globals.data.currentCategoryKey;
+                if (gck)
+                    this._categoryKey = gck;
+            },
+            ready: function() {
+                this.showEditor = null;
+                this._categoryKey = this.$.globals.data.currentCategoryKey;
+            },
+            categoryKeyChanged: function() {
+                this._categoriaKey = this.categoryKey;
+            },
+            produtoDataChanged: function() {},
+            setValueHandler: function(e, d, s) {
+                this.produtoData[d.attributeName] = d.value;
+            },
+            blurHandler: function() {
+                if (this.useEditor)
+                    this.showEditor = null;
+            },
+            clickPrice: function(e, d, s) {
+                if (this.useEditor)
+                    this.showEditor = "price";
+            },
+            clickDescricao: function(e, d, s) {
+                if (this.useEditor)
+                    this.showEditor = "descricao";
+            },
+            clickTitle: function(e, d, s) {
+                if (this.useEditor)
+                    this.showEditor = "title";
+            },
+            openHandler: function() {
+                this.descrOpened = !this.descrOpened;
+                this.async(function() {
+                    this.descrHeight =
+                        (Math.max(this.shadowRoot.querySelector('.descr').clientHeight + 20, 100)) + 'px'
+                    //alert(this.descrHeight);
+                }, 10)
+            },
+            minify: function(v) {
+                if (!v)
+                    return "...";
 
-        var s   = v.trim();
-        var s1  = v.split(/\s+/);
-        var s2  = "";
-        
-        for(var i=0;i<8;i++)
-        {
-          var a = s1[i];
-          if(a)
-            s2+= a+" ";
-        }
+                var s = v.trim();
+                var s1 = v.split(/\s+/);
+                var s2 = "";
 
-        return s2 + (s1.length >= 8 ? "..." : "");
-      },
-      setRelogio:function()
-      {
+                for (var i = 0; i < 8; i++) {
+                    var a = s1[i];
+                    if (a)
+                        s2 += a + " ";
+                }
 
-        setRelogio('aberto',this);
+                return s2 + (s1.length >= 8 ? "..." : "");
+            },
+            setRelogio: function() {
 
-      },
-      fireMark:function(e,d,s)
-      {
-        this.fire('product-item-mark',{
-          productKey:this.productKey,
-        checked:s.checked});
-        this.setRelogio();
-        this.async(calculateAll,100);
+                setRelogio('aberto', this);
 
-        
-        
-      }
-    });
+            },
+            fireMark: function(e, d, s) {
+                this.fire('product-item-mark', {
+                    productKey: this.productKey,
+                    checked: s.checked
+                });
+                this.setRelogio();
+                this.async(calculateAll, 100);
+
+
+
+            }
+        });
     </script>
-  </polymer-element>
+</polymer-element>

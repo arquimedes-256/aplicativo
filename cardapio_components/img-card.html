@@ -15,10 +15,19 @@ ignoreBorderRadius ignoreMargin isMini">
         background:#FFF;
       }
       img {
+            max-height: 224px;
         height : inherit;
         margin-left:{{ data.marginLeft }};
       }
     </style>
+    <template if="{{ignoreBorderRadius}}">
+      <style>
+      img {
+        min-width: 407px!important;
+        top: 50px;
+      }
+    </style>
+    </template>
     <template if="{{isMini}}">
       <style> img {width: 85px;} </style>
     </template>

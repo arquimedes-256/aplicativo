@@ -5,87 +5,52 @@
 <link rel="import" href="list-remover.html">
 
 
-<polymer-element name="cardapio-wishlist-item" 
-  attributes="pedido produtos pedidoKey disabledSend disabledMoney from categoriaKey">
-  <template>
+<polymer-element name="cardapio-wishlist-item" attributes="pedido produtos pedidoKey disabledSend disabledMoney from categoriaKey">
+    <template>
     <template if="{{ !disabledSend }}">
       <!--
       <list-remover target="{{ $.row }}" on-remove="{{ removeHandler }}"></list-remover>
     -->
     </template>
-      <cardapio-globals id="g">
-      </cardapio-globals>
-      <!-- relogios aberto -->
-      <firebase-element
-          id="baseRelogios"
-          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
-          keys="{{ relogioKeys }}"
-          data="{{ relogioData }}">
-      </firebase-element>
+    <cardapio-globals id="g">
+    </cardapio-globals>
+    <!-- relogios aberto -->
+    <firebase-element id="baseRelogios" location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}" keys="{{ relogioKeys }}" data="{{ relogioData }}">
+    </firebase-element>
 
-      <firebase-element
-          id="baseRelogiosEntregue"
-          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
-          keys="{{ relogioEntregueKeys }}"
-          data="{{ relogioEntregueData }}">
-      </firebase-element>
+    <firebase-element id="baseRelogiosEntregue" location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}" keys="{{ relogioEntregueKeys }}" data="{{ relogioEntregueData }}">
+    </firebase-element>
 
 
-      <!-- relogios pronto -->
-      <firebase-element
-          id="baseRelogiosPronto"
-          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pronto/{{ pedidoKey }}"
-          keys="{{ relogioProntoKeys }}"
-          data="{{ relogioProntoData }}">
-      </firebase-element>
+    <!-- relogios pronto -->
+    <firebase-element id="baseRelogiosPronto" location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pronto/{{ pedidoKey }}" keys="{{ relogioProntoKeys }}" data="{{ relogioProntoData }}">
+    </firebase-element>
 
 
-      <firebase-element
-          id="basePedidosFechado"
-          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
-          keys="{{ pedidosFechadoKeys }}"
-          data="{{ pedidosFechadoData }}">
-      </firebase-element>
+    <firebase-element id="basePedidosFechado" location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}" keys="{{ pedidosFechadoKeys }}" data="{{ pedidosFechadoData }}">
+    </firebase-element>
 
-       <firebase-element
-          id="basePedidosPronto"
-          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}"
-          keys="{{ pedidosProntoKeys }}"
-          data="{{ pedidosProntoData }}">
-      </firebase-element>
-<firebase-element
-          id="basePedidosEntregue"
-          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
-          keys="{{ pedidosEntregueKeys }}"
-          data="{{ pedidosEntregueData }}">
-      </firebase-element>
+    <firebase-element id="basePedidosPronto" location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/fechado/{{ pedidoKey }}" keys="{{ pedidosProntoKeys }}" data="{{ pedidosProntoData }}">
+    </firebase-element>
+    <firebase-element id="basePedidosEntregue" location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}" keys="{{ pedidosEntregueKeys }}" data="{{ pedidosEntregueData }}">
+    </firebase-element>
 
 
-      <firebase-element
-          id="baseRelogiosEntregue"
-          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}"
-          keys="{{ relogioEntregueKeys }}"
-          data="{{ relogioEntregueData }}">
-      </firebase-element>
+    <firebase-element id="baseRelogiosEntregue" location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/entregue/{{ pedidoKey }}" keys="{{ relogioEntregueKeys }}" data="{{ relogioEntregueData }}">
+    </firebase-element>
 
-      <!-- relogios pago -->
-      <firebase-element
-          id="baseRelogiosPago"
-          location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pago/{{ pedidoKey }}"
-          keys="{{ relogioPagoKeys }}"
-          data="{{ relogioPagoData }}">
-      </firebase-element>
+    <!-- relogios pago -->
+    <firebase-element id="baseRelogiosPago" location="{{ $.g.location }}/relogios/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/pago/{{ pedidoKey }}" keys="{{ relogioPagoKeys }}" data="{{ relogioPagoData }}">
+    </firebase-element>
 
     <paper-shadow class="row" id="row" relative>
         <div layout vertical>
-          <div layout horizontal>
-            <paper-shadow class="qtd" 
-              self-center 
-              on-click="{{ increment }}">
-              <paper-ripple id="ripple"></paper-ripple>
-              {{ pedido | toLabel }}
-            </paper-shadow>
-            <template if="{{showMinusButton}}">
+            <div layout horizontal>
+                <paper-shadow class="qtd" self-center on-click="{{ increment }}">
+                    <paper-ripple id="ripple"></paper-ripple>
+                    {{ pedido | toLabel }}
+                </paper-shadow>
+                <template if="{{showMinusButton}}">
               <paper-shadow on-click="{{ decrementAberto }}"
               style=" 
     position: absolute;
@@ -109,18 +74,18 @@
 "></core-icon>
 </paper-shadow>
             </template>
-            <div class="name" self-center flex style="">
-              <div style="" nameee>
-               {{ produtos[pedidoKey].nome }}
-              </div>
-              <template if="{{pedidosAbertoData > 0}}">
+                <div class="name" self-center flex style="">
+                    <div style="" nameee>
+                        {{ produtos[pedidoKey].nome }}
+                    </div>
+                    <template if="{{pedidosAbertoData > 0}}">
                 <div style="
       font-size: 12px;
       color: #9E9E9E;
   "> Precisa pedir: <b>{{pedidosAbertoData}}</b></div>
               </template>
-            </div>
-            <template if="{{dtPedido > 0 }}">
+                </div>
+                <template if="{{dtPedido > 0 }}">
               <style>
                 [nameee] { width:99px }
               </style>
@@ -148,16 +113,16 @@
               {{tempo}}
              </div>
             </template>
-            <div class="price" self-center style="
+                <div class="price" self-center style="
               position: relative;
               top: 21px;
               left: 0px;
               color:#006064;
             ">
-              <template if="{{!disabledMoney}}">
+                    <template if="{{!disabledMoney}}">
                 $ {{ produtos[pedidoKey].preco * pedido }}
               </template>
-              <template if="{{disabledMoney}}">
+                    <template if="{{disabledMoney}}">
                 <div on-click="{{ checkHandler }}">
                   <paper-checkbox 
                     id="check" 
@@ -165,10 +130,10 @@
                   </paper-checkbox>
                 </div>
               </template>
+                </div>
             </div>
-          </div>
-          <div>
-<!--
+            <div>
+                <!--
 
             <paper-slider
               on-change="{{ changeQTD }}"
@@ -179,44 +144,44 @@
               editable></paper-slider>
               
 -->
-          </div>
+            </div>
         </div>
-   </paper-shadow>
-     <style>
-      #ripple {
-        width: 100%;
-        height: 49px;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-      paper-shadow
-      {
-        padding: 10px;
-        background:#fff;
-      }
-      .row
-      {
-        margin-bottom:5px;
-        padding-left: 1px;
-      }
-      .name
-      {
-        font-size:16px;
-      }
-      .qtd
-      {
-        font-weight:bold;
-        border-radius: 30px;
-        margin-right: 10px;
-        background: #8BC34A;
-        color: #FFF;
-      }
-      #check
-      {
-        pointer-events:none;
-      }
-      /*
+    </paper-shadow>
+    <style>
+        #ripple {
+            width: 100%;
+            height: 49px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        paper-shadow {
+            padding: 10px;
+            background: #fff;
+        }
+        
+        .row {
+            margin-bottom: 5px;
+            padding-left: 1px;
+        }
+        
+        .name {
+            font-size: 16px;
+        }
+        
+        .qtd {
+            font-weight: bold;
+            border-radius: 30px;
+            margin-right: 10px;
+            background: #8BC34A;
+            color: #FFF;
+        }
+        
+        #check {
+            pointer-events: none;
+        }
+        /*
       :host
       {
         margin:8px;
@@ -224,14 +189,10 @@
       }
       */
     </style>
-    <firebase-element
-          id="pedidosAbertoBase"
-          location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/aberto/{{ pedidoKey }}"
-          keys="{{ pedidosAbertoKeys }}"
-          data="{{ pedidosAbertoData }}">
-        </firebase-element>
+    <firebase-element id="pedidosAbertoBase" location="{{ $.g.location }}/pedidos/{{ $.g.data.currentMesa }}/{{ categoriaKey }}/aberto/{{ pedidoKey }}" keys="{{ pedidosAbertoKeys }}" data="{{ pedidosAbertoData }}">
+    </firebase-element>
 
-<!--
+    <!--
 
      <firebase-element
           id="pedidosAbertoBase"
@@ -248,222 +209,195 @@
 -->
 
 
-  </template>
-  <script>
-    Polymer({
-      disabledSend:false,
-      disabledMoney:false,
-      sliderInt:0,
-      dtPedido:0,
-      toLabel:function(n) { return n > 0 ? 'x'+n : 'OK' },
-      ready:function()
-      {
-        setInterval(function()
-        {
-           var A = this.shadowRoot.querySelectorAll('firebase-element');
-           console.log(A)
-          _.each(A,function(a)
-          {
-            a.queryChanged();
-          })
-        }
-        .bind(this),
-        2000);
-      },
-      queryBases:function()
-      {
-        setTimeout(function()
-        {
-          var A = this.shadowRoot.querySelectorAll('firebase-element');
-          _.each(A,function(a)
-          {
-            a.queryChanged();
-          })
-        }
-        .bind(this),
-        200);
-      },
-      renderAllIcons:function()
-      {
-        this.renderIcons(this.relogioData,this.pedidosFechadoData,
-          "alarm","Cozinha");//fechado
-        this.renderIcons(this.relogioProntoData,this.pedidosProntoData,
-          "maps:directions-walk","Garçom");//pronto
-        this.renderIcons(this.relogioEntregueData,this.pedidosEntregueData,
-          "maps:local-bar","Entregue"); //entregue
+    </template>
+    <script>
+        Polymer({
+            disabledSend: false,
+            disabledMoney: false,
+            sliderInt: 0,
+            dtPedido: 0,
+            toLabel: function(n) {
+                return n > 0 ? 'x' + n : 'OK'
+            },
+            ready: function() {
+                setInterval(function() {
+                        var A = this.shadowRoot.querySelectorAll('firebase-element');
+                        console.log(A)
+                        _.each(A, function(a) {
+                            a.queryChanged();
+                        })
+                    }
+                    .bind(this),
+                    2000);
+            },
+            queryBases: function() {
+                setTimeout(function() {
+                        var A = this.shadowRoot.querySelectorAll('firebase-element');
+                        _.each(A, function(a) {
+                            a.queryChanged();
+                        })
+                    }
+                    .bind(this),
+                    200);
+            },
+            renderAllIcons: function() {
+                this.renderIcons(this.relogioData, this.pedidosFechadoData,
+                    "alarm", "Cozinha"); //fechado
+                this.renderIcons(this.relogioProntoData, this.pedidosProntoData,
+                    "maps:directions-walk", "Garçom"); //pronto
+                this.renderIcons(this.relogioEntregueData, this.pedidosEntregueData,
+                    "maps:local-bar", "Entregue"); //entregue
 
-        // gambiarra do mal, o que importa é que está funcionando, não me pergute como.
-        var f =  this.queryBases.bind(this) ; setTimeout(function() { f() ; f(); },5e3)
-      },
-      renderIcons:function(dtPedido,pedido,icon,titleIcon)
-      {
-        if(dtPedido)
-        {  
-          if(dtPedido > this.dtPedido)
-          {this.dtPedido = dtPedido;
-                    this.icon = icon;
-                    this.titleIcon = titleIcon;
-                    console.trace('renderizado',this.pedidoKey,arguments,this.from) }
+                // gambiarra do mal, o que importa é que está funcionando, não me pergute como.
+                var f = this.queryBases.bind(this);
+                setTimeout(function() {
+                    f();
+                    f();
+                }, 5e3)
+            },
+            renderIcons: function(dtPedido, pedido, icon, titleIcon) {
+                if (dtPedido) {
+                    if (dtPedido > this.dtPedido) {
+                        this.dtPedido = dtPedido;
+                        this.icon = icon;
+                        this.titleIcon = titleIcon;
+                        console.trace('renderizado', this.pedidoKey, arguments, this.from)
+                    }
 
-        }
-        
-
-      },
-      pedidosFechadoDataChanged:function()
-      {
-        this.renderAllIcons();
-      },
-      relogioDataChanged :function()
-      {
-        this.renderAllIcons();
-      },
-      relogioProntoDataChanged :function()
-      {
-        this.renderAllIcons();
-      },
-      pedidosProntoDataChanged :function()
-      {
-        this.renderAllIcons();
-      },
-      relogioEntregueDataChanged:function()
-      {
-        this.renderAllIcons();
-      },
-      pedidosEntregueDataChanged:function()
-      {
-        this.renderAllIcons();
-      },
-      ready:function()
-      {
-        window.setInterval(function()
-        {
-          var d = new Date( new Date().getTime() - this.dtPedido );
-          var m = d.getMinutes();
-          var s = d.getSeconds();
-
-          if(new String(s).length == 1)
-            s = "0"+s;
-          if(new String(m).length == 1)
-            m = "0"+m;
-          
-          this.tempo = m+":"+s ; 
-
-        }
-        .bind(this)
-        ,1000)
-        /**
-        window.setInterval(function()
-        {
-          this.job('job-query-fb',function()
-          {
-            var A = this.shadowRoot.querySelectorAll('firebase-element');
-            _.each(_.shuffle(A),function(a)
-            {
-                a.queryChanged();
-            }
-            .bind(this));
-          })
-
-        }.bind(this),2000);
-        **/
-      },
-      observe:
-      {
-        'pedido':'changeQTD'
-      },
-      checkHandler:function(e,d,s)
-      {
-        if(!this.disabledSend)
-        {
-          this.fire('check-unique',
-            {
-              produto:this.produtos[this.pedidoKey],
-              pedido:this.pedido,
-              pedidoKey:this.pedidoKey
-            }
-          );
-        }
-        console.warn("TODO")
-        //this.setRelogio();
-      },
-      markClock:function(to)
-      {
-        console.log('markClock',to,{produtoKey:this.pedidoKey,categoriaKey:this.categoriaKey});
-      },
-      getProduto:function()
-      {
-        return this.produtos[this.pedidoKey];
-      },
-      changeQTD:function()
-      {
-        if(this.sliderInt < 4)
-        {
-          this.sliderInt+=2;
-        }
-        this.fire('change-qtd')
-      },
-      removeHandler:function()
-      {
-        this.pedido = 0;
-        this.fire('change-qtd');
-      },
-      decrement:function()
-      {
-        this.pedido--;
-      },
-      increment:function()
-      {
-          if(!this.disabledSend && this.from != "all")
-            this.pedido++;
-          else
-          {
-            //1. Verifica se from  == "all"
-            //2. caso for:
-              //2.1 incremente o pedido em abertos
-              //2.2 mande o botão aparecer
-              //2.3 mande desaparecer após x segundos(async)
-              //2.4 chama calculateAll()
-
-
-              //1. Verifica se from  == "all"
-              if(this.from == "all")
-              {
-                //2.1 incremente o aberto
-                this.incrementAberto();
-                //2.2 mande o botão aparecer
-                this.showMinusButton = true;
-                //2.3 mande desaparecer após x segundos(async)
-
-                this.job('job-minus-btn',function() {
-                
-                  this.showMinusButton = false;
                 }
-                .bind(this),2500)
-              }
-              else 
-                throw new Error('????');
-          }
-      },
-      incrementAberto:function()
-      {
-        this.pedidosAbertoData++;
-        this.calculateAll();
-      },
-      decrementAberto:function()
-      {
-        if(this.pedidosAbertoData > 0 )
-          this.pedidosAbertoData--;
-        this.calculateAll();
-      },
-      calculateAll:function()
-      {
-        this.async(calculateAll,300);
-      },
-      pedidoKey:function()
-      {
-        if(this.pedidoKey && !_.isString(this.pedidoKey))
-          throw new Error('this.pedidoKey precisa ser uma string');
-      }
-    });
-  </script>
+
+
+            },
+            pedidosFechadoDataChanged: function() {
+                this.renderAllIcons();
+            },
+            relogioDataChanged: function() {
+                this.renderAllIcons();
+            },
+            relogioProntoDataChanged: function() {
+                this.renderAllIcons();
+            },
+            pedidosProntoDataChanged: function() {
+                this.renderAllIcons();
+            },
+            relogioEntregueDataChanged: function() {
+                this.renderAllIcons();
+            },
+            pedidosEntregueDataChanged: function() {
+                this.renderAllIcons();
+            },
+            ready: function() {
+                window.setInterval(function() {
+                            var d = new Date(new Date().getTime() - this.dtPedido);
+                            var m = d.getMinutes();
+                            var s = d.getSeconds();
+
+                            if (new String(s).length == 1)
+                                s = "0" + s;
+                            if (new String(m).length == 1)
+                                m = "0" + m;
+
+                            this.tempo = m + ":" + s;
+
+                        }
+                        .bind(this), 1000)
+                    /**
+                    window.setInterval(function()
+                    {
+                      this.job('job-query-fb',function()
+                      {
+                        var A = this.shadowRoot.querySelectorAll('firebase-element');
+                        _.each(_.shuffle(A),function(a)
+                        {
+                            a.queryChanged();
+                        }
+                        .bind(this));
+                      })
+
+                    }.bind(this),2000);
+                    **/
+            },
+            observe: {
+                'pedido': 'changeQTD'
+            },
+            checkHandler: function(e, d, s) {
+                if (!this.disabledSend) {
+                    this.fire('check-unique', {
+                        produto: this.produtos[this.pedidoKey],
+                        pedido: this.pedido,
+                        pedidoKey: this.pedidoKey
+                    });
+                }
+                console.warn("TODO")
+                    //this.setRelogio();
+            },
+            markClock: function(to) {
+                console.log('markClock', to, {
+                    produtoKey: this.pedidoKey,
+                    categoriaKey: this.categoriaKey
+                });
+            },
+            getProduto: function() {
+                return this.produtos[this.pedidoKey];
+            },
+            changeQTD: function() {
+                if (this.sliderInt < 4) {
+                    this.sliderInt += 2;
+                }
+                this.fire('change-qtd')
+            },
+            removeHandler: function() {
+                this.pedido = 0;
+                this.fire('change-qtd');
+            },
+            decrement: function() {
+                this.pedido--;
+            },
+            increment: function() {
+                if (!this.disabledSend && this.from != "all")
+                    this.pedido++;
+                else {
+                    //1. Verifica se from  == "all"
+                    //2. caso for:
+                    //2.1 incremente o pedido em abertos
+                    //2.2 mande o botão aparecer
+                    //2.3 mande desaparecer após x segundos(async)
+                    //2.4 chama calculateAll()
+
+
+                    //1. Verifica se from  == "all"
+                    if (this.from == "all") {
+                        //2.1 incremente o aberto
+                        this.incrementAberto();
+                        //2.2 mande o botão aparecer
+                        this.showMinusButton = true;
+                        //2.3 mande desaparecer após x segundos(async)
+
+                        this.job('job-minus-btn', function() {
+
+                                this.showMinusButton = false;
+                            }
+                            .bind(this), 2500)
+                    } else
+                        throw new Error('????');
+                }
+            },
+            incrementAberto: function() {
+                this.pedidosAbertoData++;
+                this.calculateAll();
+            },
+            decrementAberto: function() {
+                if (this.pedidosAbertoData > 0)
+                    this.pedidosAbertoData--;
+                this.calculateAll();
+            },
+            calculateAll: function() {
+                this.async(calculateAll, 300);
+            },
+            pedidoKey: function() {
+                if (this.pedidoKey && !_.isString(this.pedidoKey))
+                    throw new Error('this.pedidoKey precisa ser uma string');
+            }
+        });
+    </script>
 </polymer-element>
