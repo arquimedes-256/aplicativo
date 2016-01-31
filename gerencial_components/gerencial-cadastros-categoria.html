@@ -1,35 +1,39 @@
 <polymer-element name="gerencial-cadastros-categoria" layout vertical>
-	<template>
+    <template>
 		<style>
-			:host {
-				display: block;
-			}
-			paper-shadow
-			{
-				margin:8px;
-				padding:8px;
-				background:#FFF;
-			}
-		</style>
-		<cardapio-globals id="g"></cardapio-globals>
-		<firebase-element 
-			id="categoriaBase"
-			location="{{ $.g.location }}/categorias" 
-			keys="{{ categoriasKeys }}"
-			data="{{ categoriasData }}"></firebase-element>
-
+		:host {
+			display: block;
+		}
+		paper-shadow
+		{
+			margin:8px;
+			padding:8px;
+			background:#FFF;
+		}
+		paper-progress{
+			margin:5px;
+		}
+	</style>
+	<cardapio-globals id="g"></cardapio-globals>
+	<firebase-element 
+		id="categoriaBase"
+		location="{{ $.g.location }}/categorias" 
+		keys="{{ categoriasKeys }}"
+		data="{{ categoriasData }}"></firebase-element>
+	<template if="{{categoriasKeys && categoriasKeys.length > 0}}">
 		<paper-button raised auto-vertical
 			flex
 			on-click="{{addCategoriaHandler}}">
 			<core-icon icon="add"></core-icon> 
 			NOVA CATEGORIA
 		</paper-button>
+	</template>
+    <template if="{{!categoriasKeys || categoriasKeys.length == 0}}">
+		<paper-progress indeterminate></paper-progress>
+	</template>
+    <div on-remove-categoria="{{onRemoveHandler}}" on-set-value="{{ setValueHandler }}" auto-vertical>
 
-		<div 
-		on-remove-categoria="{{onRemoveHandler}}"
-		on-set-value="{{ setValueHandler }}" auto-vertical>
-			
-			<template repeat="{{ k in categoriasKeys }}">
+        <template repeat="{{ k in categoriasKeys }}">
 				<paper-shadow layout vertical>
 					<gerencial-cadastros-categoria-item 
 						categoriasData="{{categoriasData}}" 
@@ -37,36 +41,35 @@
 					</gerencial-cadastros-categoria-item>
 				</paper-shadow>
 			</template>
-		</div>
-		<style type="text/css">
-			paper-button { background:#E6EE9C!important}
-		</style>
-	</template>
-	<script>
-		Polymer({
-			setValueHandler:function(e,d,s)
-			{
-				var x = this.categoriasData[d.key];
-				if(x)
-					x[d.attributeName] = d.value;
-				else
-					throw new Error('Chave não existente em categoria',d.key);
-				this.$.categoriaBase.commit();
-				//console.log(d)
-			},
-			onRemoveHandler:function(e,d,s)
-			{
-				delete this.categoriasData[d.categoryKey];
-				this.$.categoriaBase.commit();
-			},
-			addCategoriaHandler:function(e,d,s)
-			{
-				this.$.categoriaBase.push({
-					nome:"Nova Categoria"
-				});
-			}
-		});
-	</script>
+    </div>
+    <style type="text/css">
+        paper-button {
+            background: #E6EE9C!important
+        }
+    </style>
+    </template>
+    <script>
+        Polymer({
+            setValueHandler: function(e, d, s) {
+                var x = this.categoriasData[d.key];
+                if (x)
+                    x[d.attributeName] = d.value;
+                else
+                    throw new Error('Chave não existente em categoria', d.key);
+                this.$.categoriaBase.commit();
+                //console.log(d)
+            },
+            onRemoveHandler: function(e, d, s) {
+                delete this.categoriasData[d.categoryKey];
+                this.$.categoriaBase.commit();
+            },
+            addCategoriaHandler: function(e, d, s) {
+                this.$.categoriaBase.push({
+                    nome: "Nova Categoria"
+                });
+            }
+        });
+    </script>
 </polymer-element>
 
 
@@ -75,7 +78,7 @@
 <link rel="import" href="../cardapio_components/img-card.html">
 <!-- ITEM -->
 <polymer-element name="gerencial-cadastros-categoria-item" attributes="categoriasData k" layout horizontal>
-	<template>
+    <template>
 		<style>
 			:host {
 				display: block;
@@ -111,17 +114,18 @@
 	</div>
 	<core-icon icon="delete" on-click="{{ removeCategoria }}"></core-icon>
 	</template>
-	<script>
-		Polymer({
-			removeCategoria:function()
-			{
-				this.fire('remove-categoria',
-					{categoryKey:this.k});
-			},
-			fireCategoriaSelected:function(){
-				this.fire('select-categoria',
-					{categoryKey:this.k});
-			}
-		});
-	</script>
+    <script>
+        Polymer({
+            removeCategoria: function() {
+                this.fire('remove-categoria', {
+                    categoryKey: this.k
+                });
+            },
+            fireCategoriaSelected: function() {
+                this.fire('select-categoria', {
+                    categoryKey: this.k
+                });
+            }
+        });
+    </script>
 </polymer-element>
