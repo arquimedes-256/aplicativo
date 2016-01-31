@@ -2,38 +2,43 @@
 <polymer-element name="gerencial-item-generic-estoque-critico">
 	<template>
 		<div style="overflow:scroll;height:200px">
-		<table style="font-size:12px;text-align:right;overflow-y:scroll">
-			<thead>
-				<th>#</th>
-				<th>Média diária de venda</th>
-				<th>1 item é vendido a cada:</th>
-				<th>Saldo</th>
-			</thead>
-			<template repeat="{{ item in itensQuaseEsgotando }}">
-				<tr>
-					<td style="text-align:left">{{ item.nome }} </td>
-					<td>{{ item.quantity }}</td>
-					<td>{{ item.frequencyFraction }}</td>
-					<td>{{ item.saldo }}</td>
-				</tr>
-			</template>
+			<template if="{{!itensQuaseEsgotando}}"><paper-progress indeterminate></paper-progress></template>
+			<template if="{{itensQuaseEsgotando}}">
+				<table style="font-size:12px;text-align:right;overflow-y:scroll">
+						<thead>
+							<th>#</th>
+							<th>Média diária de venda</th>
+							<th>1 item é vendido a cada:</th>
+							<th>Saldo</th>
+						</thead>
+						<template repeat="{{ item in itensQuaseEsgotando }}">
+							<tr>
+								<td style="text-align:left">{{ item.nome }} </td>
+								<td>{{ item.quantity }}</td>
+								<td>{{ item.frequencyFraction }}</td>
+								<td>{{ item.saldo }}</td>
+							</tr>
+						</template>
 
-					<cardapio-globals id="g">
-					</cardapio-globals>
-					<firebase-element 
-						location="{{ $.g.location }}/estoque"
-						data="{{ estoqueData }}"
-						keys="{{ estoqueKeys }}"></firebase-element>
-					<firebase-element 
-						location="{{ $.g.location }}/produtos"
-						data="{{ produtosData }}"></firebase-element>
-		</table>
+								
+					</table>
+			</template>
 		</div>
 		<style>
 		tr:nth-child(odd) {
 		   background-color: #ccc!important;
 		}
 		</style>
+		<!-- base -->
+		<cardapio-globals id="g">
+		</cardapio-globals>
+		<firebase-element 
+			location="{{ $.g.location }}/estoque"
+			data="{{ estoqueData }}"
+			keys="{{ estoqueKeys }}"></firebase-element>
+		<firebase-element 
+			location="{{ $.g.location }}/produtos"
+			data="{{ produtosData }}"></firebase-element>
 	</template>
 	<script>
 	var TOTAL_EXPEDIENTE = 8;//hours
@@ -57,13 +62,12 @@
 	}
 	Polymer({
 		ready:function(){
-			this.gerateItensQuaseEsgotando();
+			//this.gerateItensQuaseEsgotando();
 		},
 		qtdDiasAnalizados:1,
 		produtosDataChanged:function() { this.estoqueDataChanged(); }, 
 		estoqueDataChanged:function() {
-			console.log('descomente')
-			return;
+			
 			var Pd = this.produtosData; if(!Pd) return;
 			var F = {}
 			var FR = {} //F ~ FR
@@ -104,7 +108,7 @@
 							quantity:v,
 							saldo:FR[k],
 							frequencyFraction:f$(new Fraction(dydx).toString(),dydx),
-							nome:Pd[k].nome
+							nome:Pd[k] ? Pd[k] .nome : '?'
 					})
 				})
 				this.itensQuaseEsgotando = itensQuaseEsgotando;
