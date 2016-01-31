@@ -31,33 +31,73 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        header {
-            background-image: url(imgs/hero2.webp);
-
-        }
-         .navbar {
-                background:rgba(0,0,0,.7)!important;
-            }
+			header {
+				background-image: url(imgs/hero2.webp);
+			
+			}
+			.navbar {
+				background:rgba(0,0,0,.7)!important;
+			}
 
             .navbar-default .nav li a {
-font-family: gabriola;
-    font-size: 22px;
-    text-transform: inherit;
-}
-.navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-    background:transparent!important;
-    border-bottom: 2px solid #fec503;
-}
-.navbar-default .navbar-nav>.active>a {
-    border-radius: 0;
-    color: #fff;
-    background-color: transparent!important; border-bottom: 2px solid #fec503;
-}
-.section-heading {
-    font-family: gabriola;
-    font-size:82px!important;
-    text-transform: inherit;
-}
+				font-family: gabriola;
+					text-transform: inherit;
+				}
+				.navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+					background:transparent!important;
+					border-bottom: 2px solid #fec503;
+				}
+				.navbar-default .navbar-nav>.active>a {
+					border-radius: 0;
+					color: #fff;
+					background-color: transparent!important; border-bottom: 2px solid #fec503;
+				}
+				.section-heading {
+					font-family: gabriola;
+					text-transform: inherit;
+				}
+				
+				.background-msg-header{
+					background: rgba(0,0,0,.7);
+					margin: 0 auto !important;
+				}
+				
+				.font-40px{ 
+					font-size:30px !important;
+				}
+				
+				.font-50px{ 
+					font-size:38px !important;
+				}	
+				
+				.aboutContainer{ 
+					display:none; /* Seção como Funciona - não funciona no celular*/
+				}	
+				
+						
+				
+				@media screen and (min-width: 768px) {
+					.section-heading {
+						font-size:82px!important;
+					}
+					.navbar-default .nav li a {
+						font-size: 22px;
+					}
+					.font-40px{ 
+						font-size:40px !important;
+					}
+					.font-50px{ 
+						font-size:50px !important;
+					}
+					.aboutContainer{ 
+						display:block; 
+					} /* Seção como Funciona no PC*/
+					.background-msg-header{
+						background: rgba(0,0,0,.7);
+						margin: 0 auto !important;
+						width: 549px;
+					}					
+				}		
     </style>
 </head>
 <!--
@@ -124,28 +164,24 @@ DESEJAR! (Inserir um "TEM+"" , antes)
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in" style="
-    background: rgba(0,0,0,.7);
-    height: 50px;
-    width: 549px;
-    margin: 0 auto;
-    padding-top: 12px;
-
-">Bem vindo ao próximo nível</div>
-                <div class="intro-heading" style="
-    background: rgba(0,0,0,.7);
-    margin: 0 auto;
-    width: 549px;
-    font-size: 50px;
-">Modernize-se</div>
-                <a href="#services" class="page-scroll btn btn-xl" style="
-    font-family: gabriola;
-    text-transform: inherit;
-    font-size: 40px;
-    margin-top: 10px;
-    backgrond:gold;
-">Assine Já!</a>
+                
+                <div class="intro-lead-in background-msg-header" style="
+                    height: 50px;
+                    padding-top: 15px;
+                ">Bem vindo ao próximo nível</div>
+                
+                <div class="intro-heading background-msg-header font-50px" style=" padding-bottom:10px;
+                ">Modernize-se</div>
+                
+                 <a href="#services" class="page-scroll btn btn-xl font-40px" style="
+                    font-family: gabriola;
+                    text-transform: inherit;
+                    margin-top: 10px;
+                    backgrond:gold;
+                ">Assine Já!</a>
+                
             </div>
+            
         </div>
     </header>
 
@@ -170,12 +206,12 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <img src="img/banquet.png" style="
-    position: absolute;
-    z-index: 1;
-    width: 68px;
-    left: 22px;
-    top: 29px;
-"/>
+                            position: absolute;
+                            z-index: 1;
+                            width: 68px;
+                            left: 22px;
+                            top: 29px;
+                        "/>
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                     </span>
                     <h4 class="service-heading">Torne seu atendimento eficiente</h4>
@@ -300,14 +336,15 @@ DESEJAR! (Inserir um "TEM+"" , antes)
 -->
     <!-- About Section -->
     <section id="about">
-        <div class="container">
+
+        <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Como funciona ?</h2>
                     <h3 class="section-subheading text-muted">Simples...</h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row aboutContainer">
                 <div class="col-lg-12">
                     <style>
                     .animation-img {
@@ -464,6 +501,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
             </div>
         </div>
     </section>
+    
 
     <!-- Team Section -->
     <section id="team" class="bg-light-gray">
@@ -547,6 +585,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
             </div>
         </div>
     </section>
+    
 
     <!-- Clients Aside
     <aside class="clients">
