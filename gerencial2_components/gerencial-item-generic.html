@@ -21,13 +21,14 @@
 			href="../bower_components/pivottable/dist/pivot.css">
 
 		<paper-tabs selected="{{ currentPage }}">
-		  <paper-tab><core-icon icon="trending-up"></core-icon></paper-tab>
 		  <template if="{{type=='vendas'}}">
+		  	  <paper-tab><core-icon icon="trending-up"></core-icon></paper-tab>
 			  <paper-tab><core-icon icon="view-agenda"></core-icon></paper-tab>
 			  <paper-tab><core-icon icon="view-headline"></core-icon></paper-tab>
 		  </template>
 		 <!-- if estoque -->
 		  <template if="{{type=='estoque'}}">
+		  	<paper-tab><core-icon icon="trending-up"></core-icon></paper-tab>
 		  	<paper-tab><core-icon icon="autorenew"></core-icon></paper-tab>
 		  	<paper-tab><core-icon icon="create"></core-icon></paper-tab>
 		  </template>
