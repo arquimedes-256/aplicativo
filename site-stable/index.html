@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 
 <head>
 
@@ -23,6 +23,18 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-sanitize.js"></script>
+    <script src="js/angular-translate.min.js"></script>
+    <script src="js/translate-controller.js"></script>
+    
+    <script>
+    	
+
+		
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +45,7 @@
     <style>
 			header {
 				background-image: url(imgs/hero2.webp);
-			
+				height:600px;
 			}
 			.navbar {
 				background:rgba(0,0,0,.7)!important;
@@ -73,10 +85,16 @@
 				.aboutContainer{ 
 					display:none; /* Seção como Funciona - não funciona no celular*/
 				}	
+				.aboutContainerCelular{
+					display:block; 
+				}
 				
 						
 				
 				@media screen and (min-width: 768px) {
+					header {
+						height:700px;
+					}					
 					.section-heading {
 						font-size:82px!important;
 					}
@@ -92,11 +110,14 @@
 					.aboutContainer{ 
 						display:block; 
 					} /* Seção como Funciona no PC*/
+					.aboutContainerCelular{
+						display:none; 
+					}			
 					.background-msg-header{
 						background: rgba(0,0,0,.7);
 						margin: 0 auto !important;
 						width: 549px;
-					}					
+					}		
 				}		
     </style>
 </head>
@@ -120,7 +141,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
 1 - programar contato
 -->
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-controller="contr" style="display:none">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -133,7 +154,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">LevelUp<b>!</b></a>
+                <a class="navbar-brand page-scroll" href="#page-top">{{ 'site.nome' | translate }}<b>!</b></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -143,16 +164,16 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services">Soluções</a>
+                        <a class="page-scroll" href="#services">{{ 'menu.solucoes' | translate }}</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about">Como funciona?</a>
+                        <a class="page-scroll" href="#about">{{ 'menu.comofunciona' | translate }}</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#team">Comprar!</a>
+                        <a class="page-scroll" href="#team">{{ 'menu.comprar' | translate }}</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contato</a>
+                        <a class="page-scroll" href="#contact">{{ 'menu.contato' | translate }}</a>
                     </li>
                 </ul>
             </div>
@@ -169,17 +190,17 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                 <div class="intro-lead-in background-msg-header" style="
                     height: 50px;
                     padding-top: 15px;
-                ">Bem vindo ao próximo nível</div>
+                ">{{ 'site.mensagem.bemvindo' | translate }}</div>
                 
                 <div class="intro-heading background-msg-header font-50px" style=" padding-bottom:10px;
-                ">Modernize-se</div>
+                ">{{ 'site.mensagem.modernizese' | translate }}</div>
                 
                  <a href="#services" class="page-scroll btn btn-xl font-40px" style="
                     font-family: gabriola;
                     text-transform: inherit;
                     margin-top: 10px;
                     backgrond:gold;
-                ">Assine Já!</a>
+                ">{{ 'site.mensagem.assineja' | translate }}</a>
                 
             </div>
             
@@ -191,8 +212,8 @@ DESEJAR! (Inserir um "TEM+"" , antes)
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Soluções</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading">{{ 'secao.solucoes.titulo' | translate }}</h2>
+                    <h3 class="section-subheading text-muted">{{ 'secao.solucoes.titulo.descricao' | translate }}</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -201,8 +222,8 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-tablet fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Cardápio eletrônico</h4>
-                    <p class="text-muted">N/A</p>
+                    <h4 class="service-heading">{{ 'secao.solucoes.cardapio' | translate }}</h4>
+                    <p class="text-muted">{{ 'secao.solucoes.cardapio.descricao' | translate }}</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -215,16 +236,16 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                         "/>
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                     </span>
-                    <h4 class="service-heading">Torne seu atendimento eficiente</h4>
-                    <p class="text-muted">Criar fidelidade é essencial para crescimento do negócio, um bom atendimento rápido e preciso é o que garante isso.</p>
+                    <h4 class="service-heading">{{ 'secao.solucoes.torneseuatendimento' | translate }}</h4>
+                    <p class="text-muted">{{ 'secao.solucoes.torneseuatendimento.descricao' | translate }}</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-line-chart fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Acompanhe os resultados</h4>
-                    <p class="text-muted">N/A</p>
+                    <h4 class="service-heading">{{ 'secao.solucoes.acompanhe' | translate }}</h4>
+                    <p class="text-muted">{{ 'secao.solucoes.acompanhe.descricao' | translate }}</p>
                 </div>
             </div>
         </div>
@@ -341,10 +362,11 @@ DESEJAR! (Inserir um "TEM+"" , antes)
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Como funciona ?</h2>
-                    <h3 class="section-subheading text-muted">Simples...</h3>
+                    <h2 class="section-heading">{{ 'secao.comofunciona.titulo' | translate }}</h2>
+                    <h3 class="section-subheading text-muted">{{ 'secao.comofunciona.titulo.decricao' | translate }}</h3>
                 </div>
             </div>
+            <!-- versao PC -->
             <div class="row aboutContainer">
                 <div class="col-lg-12">
                     <style>
@@ -363,10 +385,10 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">O cliente escolhe</h4>
+                                    <h4 class="subheading">{{ 'secao.comofunciona.cliente' | translate }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Após o cliente escolher independente ou chama o garçom usando apenas um toque.</p>
+                                    <p class="text-muted">{{ 'secao.comofunciona.cliente.decricao' | translate }}</p>
                                     <div style="
               position:absolute;
               background: url(http://www.thmultimedia.nl/images/tv_ruis.gif);
@@ -390,10 +412,10 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">Caso for preparável:</h4>
+                                    <h4 class="subheading">{{ 'secao.comofunciona.casopreparavel' | translate }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">O pedido vai para a cozinha.</p>
+                                    <p class="text-muted">{{ 'secao.comofunciona.casopreparavel.descricao' | translate }}</p>
 <div style="
 
               position:absolute;
@@ -418,10 +440,10 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">Caso não for preparável:</h4>
+                                    <h4 class="subheading">{{ 'secao.comofunciona.casonaopreparavel' | translate }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">O pedido cai para o garçom.</p>
+                                    <p class="text-muted">{{ 'secao.comofunciona.casonaopreparavel.descricao' | translate }}</p>
                     <div style="
        
               position:absolute;
@@ -445,10 +467,10 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">Hora de faturar</h4>
+                                    <h4 class="subheading">{{ 'secao.comofunciona.horadefaturar' | translate }}</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">Após o garçom marcar o pedido como <b>entregue</b> o caixa já pode pagar</p>
+                                    <p class="text-muted">{{ 'secao.comofunciona.horadefaturar.descricao' | translate }}</p>
                               <div style="
               position:absolute;
               background: url(http://www.thmultimedia.nl/images/tv_ruis.gif);
@@ -469,7 +491,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="subheading">Acompanhe aonde estiver.</h4>
+                                    <h4 class="subheading">{{ 'secao.comofunciona.acompanhe' | translate }}</h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted"></p>
@@ -492,14 +514,109 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                         </li>
                         <li class="timeline-inverted">
                             <div class="timeline-image">
-                                <h4>Relatórios
-                                    <br>Como Você
-                                    <br>Desejar!</h4>
+                                <h4>{{ 'secao.comofunciona.relatorios' | translate }}</h4>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
+            <!-- Fim versao PC -->
+            
+			<!-- versao Celular -->
+            <div class="row aboutContainerCelular">
+                <div class="col-lg-12">
+
+                
+                    <ul class="timeline" id="scene-1">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="imgs/3-about.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">{{ 'secao.comofunciona.cliente' | translate }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ 'secao.comofunciona.cliente.decricao' | translate }}</p>
+                                    <div style=""></div>
+                                    <img src="img/Animation-Cardapio.gif" id="animation-1" class="img-responsive" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted" id="scene-2">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="imgs/cozinha3.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">{{ 'secao.comofunciona.casopreparavel' | translate }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ 'secao.comofunciona.casopreparavel.descricao' | translate }}</p>
+									<div style=""></div>
+                                    <img src="img/Animation-Cozinha.gif" id="animation-2" class="img-responsive" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li> 
+                            <div class="timeline-image" id="scene-3">
+                                <img class="img-circle img-responsive" src="imgs/garcom.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">{{ 'secao.comofunciona.casonaopreparavel' | translate }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ 'secao.comofunciona.casonaopreparavel.descricao' | translate }}</p>
+                   					<div style=""></div>
+                                    <img src="img/Animation-Garcom.gif" id="animation-3" class="img-responsive" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted" id="scene-4">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="imgs/payment.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">{{ 'secao.comofunciona.horadefaturar' | translate }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">{{ 'secao.comofunciona.horadefaturar.descricao' | translate }}</p>
+                              		<div style=""></div>
+                                    <img src="img/Animation-Caixa.gif" id="animation-4" class="img-responsive" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image" id="scene-5">
+                                <img class="img-circle img-responsive" src="img/about/3.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">{{ 'secao.comofunciona.acompanhe' | translate }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted"></p>
+                                    <div style=""></div>
+                                	<img src="imgs/gerencial-small.png" id="animation-5" class="img-responsive" alt="" />
+                                </div>
+                            </div>
+
+
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>{{ 'secao.comofunciona.relatorios' | translate }}</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- versao Celular -->
+
+            
+            
         </div>
     </section>
     
@@ -509,16 +626,16 @@ DESEJAR! (Inserir um "TEM+"" , antes)
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Potencial++</h2>
-                    <h3 class="section-subheading text-muted">Tenha informação em mãos, padrão ou desejada.</h3>
+                    <h2 class="section-heading">{{ 'secao.comprar.titulo' | translate }}</h2>
+                    <h3 class="section-subheading text-muted">{{ 'secao.comprar.titulo.descricao' | translate }}</h3>
                 </div>
             </div>
             <div class="row">  
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="imgs/produto-cardapio.png" class="img-prod img-responsive" alt="" style="border:none">
-                        <h4>Cardapio App*</h4>
-                        <p class="text-muted">$ 89 /mês</p>
+                        <h4>{{ 'secao.comprar.cardapio' | translate }}</h4>
+                        <p class="text-muted">{{ 'secao.comprar.cardapio.preco' | translate }}</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-money"></i></a>
                             </li>
@@ -532,8 +649,8 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="imgs/produto-cozinha.png" class="img-prod img-responsive" alt="" style="border:none">
-                        <h4>Cozinha App*</h4>
-                        <p class="text-muted">$ 299 /mês<sup>**</sup></p>
+                        <h4>{{ 'secao.comprar.cozinha' | translate }}</h4>
+                        <p class="text-muted">{{ 'secao.comprar.cozinha.preco' | translate }}<sup>**</sup></p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-money"></i></a>
                             </li>
@@ -550,8 +667,8 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="imgs/produto-garcom.png" class="img-prod img-responsive" alt="" style="border:none">
-                        <h4>Garçom App*</h4>
-                        <p class="text-muted">$ 199 /mês<sup>**</sup></p>
+                        <h4>{{ 'secao.comprar.garcon' | translate }}</h4>
+                        <p class="text-muted">{{ 'secao.comprar.garcon.preco' | translate }}</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-money"></i></a>
                             </li>
@@ -565,8 +682,8 @@ DESEJAR! (Inserir um "TEM+"" , antes)
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="imgs/pulseira.png" class="img-prod img-responsive" alt="" style="border:none">
-                        <h4>Garçom Watch App*</h4>
-                        <p class="text-muted">$ 99 /mês</p>
+                        <h4>{{ 'secao.comprar.garconwatch' | translate }}</h4>
+                        <p class="text-muted">{{ 'secao.comprar.garconwatch.preco' | translate }}</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-money"></i></a>
                             </li>
@@ -580,7 +697,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <p class="large text-muted">* O equipamento de hardware será cobrado dependendo do plano.</p>
+                    <p class="large text-muted">{{ 'secao.comprar.equipamento' | translate }}</p>
                  
                 </div>
             </div>
@@ -621,7 +738,7 @@ DESEJAR! (Inserir um "TEM+"" , antes)
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Contato :)</h2>
+                    <h2 class="section-heading">{{ 'secao.contato.titulo' | translate }}</h2>
                     <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
