@@ -107,16 +107,16 @@
         nome="{{ produtosData[k]['nome'] }}"
         width="75"></img-card>
         <div on-set-value="{{setValueHandler}}">
-		<scope-input 
-			value="{{produtosData[k]['nome']}}" 
-			label="Nome da produto"
-			attributeName="nome"
-			key="{{ k }}"></scope-input>
-		<scope-input
-			value="{{produtosData[k]['preco']}}"
-			label="Preço"
-			attributeName="preco">
-		</scope-input>
+			<scope-input 
+				value="{{produtosData[k]['nome']}}" 
+				label="Nome da produto"
+				attributeName="nome"
+				key="{{ k }}"></scope-input>
+			<scope-input
+				value="{{produtosData[k]['preco']}}"
+				label="Preço"
+				attributeName="preco">
+			</scope-input>
 		</div>
 			<!-- 
 		<gerencial-cadastros-produto-mapper categoryKey="{{ k }}">
@@ -124,7 +124,7 @@
 
 	<paper-button raised style="width:108%">
 			<core-icon icon="folder"></core-icon>
-			Ingredientes p/ preparo
+			Material p/ preparo
 	</paper-button>
 	</div>
 	<core-icon icon="delete" on-click="{{ removeProduto }}"></core-icon>
