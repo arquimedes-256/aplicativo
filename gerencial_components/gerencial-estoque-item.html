@@ -13,18 +13,20 @@
 	<template>
 		<style>
 			:host {
+				    height: 46px;
 			}
 			paper-shadow {
 				background: #FFF;
 				margin:8px;
 				padding:8px;
+				height: 30px;
 			}
 			core-icon
 			{
-				  position: relative;
-  top: 55px;
-  left: -3px;
-  color: {{lanc.quantidade > 0 ? '#D50000' : '#64DD17'}};
+    position: relative;
+    top: 38px;
+    left: -20px;
+  color: {{lancamento.quantidade > 0 ? '#D50000' : '#64DD17'}};
 			}
 		</style>
 		<cardapio-globals id="g"></cardapio-globals>
@@ -32,8 +34,7 @@
 			location="{{ $.g.location }}/images/{{ pathDataCurrentObject.photo }}"
 			data="{{imgData}}"></firebase-element>
 
-		<template if="{{ lanc }}">
-			<paper-shadow z="1" 
+		<paper-shadow z="1" 
 				animated
 				on-set-value="{{ setValueHandler }}"
 				on-select-key="{{ setValueHandler }}"
@@ -41,40 +42,47 @@
 				<paper-ripple fit></paper-ripple>
 				<div layout 
 				horizontal?="{{ !isVertical }}" 
-				 vertical?="{{ isVertical }}">
-					<img-card 
-			width="{{ isVertical ? 160 :60 }}"
-			data="{{ imgData }}"></img-card>
-			<core-icon 
-				hidden?="{{ isVertical }}"
-				icon="{{ lanc.quantidade > 0 ? 'trending-up': 'trending-down'}}"></core-icon>
+				 vertical?="{{ isVertical }}" style="
+				    position: relative;
+				    top: -19px;
+				">
+				<img-card 
+					id="img"
+					width="{{ 32 }}"
+					></img-card>
+				<core-icon 
+					hidden?="{{ isVertical }}"
+					icon="{{ lancamento.quantidade > 0 ? 'trending-up': 'trending-down'}}"></core-icon>
+
 					<scope-map-input 
 							on-pathdata="{{ pathDataHandler }}"
-							value="{{ lanc.item }}"
-							label="Produto:"
+							value="{{ lancamento.item }}"
+							label="item:"
 							path="produtos"
 							id="produtosMapInput"
 		       				floatingLabel 
-							attributeName="item"
-							></scope-map-input>
+							attributeName="item"></scope-map-input>
+
 					<scope-input
-							label="Quanto {{ lanc.quantidade < 0 ? 'saiu': 'entrou' }}"
-					 		value="{{ lanc.quantidade }}"
+							label="{{ lancamento.quantidade < 0 ? 'saiu': 'entrou' }}:"
+					 		value="{{ lancamento.quantidade }}"
 							attributeName="quantidade"
 							isNumeric>
-						</scope-input>
+					</scope-input>
+
 					<scope-date-picker
-							value="{{ lanc.dataLancamento }}"
-							label="Data Lançamento"
+							value="{{ lancamento.dataLancamento }}"
+							label="lançamento:"
 							attributeName="dataLancamento"></scope-date-picker>
 				</div>
 			</paper-shadow>
-		</template>
+
 		<template if="{{ !isVertical }}">
 			<style>
-				img-card {margin-right: 19px}
+				img-card {    margin-top: 7px;}
 				scope-date-picker,scope-input,scope-map-input {
-					margin-right: 10px 
+					margin-right: 8px ;
+					width: 61px;
 				}
 				scope-input[label="Quantidade"] {
 					width: 78px;
@@ -85,21 +93,19 @@
 	<script>
 		Polymer({
 			isVertical:false,
-			observe:{'lancamento':'buildLanc'},
-			buildLanc:function(_old,_new)
-			{
-				this.lanc = this.lancamento;
-			},
+		
 			pathDataHandler:function(e,d,s)
 			{
 				this.pathDataCurrentObject = d.pathDataCurrentObject;
+
+				this.$.img.nome = this.pathDataCurrentObject.nome;
 			},
 			setValueHandler:function(e,d,s)
 			{
 				var k = d.attributeName;
 
 				if(k)
-					this.lanc[k] = d.value;
+					this.lancamento[k] = d.value;
 
 				if(k && !_.isString(k))
 					throw new Error('d.attributeName precisa ser uma String');
@@ -110,7 +116,7 @@
 				this.fire('set-current-lancamento',
 				{
 					lancamentoKey:this.lancamentoKey,
-					lancamento:this.lanc
+					lancamento:this.lancamento
 				});
 			}
 		});

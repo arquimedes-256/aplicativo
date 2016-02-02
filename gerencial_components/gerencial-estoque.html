@@ -7,6 +7,7 @@
 	attributes="startLancamento endLancamento" 
 	layout vertical>
 	<template>
+		<!--
 		<paper-tabs selected="{{ currentPageEstoque }}">
 		  <paper-tab>
 		  	<core-icon icon="av:repeat"></core-icon>
@@ -17,21 +18,24 @@
 		  	Produtos
 			</paper-tab>
 		</paper-tabs>
+	-->
+	<!--
 		<core-animated-pages selected="{{ currentPageEstoque }}" transitions="slide-from-right">
 		  <section>
-		  	<gerencial-estoque-por-lancamento 
-		  		startLancamento="{{ startLancamento }}"
-		  		endLancamento="{{ endLancamento }}"
-		  		id="estoquePorLancamento"></gerencial-estoque-por-lancamento>
+		  	
 		  </section>
 		  <section>
 		  	<gerencial-estoque-por-produto></gerencial-estoque-por-produto>
 		  </section>
 		</core-animated-pages>
+	-->
+	<gerencial-estoque-por-lancamento 
+		  		startLancamento="{{ startLancamento }}"
+		  		endLancamento="{{ endLancamento }}"
+		  		id="estoquePorLancamento"></gerencial-estoque-por-lancamento>
 		<style>
 			paper-tabs {
-				background : #D50000;
-				color:#FFF;
+				background : #CFD8DC;
 			}
 		</style>
 	</template>

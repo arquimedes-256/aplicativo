@@ -20,6 +20,12 @@
 			rel="stylesheet" 
 			href="../bower_components/pivottable/dist/pivot.css">
 
+		<template if="{{type == 'estoque'}}">
+			<style>
+				paper-tabs {background: #78909C;color: #FFF;}
+			</style>
+		</template>
+		
 		<paper-tabs selected="{{ currentPage }}">
 		  <template if="{{type=='vendas'}}">
 		  	  <paper-tab><core-icon icon="trending-up"></core-icon></paper-tab>

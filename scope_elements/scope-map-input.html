@@ -13,7 +13,7 @@
 
 <link href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html" rel="import">
 <polymer-element name="scope-map-input" 
-  attributes="path value label floatingLabel disabled attributeName sufixIfBoolean nomeFactory">
+  attributes="path value label floatingLabel disabled attributeName sufixIfBoolean nomeFactory outPutValue">
   <template>
     
     <cardapio-globals id="g"></cardapio-globals>
@@ -38,7 +38,9 @@
           <paper-input on-click="{{ dropDownClickHandler  }}"
             value="{{ pathData[value].nome }}" 
             label="{{ label }}"
-            floatingLabel?="{{ floatingLabel }}" disabled>
+            floatingLabel?="{{ floatingLabel }}"
+            style="width: 95px;"
+            disabled>
           </paper-input>
           
          <core-dropdown id="dropDown" class="open-below">
@@ -100,14 +102,14 @@
         if(this.sufixIfBoolean)
         {
           if(_.isBoolean(this.pathData[k]))
-            return k+' '+ this.sufixIfBoolean;
+            return (this.outPutValue = k+' '+ this.sufixIfBoolean);
           else
-            return this.pathData[k];
+            return (this.outPutValue = this.pathData[k]);
         }
         else
         {
           if(d = this.pathData[k])
-            return d && ( d.nome || ( this.nomeFactory && this.nomeFactory(d) ) );
+            return d && (this.outPutValue = ( d.nome || ( this.nomeFactory && this.nomeFactory(d) ) ));
         }
       },
       selectKeyHandler:function(e,d,s)
