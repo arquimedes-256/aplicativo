@@ -62,14 +62,17 @@
             text-decoration: underline;
         }
         :host /deep/ table.pvtTable tr th, :host /deep/  table.pvtTable tr th {
-       background-color:#BDBDBD;
+       background-color:#78909C;
+       color:#FFF!important;
     font-family: RobotoDraft!important;
     border: 2px solid #fff;
     font-size: 9pt;
     padding: 5px;
-    font-size: 12px;
+  
+    font-size: 14px;
     font-style: normal;
-    font-weight: bold;
+    font-weight: normal!important;
+    text-shadow:1px 1px 1px #37474F;
 }
  html /deep/ .pvtAggregator,html /deep/ .pvtAggregator:hover {
   background-color: #FFD600;
@@ -129,7 +132,7 @@ html /deep/ td.htNumeric {
     height: 178px;
     padding: 5px;
     float: left;
-    background:#BDBDBD;
+    background:#607D8B!important;
 }
 :host /deep/ .pvtVals {
 	display: none;
@@ -156,7 +159,7 @@ html /deep/ td.htNumeric {
 }
 :host /deep/ table.pvtTable .pvtColLabel {
     text-align: center;
-    background: #BDBDBD;
+    background: #607D8B!important;
 }
 :host /deep/ .pvtAxisContainer li {
 	    background:#00BFA5;
@@ -183,4 +186,7 @@ paper-checkbox {
 :host {width:1200px;}
 :host /deep/ .pvtGrandTotal {
         background: #FFD600!important;
+}
+:host /deep/ td[data-value="null"] {
+    background:#000!important;
 }
