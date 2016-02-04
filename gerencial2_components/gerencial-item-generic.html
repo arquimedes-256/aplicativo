@@ -65,36 +65,36 @@
     left: -247px;"></paper-spinner>
 			      </section>
 
-		  <template if="{{type=='vendas'}}">
-			      <section id="page2">
-			      		<chart-bar 
-			      			id="barChart"
-							values="{{ values2 }}"
-							labels="{{ labels2 }}"
-							colors="{{colors}}"
-								style="
-							    position: relative;
-							    left: 6px;
-							    top: 15px;
-							"></chart-bar>
-			      </section>
-			      <section id="page2">
-			      		<chart-bar 
-			      			id="barChart2"
-							values="{{ values3 }}"
-							labels="{{ labels3 }}"
-							colors="{{colors}}"
-								style="
-							    position: relative;
-							    left: 6px;
-							    top: 15px;
-							"></chart-bar>
-			      </section>
-		</template>
+				  <template if="{{type=='vendas'}}">
+				      <section id="page2">
+				      		<chart-bar 
+				      			id="barChart"
+								values="{{ values2 }}"
+								labels="{{ labels2 }}"
+								colors="{{colors}}"
+									style="
+								    position: relative;
+								    left: 6px;
+								    top: 15px;
+								"></chart-bar>
+				      </section>
+				      <section id="page2">
+				      		<chart-bar 
+				      			id="barChart2"
+								values="{{ values3 }}"
+								labels="{{ labels3 }}"
+								colors="{{colors}}"
+									style="
+								    position: relative;
+								    left: 6px;
+								    top: 15px;
+								"></chart-bar>
+				      </section>
+				</template>
 			      <!-- if estoque -->
 			      <template if="{{type=='estoque'}}">
 			      	<section>
-			      		<gerencial-item-generic-estoque-critico></gerencial-item-generic-estoque-critico>
+				      	<gerencial-item-generic-estoque-critico></gerencial-item-generic-estoque-critico>
 			      	</section>
 			      	<section>
 			      		<gerencial-estoque style="height: 188px;overflow: scroll;"></gerencial-estoque>
@@ -115,24 +115,24 @@
 
 		var MOUNTH_LABELS = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
-function aggregate(list,by,mensureList) //: Number[]
-{
-	var result = _.values(list).reduce(function(res, obj) 
-	{
-	    if (!(obj[by] in res))
-	        res.__array.push(res[obj[by]] = obj);
-	    else {
-	    	_.each(mensureList,function(m)
-	    	{
-	        	res[obj[by]][m] += obj[m];
-	    	})
-	    }
-	    return res;
-	}, {__array:[]}).__array
-	                .sort(function(a,b) { return b[mensureList[0]] - a[mensureList[0]]; });
+		function aggregate(list,by,mensureList) //: Number[]
+		{
+			var result = _.values(list).reduce(function(res, obj) 
+			{
+			    if (!(obj[by] in res))
+			        res.__array.push(res[obj[by]] = obj);
+			    else {
+			    	_.each(mensureList,function(m)
+			    	{
+			        	res[obj[by]][m] += obj[m];
+			    	})
+			    }
+			    return res;
+			}, {__array:[]}).__array
+			                .sort(function(a,b) { return b[mensureList[0]] - a[mensureList[0]]; });
 
-	return result;
-}
+			return result;
+		}
 
 		Polymer({
 			currentPage:0,
