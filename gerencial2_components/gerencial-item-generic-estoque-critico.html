@@ -76,53 +76,58 @@
 		produtosDataChanged:function() { this.estoqueDataChanged(); }, 
 		estoqueDataChanged:function() {
 			
-			var Pd = this.produtosData; if(!Pd) return;
-			var F = {}
-			var FR = {} //F ~ FR
-			//faz somatório
-			_.each(this.estoqueData,function(e){
-				var PK = e.prodKey;
-				if(!F[PK]) 
-					F[PK] = 0;
-				if(!FR[PK])
-					FR[PK] = 0;
-				if(e.Quantidade < 0)
-					F[PK] -= (e.Quantidade)
-
-				FR[PK] += (e.Quantidade)
-			})
-			//calcula distinct N
-			var Nmap = {};
-			var N = 0;
-			_.each(this.estoqueData,function(e){
-				Nmap[new Date(e.data).toLocaleDateString('pt')] = true;
-			}); 
-			N = _.size(Nmap);
-
-			//calcula média
-			_.each(F,function(v,k){
-				F[k] = (F[k]/N).toFixed(2);
-			})
-			var itensQuaseEsgotando = [];
-
 			this.async(function(){
-				_.each(F,function(v,k){
 
-					var dydx = (TOTAL_EXPEDIENTE)/v;
-					var frac = new Fraction();
+				var Pd = this.produtosData; if(!Pd) return;
+				var F = {}
+				var FR = {} //F ~ FR
+				//faz somatório
+				_.each(this.estoqueData,function(e){
+					var PK = e.prodKey;
+					if(!F[PK]) 
+						F[PK] = 0;
+					if(!FR[PK])
+						FR[PK] = 0;
+					if(e.Quantidade < 0)
+						F[PK] -= (e.Quantidade)
 
-					itensQuaseEsgotando.push({
-							frequency: dydx.toFixed(2),
-							quantity:v,
-							saldo:FR[k],
-							frequencyFraction:f$(new Fraction(dydx).toString(),dydx),
-							nome:Pd[k] ? Pd[k] .nome : '?'
-					})
+					FR[PK] += (e.Quantidade)
 				})
-				this.itensQuaseEsgotando = itensQuaseEsgotando;
-			},300)
+				//calcula distinct N
+				var Nmap = {};
+				var N = 0;
+				_.each(this.estoqueData,function(e){
+					Nmap[new Date(e.data).toLocaleDateString('pt')] = true;
+				}); 
+				N = _.size(Nmap);
+
+				//calcula média
+				_.each(F,function(v,k){
+					F[k] = (F[k]/N).toFixed(2);
+				})
+				var itensQuaseEsgotando = [];
+
+				this.async(function(){
+					_.each(F,function(v,k){
+
+						var dydx = (TOTAL_EXPEDIENTE)/v;
+						var frac = new Fraction();
+
+						itensQuaseEsgotando.push({
+								frequency: dydx.toFixed(2),
+								quantity:v,
+								saldo:FR[k],
+								frequencyFraction:f$(new Fraction(dydx).toString(),dydx),
+								nome:Pd[k] ? Pd[k] .nome : '?'
+						})
+					})
+					this.itensQuaseEsgotando = itensQuaseEsgotando;
+				},300)
+
+			},1000)
 
 		},
+		//gera itens fake
 		gerateItensQuaseEsgotando:function () {
 
 			var itensQuaseEsgotando = this.itensQuaseEsgotando = [];

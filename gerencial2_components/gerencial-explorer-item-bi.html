@@ -166,51 +166,56 @@ Polymer({
 		this.dataChanged();
 	},
     dataChanged: function() {
-        this.isReady = false;
-        this.isPropsReady = false;
 
-        if(!this.data)
-            return;
+        this.async(function() {
 
-        var derivers = $.pivotUtilities.derivers;
-        var reportData = this.buildReportData(this.data);
-        var sum = $.pivotUtilities.aggregatorTemplates.sum;
-        var Agg = {} ;
+            this.isReady = false;
+            this.isPropsReady = false;
 
-        TweenMax.set(this.$.output,{opacity:0})
+            if(!this.data)
+                return;
+
+            var derivers = $.pivotUtilities.derivers;
+            var reportData = this.buildReportData(this.data);
+            var sum = $.pivotUtilities.aggregatorTemplates.sum;
+            var Agg = {} ;
+
+            TweenMax.set(this.$.output,{opacity:0})
 
 
-		if(!this.config)
-			this.config = {
-            rows: ["Categoria","Produto"],
-            cols: ["Ano", "Mes"],
-            aggregator: sum()(["valor"])
-        }
-        //console.log(this.config)
+    		if(!this.config)
+    			this.config = {
+                rows: ["Categoria","Produto"],
+                cols: ["Ano", "Mes"],
+                aggregator: sum()(["valor"])
+            }
+            //console.log(this.config)
 
-        $(this.$.output).pivot(reportData, this.config , undefined, "pt");
-        var BlueArray = ['#E0F2F1',
-                        '#B2DFDB',
-                        '#80CBC4',
-                        '#4DB6AC',
-                        '#26A69A']
-        $(this.$.output).find('td.pvtVal').hottie({colorArray:BlueArray});
+            $(this.$.output).pivot(reportData, this.config , undefined, "pt");
+            var BlueArray = ['#E0F2F1',
+                            '#B2DFDB',
+                            '#80CBC4',
+                            '#4DB6AC',
+                            '#26A69A']
+            $(this.$.output).find('td.pvtVal').hottie({colorArray:BlueArray});
 
-        var YellowArray = ['#FFFDE7',
-                        '#FFF9C4',
-                        '#FFF59D',
-                        '#FFF176',
-                        '#FFEE58'
-                        ];
-        $(this.$.output).find('td.rowTotal').hottie({colorArray:YellowArray});
-        $(this.$.output).find('td.colTotal').hottie({colorArray:YellowArray});
-        
+            var YellowArray = ['#FFFDE7',
+                            '#FFF9C4',
+                            '#FFF59D',
+                            '#FFF176',
+                            '#FFEE58'
+                            ];
+            $(this.$.output).find('td.rowTotal').hottie({colorArray:YellowArray});
+            $(this.$.output).find('td.colTotal').hottie({colorArray:YellowArray});
+            
 
-        $(this.$.mainWrap).antiscroll();
-        this.isReady = true;
-        this.isPropsReady = true;
+            $(this.$.mainWrap).antiscroll();
+            this.isReady = true;
+            this.isPropsReady = true;
 
-        TweenMax.to(this.$.output,.7,{css:{opacity:1}})
+            TweenMax.to(this.$.output,.7,{css:{opacity:1}})
+
+        });
     },
     // f : X -> Y
     buildReportData: function(X) {
