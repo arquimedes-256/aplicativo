@@ -47,20 +47,30 @@
       color: #000;
       transition: height 0.2s;
     }
+    .footer {
+        position:absolute;
+        bottom:8px;
+        right:8px;
+        font-size: 13px!important;
+        color:white;
+        opacity:.8;
+    }
+    .footer:hover{ opacity:1; }
 </style>  
    
     
     <core-header-panel fit>
     <div class="core-header">
-        <span class="font-logo">LevelUp<b>!</b></span> <span style="margin-left:10px;   color: #9E9E9E;">Gerencial Dashboard</span>
-
+        <span style="margin-left:10px;   color: #9E9E9E;">Gerencial Dashboard</span>
     </div>
 
     <div class="content" style="">
     	
     	<gerencial-explorer estudos="{{ estudos }}" estudos2="{{estudos2}}"></gerecial-explorer>
 
+
     </div>
+         <span class="font-logo footer">LevelUp<b>!</b>©</span> 
   </core-header-panel>
 
 	</template>
