@@ -55,3 +55,34 @@ $(document).ready(function() {
 		});
 	}, 3000)
 });
+
+function sendMsg() {
+	var fbRef = new Firebase('https://levelupsite.firebaseio.com/mensagens');
+
+	fbRef.push({
+		message: $('#messageInput').val(),
+		contact: $('#contactInput').val(),
+		date: Firebase.ServerValue.TIMESTAMP
+	});
+
+	alert("Mensagem enviada com sucesso!");
+
+	TweenMax.to($('#messageInput,#contactInput'), .8 * PHI, {
+		css: {
+			height: 0,
+			opacity: 0
+		},
+		onComplete: function() {
+			$('#messageInput,#contactInput').css('display', 'none');
+			$('#success').css('display', 'block');
+
+			TweenMax.to($('#success'), .5 * PHI, {
+				css: {
+					opacity: 1
+				}
+			});
+		}
+	});
+
+
+}
