@@ -117,9 +117,11 @@
     <script>
         Polymer({
             removeCategoria: function() {
-                this.fire('remove-categoria', {
-                    categoryKey: this.k
-                });
+            	if(confirm("Você realmente deseja excluir essa categoria ?")) {
+	                this.fire('remove-categoria', {
+	                    categoryKey: this.k
+	                });	
+            	}
             },
             fireCategoriaSelected: function() {
                 this.fire('select-categoria', {
